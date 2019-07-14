@@ -14,7 +14,8 @@
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
     "allowJs": false,
-    "noImplicitThis": false,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true
   }
 }
