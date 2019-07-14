@@ -1,0 +1,40 @@
+{
+  "name": "@alitajs/antd-plus",
+  "version": "1.0.0",
+  "license": "MIT",
+  "description": "alitajs/ant-design-plus",
+  "homepage": "https://github.com/alitajs/ant-design-plus",
+  "bugs": {
+    "url": "https://github.com/alitajs/ant-design-plus/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alitajs/ant-design-plus"
+  },
+  "scripts": {
+    "dev": "father doc dev",
+    "build": "father build",
+    "doc:build": "father doc build",
+    "lint": "umi-lint --eslint.ext='.ts,tsx' --stylelint ./components",
+    "precommit": "umi-lint --staged --eslint.ext='.ts,tsx' --stylelint --prettier --fix"
+  },
+  "peerDependencies": {
+    "antd": "^3.0.0"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/react": "^16.8.17",
+    "@types/react-dom": "^16.8.4",
+    "@umijs/fabric": "^1.0.6",
+    "antd": "^3.20.2",
+    "babel-plugin-import": "^1.12.0",
+    "father": "^2.13.5",
+    "husky": "^2.2.0",
+    "prettier": "^1.18.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-test-renderer": "^16.8.6",
+    "typescript": "^3.5.2",
+    "umi-lint": "2.0.2"
+  }
+}
