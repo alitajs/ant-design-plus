@@ -24,6 +24,7 @@
     "doc:build": "father doc build",
     "prettier": "prettier **/* --fix --write",
     "test": "echo 'Ooops, not ready for test yet...'",
+    "coverage": "echo 'Ooops, not ready for test yet...'",
     "lint": "umi-lint --eslint.ext='.ts,tsx' --stylelint ./components",
     "precommit": "umi-lint --staged --eslint.ext='.ts,tsx' --stylelint --fix"
   },
