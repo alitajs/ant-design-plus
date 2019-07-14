@@ -2,6 +2,10 @@
   "name": "@alitajs/antd-plus",
   "version": "1.0.0",
   "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "typings": "dist/index.d.ts",
   "description": "alitajs/ant-design-plus",
   "homepage": "https://github.com/alitajs/ant-design-plus",
   "bugs": {
