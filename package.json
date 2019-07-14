@@ -15,9 +15,14 @@
     "dev": "father doc dev",
     "build": "father build",
     "doc:build": "father doc build",
+    "prettier": "prettier **/* --fix --write",
+    "test": "echo 'Ooops, not ready for test yet...'",
     "lint": "umi-lint --eslint.ext='.ts,tsx' --stylelint ./components",
-    "precommit": "umi-lint --staged --eslint.ext='.ts,tsx' --stylelint --prettier --fix"
+    "precommit": "umi-lint --staged --eslint.ext='.ts,tsx' --stylelint --fix"
   },
+  "files": [
+    "dist"
+  ],
   "peerDependencies": {
     "antd": "^3.0.0"
   },
@@ -30,7 +35,6 @@
     "babel-plugin-import": "^1.12.0",
     "father": "^2.13.5",
     "husky": "^2.2.0",
-    "prettier": "^1.18.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-test-renderer": "^16.8.6",

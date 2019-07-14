@@ -4,17 +4,12 @@
 node_modules
 npm-debug.log*
 yarn-error.log
-yarn.lock
 
 # production
-build
 dist
-lib
-es
 coverage
 .npmignore
 components/**/*.css
-.temp
 
 # misc
 .DS_Store

@@ -17,5 +17,6 @@
     "experimentalDecorators": true,
     "noImplicitAny": true,
     "strictNullChecks": true
-  }
+  },
+  "include": ["components/**/*"]
 }
