@@ -1,0 +1,69 @@
+{
+  "name": "@alitajs/antd-plus",
+  "version": "1.0.1",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "typings": "dist/index.d.ts",
+  "description": "alitajs/ant-design-plus",
+  "homepage": "https://github.com/alitajs/ant-design-plus",
+  "bugs": {
+    "url": "https://github.com/alitajs/ant-design-plus/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alitajs/ant-design-plus"
+  },
+  "scripts": {
+    "dev": "father doc dev",
+    "doc:build": "father doc build",
+    "build": "father build && npm run build:less",
+    "build:less": "node scripts/build-less.js",
+    "precommit": "lint-staged",
+    "prettier": "prettier **/* --fix --write",
+    "test": "echo 'Ooops, not ready for test yet...'",
+    "coverage": "echo 'Ooops, not ready for test yet...'",
+    "lint": "npm run lint:ts && npm run lint:style",
+    "lint:ts": "eslint components/**/*.{ts,tsx}",
+    "lint:style": "umi-lint --stylelint components"
+  },
+  "files": [
+    "dist"
+  ],
+  "lint-staged": {
+    "components/**/*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ],
+    "components/**/*.less": [
+      "stylelint --fix --syntax less",
+      "git add"
+    ]
+  },
+  "peerDependencies": {
+    "antd": "^3.0.0",
+    "react": "^16.8.4"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/react": "^16.8.17",
+    "@types/react-dom": "^16.8.4",
+    "@umijs/fabric": "^1.0.6",
+    "antd": "^3.20.2",
+    "babel-plugin-import": "^1.12.0",
+    "father": "^2.13.5",
+    "glob": "^7.1.4",
+    "husky": "^2.2.0",
+    "lint-staged": "^9.2.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-test-renderer": "^16.8.6",
+    "typescript": "^3.5.2",
+    "umi-lint": "2.0.2"
+  }
+}
