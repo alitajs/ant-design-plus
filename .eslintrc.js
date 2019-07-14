@@ -1,4 +1,4 @@
-const base = require('@umijs/fabric/dist/eslint');
+// const base = require('@umijs/fabric/dist/eslint');
 
 module.exports = {
   extends: [
