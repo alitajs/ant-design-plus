@@ -7,6 +7,9 @@
   "bugs": {
     "url": "https://github.com/alitajs/ant-design-plus/issues"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/alitajs/ant-design-plus"
@@ -24,7 +27,8 @@
     "dist"
   ],
   "peerDependencies": {
-    "antd": "^3.0.0"
+    "antd": "^3.0.0",
+    "react": "^16.8.4"
   },
   "dependencies": {},
   "devDependencies": {
