@@ -20,17 +20,31 @@
   },
   "scripts": {
     "dev": "father doc dev",
-    "build": "father build",
     "doc:build": "father doc build",
+    "build": "father build && npm run build:less",
+    "build:less": "node scripts/build-less.js",
+    "precommit": "lint-staged",
     "prettier": "prettier **/* --fix --write",
     "test": "echo 'Ooops, not ready for test yet...'",
     "coverage": "echo 'Ooops, not ready for test yet...'",
-    "lint": "umi-lint --eslint.ext='.ts,tsx' --stylelint ./components",
-    "precommit": "umi-lint --staged --eslint.ext='.ts,tsx' --stylelint --fix"
+    "lint": "npm run lint:ts && npm run lint:style",
+    "lint:ts": "eslint components/**/*.{ts,tsx}",
+    "lint:style": "umi-lint --stylelint components"
   },
   "files": [
     "dist"
   ],
+  "lint-staged": {
+    "components/**/*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ],
+    "components/**/*.less": [
+      "stylelint --fix --syntax less",
+      "git add"
+    ]
+  },
   "peerDependencies": {
     "antd": "^3.0.0",
     "react": "^16.8.4"
@@ -43,7 +57,9 @@
     "antd": "^3.20.2",
     "babel-plugin-import": "^1.12.0",
     "father": "^2.13.5",
+    "glob": "^7.1.4",
     "husky": "^2.2.0",
+    "lint-staged": "^9.2.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-test-renderer": "^16.8.6",

@@ -115,8 +115,10 @@ interface MemorableModalComponent {
 
 const noop = () => {};
 const checked: { [key: string]: boolean } = {};
-const onChangeCheckbox = ({ target }: CheckboxChangeEvent) =>
-  target.value && (checked[target.value] = target.checked);
+const onChangeCheckbox = ({ target }: CheckboxChangeEvent) => {
+  if (!target.value) return;
+  checked[target.value] = target.checked;
+};
 const tranformTime = (pre: number, unit: TimeUnit): number => {
   switch (unit) {
     case 'second':
@@ -131,6 +133,8 @@ const tranformTime = (pre: number, unit: TimeUnit): number => {
       return pre;
   }
 };
+
+const MemorableModal = {} as MemorableModalComponent;
 
 const Memorable = (
   {
@@ -150,7 +154,7 @@ const Memorable = (
   const formattedId = `MemorableModal-${type}-${id}`;
   const prevExpiryTime = MemorableModal.storage.getItem(formattedId);
   if (prevExpiryTime && now.toString() < prevExpiryTime) {
-    onOk!(null);
+    onOk(null);
     return {};
   }
 
@@ -192,22 +196,26 @@ const Memorable = (
       } else if (prevExpiryTime) {
         MemorableModal.storage.removeItem(formattedId);
       }
-      return onOk!(...args);
+      return onOk(...args);
     },
   });
 };
 
-const MemorableModal: MemorableModalComponent = {
+Object.assign(MemorableModal, {
   confirm: props => Memorable(props, 'confirm'),
   error: props => Memorable(props, 'error'),
   info: props => Memorable(props, 'info'),
   locale: (e: number, u: TimeUnit): React.ReactNode =>
     `No more reminders within ${e} ${u}${e === 1 ? '' : 's'}`,
   warn: props => Memorable(props, 'warn'),
-  setLocale: formatText => (MemorableModal.locale = formatText),
-  setStorage: newStorage => (MemorableModal.storage = newStorage),
+  setLocale: formatText => {
+    MemorableModal.locale = formatText;
+  },
+  setStorage: newStorage => {
+    MemorableModal.storage = newStorage;
+  },
   success: props => Memorable(props, 'success'),
   storage: sessionStorage,
-};
+} as MemorableModalComponent);
 
 export default MemorableModal;
