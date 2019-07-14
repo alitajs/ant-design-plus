@@ -19,6 +19,7 @@
     "url": "https://github.com/alitajs/ant-design-plus"
   },
   "scripts": {
+    "bootstarp": "yarn || npm i",
     "dev": "father doc dev",
     "doc:build": "father doc build",
     "build": "father build && npm run build:less",

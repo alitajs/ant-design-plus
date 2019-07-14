@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "strict": true,
     "module": "esnext",
     "target": "esnext",
@@ -8,11 +9,15 @@
     "jsx": "react",
     "moduleResolution": "node",
     "noImplicitReturns": true,
+    "allowSyntheticDefaultImports": true,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
     "experimentalDecorators": true,
     "noImplicitAny": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
   "include": ["components/**/*"]
 }
