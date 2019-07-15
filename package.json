@@ -50,7 +50,9 @@
     "antd": "^3.0.0",
     "react": "^16.8.4"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@alitajs/autils": "^0.1.2"
+  },
   "devDependencies": {
     "@types/react": "^16.8.17",
     "@types/react-dom": "^16.8.4",

@@ -17,3 +17,4 @@ components/**/*.css
 # editor
 /.vscode
 .docz
+.doc

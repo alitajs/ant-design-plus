@@ -1,23 +1,30 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
-    "strict": true,
     "module": "esnext",
     "target": "esnext",
     "lib": ["esnext", "dom"],
     "sourceMap": true,
+    "baseUrl": ".",
     "jsx": "react",
-    "moduleResolution": "node",
-    "noImplicitReturns": true,
     "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
     "experimentalDecorators": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
     "paths": {
-      "@/*": ["./src/*"]
+      "@components/*": ["./components/*"]
     }
   },
-  "include": ["components/**/*"]
+  "include": ["components/**/*"],
+  "exclude": [
+    "node_modules",
+    "build",
+    "scripts",
+    "webpack",
+    "jest",
+    "example",
+    "_test_"
+  ]
 }
