@@ -13,7 +13,8 @@
     "suppressImplicitAnyIndexErrors": true,
     "experimentalDecorators": true,
     "paths": {
-      "@components/*": ["./components/*"]
+      "components/*": ["./components/*"],
+      "@/*": ["./src/*"]
     }
   },
   "exclude": [
