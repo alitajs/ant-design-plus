@@ -1,3 +1,11 @@
+/**
+ * @author wangxingkang
+ * @date 2019-07-15 11:54
+ * @description 验证码组件
+ *
+ * @last-modified-by wangxingkang
+ * @last-modified-time 2019-07-15 11:54
+ */
 import React from 'react';
 import { Button } from 'antd';
 import { ButtonProps } from 'antd/es/button';
@@ -5,6 +13,7 @@ import { isPromise } from '@alitajs/autils';
 import { getTemplateText } from './utils';
 
 export interface ISendCodeProps extends ButtonProps {
+  start?: boolean;
   // 倒计时时长（秒）默认60
   second?: number;
   // 初始化按钮显示文本
@@ -33,6 +42,7 @@ class SendCode extends React.Component<ISendCodeProps, ISendCodeState> {
   private lastSecond: number = 0;
 
   static defaultProps: ISendCodeProps = {
+    start: false,
     second: 60,
     initText: '获取验证码',
     runText: '{%s}秒后重新获取',
@@ -49,6 +59,13 @@ class SendCode extends React.Component<ISendCodeProps, ISendCodeState> {
     if (this.timer) {
       clearInterval(this.timer);
     }
+  }
+
+  componentWillReceiveProps(nextProps: ISendCodeProps) {
+    if (nextProps.start) {
+
+    }
+    console.log(nextProps);
   }
 
   startCountdown = () => {
@@ -128,11 +145,16 @@ class SendCode extends React.Component<ISendCodeProps, ISendCodeState> {
   };
 
   render() {
-    const { second, initText, resetText, runText, onCaptcha, onEnd, ...rest } = this.props;
-    const { loading, start, buttonText } = this.state;
+    const { start, second, initText, resetText, runText, onCaptcha, onEnd, ...rest } = this.props;
+    const { loading, buttonText } = this.state;
 
     return (
-      <Button onClick={this.handleClick} loading={loading} disabled={start} {...rest}>
+      <Button
+        onClick={this.handleClick}
+        loading={loading}
+        disabled={this.state.start}
+        {...rest}
+      >
         {buttonText}
       </Button>
     );

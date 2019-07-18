@@ -11,13 +11,11 @@
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "suppressImplicitAnyIndexErrors": true,
-    "noUnusedLocals": true,
     "experimentalDecorators": true,
     "paths": {
       "@components/*": ["./components/*"]
     }
   },
-  "include": ["components/**/*"],
   "exclude": [
     "node_modules",
     "build",
