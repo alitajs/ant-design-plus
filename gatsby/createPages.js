@@ -13,4 +13,67 @@ module.exports = async ({ graphql, actions }) => {
     toPath: '/',
   });
 
+  const allMarkdown = await graphql(
+    `
+      {
+        allMarkdownRemark(
+          limit: 1000
+        ) {
+          edges {
+            node {
+              id
+              fields {
+                path
+                slug
+                underScoreCasePath
+                modifiedTime
+              }
+            }
+          }
+        }
+      }
+    `
+  );
+
+  const redirects = {};
+
+  const edges = allMarkdown.data.allMarkdownRemark.edges;
+
+  edges.forEach(edge => {
+    const { slug, underScoreCasePath } = edge.node.fields;
+    const template = docsTemplate;
+
+    const createArticlePage = path => {
+      if (underScoreCasePath !== path) {
+        redirects[underScoreCasePath] = path;
+      }
+
+      return createPage({
+        path,
+        component: template,
+        context: {
+          slug,
+          // if is docs page
+          type: slug.includes('docs/') ? '/docs/' : '/blog/',
+        },
+      });
+    };
+
+    // Register primary URL.
+    createArticlePage(slug.replace('/index', ''));
+  });
+
+  createRedirect({
+    fromPath: '/docs/',
+    redirectInBrowser: true,
+    toPath: '/docs/getting-started',
+  });
+
+  Object.keys(redirects).map(path =>
+    createRedirect({
+      fromPath: path,
+      redirectInBrowser: true,
+      toPath: redirects[path]
+    })
+  );
 };
