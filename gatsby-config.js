@@ -27,10 +27,25 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-source-filesystem`,
+      resolve: 'gatsby-source-filesystem',
       options: {
-        name: `/docs`,
+        name: '/docs',
         path: `${__dirname}/docs`,
+      },
+    },
+    {
+      resolve: 'gatsby-transformer-remark-antd',
+      options: {
+        plugins: [
+          'gatsby-remark-header-custom-ids',
+          'gatsby-remark-img-warpper-p',
+          {
+            resolve: `gatsby-remark-prismjs`,
+            options: {
+              noInlineHighlight: true,
+            },
+          },
+        ],
       },
     },
     `gatsby-transformer-sharp`,

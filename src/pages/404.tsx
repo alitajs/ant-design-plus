@@ -1,5 +1,5 @@
 import React from 'react'
-import Seo from '../components/seo';
+import Seo from '@/components/seo';
 import styles from './404.module.less';
 
 const NotFoundPage = () => (

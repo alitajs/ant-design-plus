@@ -1,6 +1,6 @@
 import React from 'react';
 import { graphql } from 'gatsby';
-import Layout from '../layout';
+import Layout from '@/layout';
 
 export interface IMarkdownRemark {
   html: string;
@@ -22,3 +22,5 @@ const Template: React.FC<IProps> = (props) => {
     </Layout>
   )
 };
+
+export default Template;
