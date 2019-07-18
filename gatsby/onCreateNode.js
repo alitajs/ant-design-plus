@@ -21,7 +21,10 @@ module.exports = async ({ node, actions, getNode }) => {
     const mTime = new Date(stats.mtime).getTime();
     const mdFilePath = path.join(sourceInstanceName, relativePath);
 
-    console.log(node);
+    if (!slug) {
+      slug = `${sourceInstanceName}/${relativePath
+        .replace('.md', '')}`;
+    }
 
     createNodeField({
       node,
