@@ -19,3 +19,4 @@ components/**/*.css
 .docz
 .doc
 .cache
+public
