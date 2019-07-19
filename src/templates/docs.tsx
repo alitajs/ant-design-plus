@@ -124,7 +124,9 @@ export const pageQuery = graphql`
         modifiedTime
       }
     }
-    allMarkdownRemark {
+    allMarkdownRemark(
+      sort: { fields: [fields___slug, frontmatter___time], order: DESC }
+    ) {
       edges {
         node {
           frontmatter {
@@ -134,6 +136,7 @@ export const pageQuery = graphql`
             }
             order
             type
+            time
           }
           fields {
             slug

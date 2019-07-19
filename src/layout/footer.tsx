@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout } from 'antd';
+import { Layout, Icon, Divider } from 'antd';
 import styles from './footer.module.less';
 
 const { Footer } = Layout;
@@ -7,7 +7,10 @@ const { Footer } = Layout;
 const FooterView: React.FC = () => {
   return (
     <Footer className={styles.footer}>
-      footer
+      <div className={styles.copyright}>
+        Copyright <Icon type="copyright" /> 2019 Alita 团队出品
+      </div>
+
     </Footer>
   )
 };

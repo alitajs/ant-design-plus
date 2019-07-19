@@ -1,10 +1,10 @@
 import React from 'react';
-import moment from 'moment';
 import { Menu, Row, Col } from 'antd';
 import { Location } from 'history';
 import classNames from 'classnames';
 import { Link } from 'gatsby';
 import { IFrontMatterData, IMenuDataItem } from '@/templates/docs';
+import Article from './article';
 import styles from './main-content.module.less';
 
 export interface ILocalizedPageData {
@@ -92,21 +92,7 @@ class MainContent extends React.PureComponent<IMainContentProps, IState> {
             123
           </Col>
           <Col {...containerColProps} className={styles.mainContainer}>
-            <article className="markdown">
-              <h1>
-                {title['zh-CN']}
-                <span className={styles.subtitle}>
-                  {subtitle}
-                </span>
-              </h1>
-              <div className={styles.modifiedTime}>
-                上次修改时间: {moment(modifiedTime).format('YYYY-MM-DD HH:mm:SS')}
-              </div>
-              <section
-                className="markdown api-container"
-                dangerouslySetInnerHTML={{ __html: content }}
-              />
-            </article>
+            <Article content={localizedPageData} />
           </Col>
         </Row>
       </div>
