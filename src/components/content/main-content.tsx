@@ -83,6 +83,8 @@ class MainContent extends React.PureComponent<IMainContentProps, IState> {
       </Menu>
     );
 
+    console.log(this.props.localizedPageData);
+
     return (
       <div className={styles.mainContent}>
         <Row>
@@ -92,7 +94,7 @@ class MainContent extends React.PureComponent<IMainContentProps, IState> {
           <Col {...containerColProps} className={styles.mainContainer}>
             <article className="markdown">
               <h1>
-                {title}
+                {title['zh-CN']}
                 <span className={styles.subtitle}>
                   {subtitle}
                 </span>

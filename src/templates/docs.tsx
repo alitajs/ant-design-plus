@@ -16,7 +16,10 @@ export interface IMarkDownFields {
 }
 
 export interface IFrontMatterData extends IMarkDownFields {
-  title: string;
+  title: {
+    'zh-CN': string;
+    'en-US': string;
+  };
   time: string;
   toc: string | boolean;
   order: number;
@@ -108,6 +111,10 @@ export const pageQuery = graphql`
       html
       tableOfContents(maxDepth: 2)
       frontmatter {
+        title {
+          zh_CN
+          en_US
+        }
         order
         type
       }
@@ -121,6 +128,10 @@ export const pageQuery = graphql`
       edges {
         node {
           frontmatter {
+            title {
+              zh_CN
+              en_US
+            }
             order
             type
           }
