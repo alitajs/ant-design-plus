@@ -6,7 +6,7 @@ import { LOGO_URL } from '@/config';
 import styles from './header.module.less';
 
 interface IProps {
-  location: Location
+  location?: Location
 }
 
 const { Header } = Layout;
@@ -23,6 +23,7 @@ const HeaderView: React.FC<IProps> = (props) => {
 
   const menu = [
     <Menu
+      key="nav"
       mode="horizontal"
       selectedKeys={[activeMenu]}
     >
