@@ -39,8 +39,6 @@ const Template: React.FC<IProps> = (props) => {
     };
   });
 
-  console.log(props);
-
   return (
     <Layout>
       <MainContent
@@ -64,8 +62,8 @@ const Template: React.FC<IProps> = (props) => {
 export default Template;
 
 export const pageQuery = graphql`
-  query TemplateDocsMarkdown {
-    markdownRemark {
+  query TemplateDocsMarkdown($slug: String!, $type: String!) {
+    markdownRemark(fields: { slug: { eq: $slug } }) {
       html
       tableOfContents(maxDepth: 2)
       frontmatter {
@@ -83,6 +81,7 @@ export const pageQuery = graphql`
       }
     }
     allMarkdownRemark(
+      filter: { fileAbsolutePath: { regex: $type } }
       sort: { fields: [fields___slug, frontmatter___time], order: DESC }
     ) {
       edges {

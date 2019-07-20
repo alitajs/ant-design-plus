@@ -10,7 +10,11 @@ const BasicLayout: React.FC = (props) => {
   return (
     <Layout>
       <Header />
-      <Content>
+      <Content
+        style={{
+          background: '#fff'
+        }}
+      >
         {children}
       </Content>
       <Footer />
