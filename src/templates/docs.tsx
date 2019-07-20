@@ -39,6 +39,8 @@ const Template: React.FC<IProps> = (props) => {
     };
   });
 
+  console.log(props);
+
   return (
     <Layout>
       <MainContent

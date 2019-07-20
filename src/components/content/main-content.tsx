@@ -44,12 +44,28 @@ const containerColProps = {
 };
 
 class MainContent extends React.PureComponent<IMainContentProps, IState> {
+  private currentModule = null;
   constructor(props: IMainContentProps) {
     super(props);
     this.state = {
-      openKeys: [],
+      openKeys: this.getSideBarOpenKeys(props) || []
     };
   }
+
+  componentWillReceiveProps(nextProps) {
+    const openKeys = this.getSideBarOpenKeys(nextProps);
+    if (openKeys) {
+      this.setState({
+        openKeys
+      });
+    }
+  }
+
+  handleMenuOpenChange = openKeys => {
+    this.setState({
+      openKeys,
+    });
+  };
 
   /**
    * 生成子菜单项
@@ -90,7 +106,6 @@ class MainContent extends React.PureComponent<IMainContentProps, IState> {
     { before = null, after = null },
     item: IMenuDataItem
   ) => {
-    console.log(item);
     if (!item.title) return null;
     const { disabled } = item;
     const title = item.title['zh-CN'];
@@ -133,10 +148,33 @@ class MainContent extends React.PureComponent<IMainContentProps, IState> {
     return menus.filter(({ key }) => key);
   };
 
+  getSideBarOpenKeys = (nextProps: IMainContentProps) => {
+    const {
+      location: { pathname }
+    } = nextProps;
+    const prevModule = this.currentModule;
+    this.currentModule = pathname.replace(/^\//, '').split('/')[1] || 'components';
+
+    if (prevModule !== this.currentModule) {
+      const moduleData = getModuleDataWithProps(nextProps);
+
+      return Object.keys(getMenuItems(moduleData));
+    }
+
+    return []
+  };
+
+  getActiveMenuItem = () => {
+    const { location } = this.props;
+
+    return location.pathname;
+  };
+
   render() {
     const { localizedPageData } = this.props;
     const { openKeys } = this.state;
     const menuItems = this.getMenuItems();
+    const activeMenuItem = this.getActiveMenuItem();
 
     return (
       <div className={styles.mainContent}>
@@ -149,7 +187,9 @@ class MainContent extends React.PureComponent<IMainContentProps, IState> {
               inlineIndent={16}
               className={styles.asideContainer}
               mode="inline"
-              selectedKeys={[]}
+              openKeys={openKeys}
+              selectedKeys={[activeMenuItem]}
+              onOpenChange={this.handleMenuOpenChange}
             >
               {menuItems}
             </Menu>
