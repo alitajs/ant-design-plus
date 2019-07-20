@@ -60,7 +60,8 @@ class MainContent extends React.PureComponent<IMainContentProps, IState> {
     data: IMenuData,
     footerNavIcons = {}
   ) => {
-    const itemGroups = Object.keys(data)
+    if (!data) return [];
+    return Object.keys(data)
       .map(type => {
         const groupItems = (data[type] as IMenuDataItem[])
           .sort((a, b) => {
@@ -70,7 +71,7 @@ class MainContent extends React.PureComponent<IMainContentProps, IState> {
             if ('order' in a && 'order' in b) {
               return a.order - b.order;
             }
-            return a.title['zh_CN'].charCodeAt(0) - b.title['zh_CN'].charCodeAt(0);
+            return a.title['zh-CN'].charCodeAt(0) - b.title['zh-CN'].charCodeAt(0);
           })
           .map(this.generateMenuItem.bind(this, footerNavIcons));
 
@@ -80,7 +81,6 @@ class MainContent extends React.PureComponent<IMainContentProps, IState> {
           </SubMenu>
         );
       });
-    return [...itemGroups] || [];
   };
 
   /**
@@ -90,9 +90,10 @@ class MainContent extends React.PureComponent<IMainContentProps, IState> {
     { before = null, after = null },
     item: IMenuDataItem
   ) => {
+    console.log(item);
     if (!item.title) return null;
     const { disabled } = item;
-    const title = item.title['zh_CN'];
+    const title = item.title['zh-CN'];
     const child = !item.link ? (
       <Link to={item.filename}>
         {before}
@@ -113,7 +114,7 @@ class MainContent extends React.PureComponent<IMainContentProps, IState> {
     );
 
     return (
-      <Menu.Item key={item.filename}>
+      <Menu.Item key={item.filename} disabled={disabled}>
         {item.important
           ? <Badge dot={item.important}>{child}</Badge>
           : child
@@ -127,10 +128,7 @@ class MainContent extends React.PureComponent<IMainContentProps, IState> {
 
     const menuItems = getMenuItems(moduleData) || {};
 
-    console.log(menuItems);
-
-    const menus =
-      this.generateSubMenuItems(menuItems as IMenuData, footerNavIcons) || [];
+    const menus = this.generateSubMenuItems(menuItems as IMenuData, footerNavIcons) || [];
 
     return menus.filter(({ key }) => key);
   };
@@ -140,20 +138,6 @@ class MainContent extends React.PureComponent<IMainContentProps, IState> {
     const { openKeys } = this.state;
     const menuItems = this.getMenuItems();
 
-    console.log(this.props.menus);
-
-    const menus = (
-      <Menu
-        inlineIndent={16}
-        className={styles.asideContainer}
-        mode="inline"
-        openKeys={openKeys}
-        selectedKeys={[]}
-      >
-        {menuItems}
-      </Menu>
-    );
-
     return (
       <div className={styles.mainContent}>
         <Row>
@@ -161,7 +145,14 @@ class MainContent extends React.PureComponent<IMainContentProps, IState> {
             {...menuColProps}
             className={styles.mainMenu}
           >
-            {menus}
+            <Menu
+              inlineIndent={16}
+              className={styles.asideContainer}
+              mode="inline"
+              selectedKeys={[]}
+            >
+              {menuItems}
+            </Menu>
           </Col>
           <Col
             {...containerColProps}
