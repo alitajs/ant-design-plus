@@ -15,7 +15,7 @@ class Article extends React.PureComponent<IArticleProps> {
   render() {
     const { content } = this.props;
     const { meta } = content;
-    const { title, subtitle, path, modifiedTime, avatarList } = meta;
+    const { title, subtitle, path, modifiedTime } = meta;
 
     return (
       <article

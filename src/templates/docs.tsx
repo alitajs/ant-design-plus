@@ -3,57 +3,15 @@ import { graphql } from 'gatsby';
 import { Location } from 'history';
 import Layout from '@/layout';
 import MainContent from '@/components/content/main-content';
-
-export interface IMarkDownFields {
-  path: string;
-  slug: string;
-  modifiedTime: number;
-  avatarList: {
-    href: string;
-    text: string;
-    src: string;
-  }[];
-}
-
-export interface IFrontMatterData extends IMarkDownFields {
-  title: {
-    'zh-CN': string;
-    'en-US': string;
-  };
-  time: string;
-  toc: string | boolean;
-  order: number;
-  type: string;
-  filename: string;
-  subtitle: string;
-  path: string;
-  disabled: boolean;
-  important: boolean;
-}
-
-export interface IMarkdownRemark {
-  html: string;
-  fields: IMarkDownFields;
-  tableOfContents: string;
-  frontmatter: IFrontMatterData;
-}
-
-export interface IMenuDataItem extends IFrontMatterData {
-  link?: string;
-}
-
-export interface IAllMarkdownRemarkData {
-  edges: {
-    node: {
-      frontmatter: IFrontMatterData;
-      fields: IMarkDownFields;
-    };
-  }[];
-}
+import {
+  IMarkdownRemarkData,
+  IAllMarkdownRemarkData
+} from './interface';
+import { transformerFrontMatter } from './utils';
 
 interface IProps {
   data: {
-    markdownRemark: IMarkdownRemark;
+    markdownRemark: IMarkdownRemarkData;
     allMarkdownRemark: IAllMarkdownRemarkData;
   };
   location: Location;
@@ -67,21 +25,19 @@ const Template: React.FC<IProps> = (props) => {
   const { edges } = allMarkdownRemark;
 
   const menus = edges.map(({ node }) => {
-    const { frontmatter } = node;
+    const newFrontMatter = transformerFrontMatter(node.frontmatter);
 
     return {
       slug: node.fields.slug,
       meta: {
-        ...frontmatter,
+        ...newFrontMatter,
         slug: node.fields.slug,
         filename: node.fields.slug,
       },
-      ...frontmatter,
+      ...newFrontMatter,
       filename: node.fields.path,
     };
   });
-
-  console.log(menus);
 
   return (
     <Layout>
