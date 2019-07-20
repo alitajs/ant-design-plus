@@ -3,14 +3,14 @@ import moment from 'moment';
 import { Menu, Row, Col, Icon, Badge } from 'antd';
 import { Location } from 'history';
 import { Link } from 'gatsby';
-import { IGraphQLFrontMatterData } from '@/templates/interface';
+import { IFrontMatterData } from '@/templates/interface';
 import { IMenuDataItem, IMenuData }  from './interface';
 import Article from './article';
 import { getModuleDataWithProps, getMenuItems } from './utils';
 import styles from './main-content.module.less';
 
 export interface ILocalizedPageData {
-  meta: IGraphQLFrontMatterData;
+  meta: IFrontMatterData;
   toc: string | false;
   content: string;
 }
@@ -139,6 +139,8 @@ class MainContent extends React.PureComponent<IMainContentProps, IState> {
     const { localizedPageData } = this.props;
     const { openKeys } = this.state;
     const menuItems = this.getMenuItems();
+
+    console.log(this.props.menus);
 
     const menus = (
       <Menu

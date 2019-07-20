@@ -45,7 +45,7 @@ const Template: React.FC<IProps> = (props) => {
         {...rest}
         localizedPageData={{
           meta: {
-            ...frontmatter,
+            ...transformerFrontMatter(frontmatter),
             ...fields,
             filename: fields.slug,
             path: fields.path,
