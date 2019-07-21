@@ -4,7 +4,7 @@ import Home from '@/components/home/home';
 
 const HomePage = () => (
   <div>
-    <Seo title="Home" />
+    <Seo title="首页" />
     <Home />
   </div>
 );

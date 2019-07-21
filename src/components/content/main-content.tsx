@@ -180,7 +180,7 @@ class MainContent extends React.PureComponent<IMainContentProps, IState> {
 
     return (
       <div className={styles.mainContent}>
-        <SEO title={`${title} - Ant Design Plus`} />
+        <SEO title={title} />
         <Row>
           <Col
             {...menuColProps}
