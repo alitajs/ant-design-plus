@@ -3,6 +3,7 @@ import moment from 'moment';
 import { Menu, Row, Col, Icon, Badge } from 'antd';
 import { Location } from 'history';
 import { Link } from 'gatsby';
+import SEO from '@/components/seo';
 import { IFrontMatterData } from '@/templates/interface';
 import { IMenuDataItem, IMenuData }  from './interface';
 import Article from './article';
@@ -172,12 +173,14 @@ class MainContent extends React.PureComponent<IMainContentProps, IState> {
 
   render() {
     const { localizedPageData } = this.props;
+    const title = localizedPageData.meta.title['zh-CN']
     const { openKeys } = this.state;
     const menuItems = this.getMenuItems();
     const activeMenuItem = this.getActiveMenuItem();
 
     return (
       <div className={styles.mainContent}>
+        <SEO title={`${title} - Ant Design Plus`} />
         <Row>
           <Col
             {...menuColProps}
