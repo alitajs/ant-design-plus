@@ -21,7 +21,7 @@
   "scripts": {
     "bootstarp": "yarn || npm i",
     "start": "gatsby develop",
-    "build": "father-build build",
+    "build": "yarn angela",
     "build:docs": "gatsby build",
     "gh-pages": "npm run build:docs && gh-pages -d public",
     "prettier": "prettier **/* --fix --write",
@@ -53,6 +53,7 @@
     "classnames": "^2.2.6"
   },
   "devDependencies": {
+    "@lotus-ui/angela": "^0.0.5",
     "@types/classnames": "^2.2.9",
     "@types/node": "^12.6.8",
     "@types/react": "^16.8.17",
@@ -60,8 +61,8 @@
     "@types/react-helmet": "^5.0.8",
     "@umijs/fabric": "^1.0.6",
     "antd": "^3.20.2",
+    "antd-tools": "^7.7.1",
     "babel-plugin-import": "^1.12.0",
-    "father-build": "^1.3.4",
     "gatsby": "^2.13.25",
     "gatsby-image": "^2.2.6",
     "gatsby-plugin-antd": "^2.0.2",
@@ -89,7 +90,7 @@
     "react-github-button": "^0.1.11",
     "react-helmet": "^5.2.1",
     "react-test-renderer": "^16.8.6",
-    "typescript": "^3.5.2",
+    "typescript": "^3.5.3",
     "umi-lint": "2.0.2"
   },
   "overrideBrowserslist": [

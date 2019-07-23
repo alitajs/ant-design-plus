@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Checkbox, Modal } from 'antd';
 import { ModalFuncProps } from 'antd/es/modal';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
-import { ArgsType } from '../utils/types';
+import { ArgsType } from '../_utils/type';
 
 export type TimeUnit = 'day' | 'hour' | 'minute' | 'second';
 export type MemorableModalFuncType = 'confirm' | 'error' | 'info' | 'success' | 'warn';
