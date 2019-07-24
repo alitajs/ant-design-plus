@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Checkbox, Modal } from 'antd';
 import { ModalFuncProps } from 'antd/es/modal';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
