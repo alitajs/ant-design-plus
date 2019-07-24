@@ -19,9 +19,11 @@ const Home: React.FC = () => {
               文档
             </Button>
           </Link>
-          <Button style={{ margin: '0 16px' }} type="primary" ghost>
-            组件
-          </Button>
+          <Link to="/components/send-code">
+            <Button style={{ margin: '0 16px' }} type="primary" ghost>
+              组件
+            </Button>
+          </Link>
           <GitHubButton
             key="github-button"
             type="stargazers"
