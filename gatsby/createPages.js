@@ -1,10 +1,11 @@
-const path = require('path');
+const { resolve } = require('path');
 
 module.exports = async ({ graphql, actions }) => {
   const { createPage, createRedirect } = actions;
 
   // 获取模板
-  const docsTemplate = path.resolve(__dirname, '../src/templates/docs.tsx');
+  const docsTemplate = resolve(__dirname, '../src/templates/docs.tsx');
+  const componentsTemplate = resolve(__dirname, '../src/templates/components.tsx');
 
   // Redirect /index.html to root.
   createRedirect({
@@ -40,27 +41,50 @@ module.exports = async ({ graphql, actions }) => {
   const edges = allMarkdown.data.allMarkdownRemark.edges;
 
   edges.forEach(edge => {
-    const { slug, underScoreCasePath } = edge.node.fields;
-    const template = docsTemplate;
+    const { slug, underScoreCasePath, path } = edge.node.fields;
+    if (slug.includes('docs/') || slug.includes('/components')) {
+      let template = docsTemplate;
 
-    const createArticlePage = path => {
-      if (underScoreCasePath !== path) {
-        redirects[underScoreCasePath] = path;
+      if (slug.includes('/components')) {
+        template = componentsTemplate;
       }
 
-      return createPage({
-        path,
-        component: template,
-        context: {
-          slug,
-          // if is docs page
-          type: slug.includes('docs/') ? '/docs/' : '/blog/',
-        },
-      });
-    };
+      const createArticlePage = path => {
+        if (underScoreCasePath !== path) {
+          redirects[underScoreCasePath] = path;
+        }
 
-    // Register primary URL.
-    createArticlePage(slug.replace('/index', ''));
+        const demoQuery = slug
+          .split('.')
+          .shift()
+          .split('/')
+          .pop();
+
+        if (!slug.includes('demo/')) {
+          createPage({
+            path: `${path}`,
+            component: template,
+            context: {
+              slug,
+              demo: `/${demoQuery}/demo/`,
+            },
+          });
+        }
+
+        return createPage({
+          path,
+          component: template,
+          context: {
+            slug,
+            // if is docs page
+            type: slug.includes('docs/') ? '/docs/' : '/blog/',
+          },
+        });
+      };
+
+      // Register primary URL.
+      createArticlePage(slug.replace('/index', ''));
+    }
   });
 
   createRedirect({

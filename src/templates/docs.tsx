@@ -40,7 +40,7 @@ const Template: React.FC<IProps> = (props) => {
   });
 
   return (
-    <Layout>
+    <Layout {...rest}>
       <MainContent
         {...rest}
         localizedPageData={{

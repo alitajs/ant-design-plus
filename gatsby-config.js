@@ -24,14 +24,21 @@ module.exports = {
       options: {
         name: `images`,
         path: `${__dirname}/src/images/`,
-      },
+      }
     },
     {
       resolve: 'gatsby-source-filesystem',
       options: {
         name: '/docs',
-        path: `${__dirname}/docs/`,
-      },
+        path: `${__dirname}/docs/`
+      }
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: '/components',
+        path: `${__dirname}/components/`
+      }
     },
     {
       resolve: 'gatsby-transformer-remark-antd',

@@ -1,11 +1,136 @@
 import React from 'react';
+import { graphql } from 'gatsby';
+import Layout from '@/layout';
+import MainContent from '@/components/content/main-content';
+import {
+  IMarkdownRemarkData,
+  IAllMarkdownRemarkData
+} from './interface';
+import { transformerFrontMatter } from './utils';
 
-const ComponentTemplate: React.FC = () => {
+export interface IProps {
+  data: {
+    markdownRemark: IMarkdownRemarkData;
+    allMarkdownRemark: IAllMarkdownRemarkData;
+  }
+}
+
+const ComponentTemplate: React.FC<IProps> = (props) => {
+  const {
+    data: {
+      markdownRemark,
+      allMarkdownRemark
+    },
+    ...rest
+  } = props;
+  const { frontmatter, fields, html, description, tableOfContents } = markdownRemark;
+  const { edges } = allMarkdownRemark;
+  const menus = edges
+    .map(({ node }) => {
+      const newFrontMatter = transformerFrontMatter(node.frontmatter);
+      return {
+        slug: node.fields.slug,
+        meta: {
+          ...newFrontMatter,
+          slug: node.fields.slug,
+          filename: node.fields.slug,
+        },
+        filename: node.fields.path,
+        ...newFrontMatter,
+      };
+    })
+    .filter(({ slug }) => !slug.includes('/demo/'));
+
   return (
-    <div>
-
-    </div>
+    <Layout {...rest}>
+      <MainContent
+        {...rest}
+        localizedPageData={{
+          meta: {
+            ...transformerFrontMatter(frontmatter),
+            ...fields,
+            filename: fields.slug,
+            path: fields.path,
+          },
+          toc: tableOfContents,
+          content: html
+        }}
+        menus={menus}
+      />
+    </Layout>
   )
 };
 
 export default ComponentTemplate;
+
+export const pageQuery = graphql`
+  query TemplateComponentsMarkdown($slug: String!, $demo: String) {
+    markdownRemark(fields: { slug: { eq: $slug } }) {
+      description
+      tableOfContents(maxDepth: 3)
+      frontmatter {
+        title {
+          zh_CN
+          en_US
+        }
+        order
+        type
+      }
+      fields {
+        path
+        slug
+        modifiedTime
+      }
+    }
+    allMarkdownRemark(
+      filter: {
+        fileAbsolutePath: { regex: "//components//" }
+        fields: { slug: { regex: "/^((?!/demo/).)*$/" } }
+      }
+      sort: { fields: [fields___slug], order: DESC }
+    ) {
+      edges {
+        node {
+          frontmatter {
+            title {
+              zh_CN
+              en_US
+            }
+            order
+            subtitle
+            type
+          }
+          fields {
+            slug
+            path
+          }
+        }
+      }
+    }
+    demos: allMarkdownRemark(
+      filter: { fileAbsolutePath: { regex: "//components//" }, fields: { slug: { regex: $demo } } }
+      sort: { fields: [fields___slug], order: DESC }
+    ) {
+      edges {
+        node {
+          content
+          code
+          frontmatter {
+            title {
+              zh_CN
+              en_US
+            }
+            cols
+            order
+            subtitle
+            type
+          }
+          fields {
+            slug
+            path
+          }
+        }
+      }
+    }
+  }
+`;

@@ -38,6 +38,7 @@ export interface IGraphQLFrontMatterData extends Omit<IFrontMatterData, 'title'>
 
 export interface IMarkdownRemarkData {
   html: string;
+  description: string;
   tableOfContents: string;
   frontmatter: IGraphQLFrontMatterData;
   fields: IMarkDownFields;

@@ -17,7 +17,22 @@ const HeaderView: React.FC<IProps> = (props) => {
 
   React.useEffect(() => {
     if (location && location.pathname) {
+      const path = location.pathname;
+      const module = location.pathname
+        .replace(/(^\/|\/$)/g, '')
+        .split('/')
+        .slice(0, -1)
+        .join('/');
 
+      let activeMenuItem = module || 'home';
+      if (/^components/.test(path)) {
+        activeMenuItem = 'components';
+      } else if (/docs/.test(path)) {
+        activeMenuItem = 'docs';
+      } else if (path === '/') {
+        activeMenuItem = 'home';
+      }
+      setActiveMenu(activeMenuItem);
     }
   }, [props.location]);
 
@@ -38,7 +53,7 @@ const HeaderView: React.FC<IProps> = (props) => {
         </Link>
       </Menu.Item>
       <Menu.Item key="components">
-        <Link to="/docs/getting-started">
+        <Link to="/components/send-code">
           组件
         </Link>
       </Menu.Item>

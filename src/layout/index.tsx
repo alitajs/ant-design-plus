@@ -9,7 +9,7 @@ const BasicLayout: React.FC = (props) => {
   const { children } = props;
   return (
     <Layout>
-      <Header />
+      <Header {...props} />
       <Content
         style={{
           background: '#fff'
