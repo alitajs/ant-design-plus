@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import { Affix } from 'antd';
 import EditButton from '@/components/edit-button';
+import AvatarList from '@/components/avatar-list';
 import { ILocalizedPageData } from './main-content';
 import styles from './article.module.less';
 

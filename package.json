@@ -2,17 +2,13 @@
   "name": "@alitajs/antd-plus",
   "version": "1.0.1",
   "license": "MIT",
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js",
-  "types": "dist/index.d.ts",
-  "typings": "dist/index.d.ts",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "typings": "lib/index.d.ts",
   "description": "alitajs/ant-design-plus",
   "homepage": "https://github.com/alitajs/ant-design-plus",
   "bugs": {
     "url": "https://github.com/alitajs/ant-design-plus/issues"
-  },
-  "publishConfig": {
-    "access": "public"
   },
   "repository": {
     "type": "git",
@@ -98,5 +94,8 @@
     "Firefox ESR",
     "> 1%",
     "ie >= 9"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }
