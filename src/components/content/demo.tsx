@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Location } from 'history';
 import classNames from 'classnames';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { DOCS_DEFAULT_CONFIG } from '@/config';
@@ -8,14 +9,24 @@ import { IFrontMatterData } from '@/templates/interface';
 
 interface IProps {
   id: string;
-  style: string;
-  meta: IFrontMatterData;
-  content: string;
+  expand?: boolean;
+  preview?: string;
+  style?: string;
+  meta?: IFrontMatterData;
+  content?: string;
+  location?: Location;
+  highlightedCode?: string;
 }
 
 interface IState {
   // 代码是否折叠
   codeExpand: boolean;
+  // 源代码
+  sourceCode: string;
+  // 拷贝
+  copied: boolean;
+  // 拷贝提示是否可见
+  copyTooltipVisible: boolean;
 }
 
 class Demo extends React.Component<IProps, IState> {
@@ -24,8 +35,25 @@ class Demo extends React.Component<IProps, IState> {
   constructor(props) {
     super(props);
     this.state = {
-      codeExpand: false
+      copied: false,
+      codeExpand: false,
+      sourceCode: '',
+      copyTooltipVisible: false
     }
+  }
+
+  componentDidMount() {
+    const { meta, location, preview } = this.props;
+
+  }
+
+  componentWillReceiveProps(nextProps: IProps) {
+    const { highlightedCode } = nextProps;
+    const div = document.createElement('div');
+    div.innerHTML = highlightedCode;
+    this.setState({
+      sourceCode: div.textContent
+    });
   }
 
   render() {
@@ -40,6 +68,7 @@ class Demo extends React.Component<IProps, IState> {
           'code-box': true,
           expand: codeExpand,
         })}
+        id={id}
       >
         <section className="code-box-demo">
           <div ref={ref => (this.dom = ref)} />

@@ -20,6 +20,7 @@ export interface IFrontMatterData extends IMarkDownFields {
   };
   time: string;
   toc: string | boolean;
+  col: number;
   order: number;
   type: string;
   filename: string;
@@ -53,7 +54,12 @@ export interface IAllMarkdownRemarkData {
   }[];
 }
 
-export interface IDemos {
+export interface IDemo {
+  preview: string;
+  meta: IFrontMatterData;
+}
+
+export interface IGraphQLDemos {
   edges: {
     node: {
       content: string;

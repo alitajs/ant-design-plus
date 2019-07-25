@@ -1,13 +1,16 @@
 import React from 'react';
+import { Location } from 'history';
 import { Row, Col, Affix, Alert } from 'antd';
 import Demo from './demo';
+import { IDemo } from '@/templates/interface';
 import { ILocalizedPageData } from './main-content';
 import EditButton from '@/components/edit-button';
 import styles from './article.module.less';
 
 interface IProps {
-  doc: ILocalizedPageData;
-  demos: any;
+  doc?: ILocalizedPageData;
+  demos?: IDemo[];
+  location?: Location;
 }
 
 interface IState {
@@ -18,11 +21,67 @@ interface IState {
 class ComponentDoc extends React.Component<IProps, IState> {
   constructor(props) {
     super(props);
+    this.state = {
+      affixMode: false,
+      expand: false
+    }
   }
 
-  getShowDemos = (localTitle) => {
+  getShowDemos = (localTitle: string) => {
+    const { location, demos } = this.props;
+    const { expand } = this.state;
     const leftChildren = [];
     const rightChildren = [];
+    const demosJump = [];
+    let isSingleCol = true;
+
+    const showedDemo = demos
+      .filter(demo => demo.preview)
+      .sort((a, b) => a.meta.order - b.meta.order);
+
+    showedDemo.forEach(({ meta: { col } }) => {
+      if (col && col !== 1) {
+        isSingleCol = false;
+      }
+    });
+
+    showedDemo.forEach((demoData, index) => {
+      const { filename, title } = demoData.meta;
+      const id = `scaffold-src-components-${localTitle}-demo-${
+        filename
+          .split('/')
+          .pop()
+          .split('.')[0]
+        }`;
+
+      demosJump.push({
+        title: title['zh-CN'],
+        id,
+      });
+
+      const demoElem = (
+        <Demo
+          key={filename}
+          expand={expand}
+          id={id}
+          meta={demoData.meta}
+          location={location}
+        />
+      );
+
+      if (index % 2 === 0 || isSingleCol) {
+        leftChildren.push(demoElem);
+      } else {
+        rightChildren.push(demoElem);
+      }
+    });
+
+    return {
+      leftChildren,
+      rightChildren,
+      isSingleCol,
+      demosJump,
+    };
   };
 
   render() {
@@ -33,6 +92,9 @@ class ComponentDoc extends React.Component<IProps, IState> {
       descriptionHtml,
       apiHtml,
     } = doc;
+    const localTitle = title['zh-CN'];
+
+    const { leftChildren, demosJump, rightChildren, isSingleCol } = this.getShowDemos(localTitle);
 
     return (
       <article>
@@ -66,8 +128,22 @@ class ComponentDoc extends React.Component<IProps, IState> {
           </h2>
         </section>
         <Row gutter={16}>
-
+          <Col
+            span={isSingleCol ? 24 : 12}
+            className={isSingleCol ? 'code-boxes-col-1-1' : 'code-boxes-col-2-1'}
+          >
+            {leftChildren}
+          </Col>
+          {isSingleCol ? null : (
+            <Col className="code-boxes-col-2-1" span={12}>
+              {rightChildren}
+            </Col>
+          )}
         </Row>
+        <section
+          className="markdown api-container"
+          dangerouslySetInnerHTML={{ __html: apiHtml }}
+        />
       </article>
     )
   }

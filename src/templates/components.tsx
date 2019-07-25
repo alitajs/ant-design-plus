@@ -3,7 +3,7 @@ import { graphql } from 'gatsby';
 import Layout from '@/layout';
 import MainContent from '@/components/content/main-content';
 import {
-  IDemos,
+  IGraphQLDemos,
   IMarkdownRemarkData,
   IAllMarkdownRemarkData
 } from './interface';
@@ -13,7 +13,7 @@ export interface IProps {
   data: {
     markdownRemark: IMarkdownRemarkData;
     allMarkdownRemark: IAllMarkdownRemarkData;
-    demos: IDemos;
+    demos: IGraphQLDemos;
   }
 }
 
@@ -62,8 +62,6 @@ const ComponentTemplate: React.FC<IProps> = (props) => {
       };
     })
     .filter(({ slug }) => !slug.includes('/demo/'));
-
-  console.log(transformerDemos(demos));
 
   return (
     <Layout {...rest}>

@@ -4,7 +4,7 @@ import { Menu, Row, Col, Icon, Badge } from 'antd';
 import { Location } from 'history';
 import { Link } from 'gatsby';
 import SEO from '@/components/seo';
-import { IFrontMatterData } from '@/templates/interface';
+import { IFrontMatterData, IDemo } from '@/templates/interface';
 import { IMenuDataItem, IMenuData }  from './interface';
 import Article from './article';
 import ComponentDoc from './component-doc';
@@ -22,7 +22,7 @@ export interface ILocalizedPageData {
 export interface IMainContentProps {
   location?: Location;
   menus?: IMenuDataItem[];
-  demos?: any;
+  demos?: IDemo[];
   localizedPageData?: ILocalizedPageData;
 }
 
@@ -182,8 +182,6 @@ class MainContent extends React.PureComponent<IMainContentProps, IState> {
     const menuItems = this.getMenuItems();
     const activeMenuItem = this.getActiveMenuItem();
 
-    console.log(demos);
-
     return (
       <div className={styles.mainContent}>
         <SEO title={title} />
@@ -211,7 +209,7 @@ class MainContent extends React.PureComponent<IMainContentProps, IState> {
               <ComponentDoc
                 {...this.props}
                 doc={localizedPageData}
-                demos={[]}
+                demos={demos}
               />
             ) : (
               <Article content={localizedPageData} />
