@@ -3,6 +3,7 @@ import { graphql } from 'gatsby';
 import Layout from '@/layout';
 import MainContent from '@/components/content/main-content';
 import {
+  IDemos,
   IMarkdownRemarkData,
   IAllMarkdownRemarkData
 } from './interface';
@@ -12,12 +13,33 @@ export interface IProps {
   data: {
     markdownRemark: IMarkdownRemarkData;
     allMarkdownRemark: IAllMarkdownRemarkData;
+    demos: IDemos;
   }
 }
+
+const transformerDemos = demos => {
+  if (!demos || !demos.edges) {
+    return;
+  }
+  return demos.edges.map(({ node }) => {
+    return {
+      preview: node.code,
+      ...node.content,
+      meta: {
+        ...transformerFrontMatter(node.frontmatter),
+        filename: node.fields.slug,
+        path: node.fields.path,
+      },
+    };
+  });
+};
 
 const ComponentTemplate: React.FC<IProps> = (props) => {
   const {
     data: {
+      demos = {
+        edges: [],
+      },
       markdownRemark,
       allMarkdownRemark
     },
@@ -41,10 +63,13 @@ const ComponentTemplate: React.FC<IProps> = (props) => {
     })
     .filter(({ slug }) => !slug.includes('/demo/'));
 
+  console.log(transformerDemos(demos));
+
   return (
     <Layout {...rest}>
       <MainContent
         {...rest}
+        demos={transformerDemos(demos)}
         localizedPageData={{
           meta: {
             ...transformerFrontMatter(frontmatter),

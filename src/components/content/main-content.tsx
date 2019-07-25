@@ -7,6 +7,7 @@ import SEO from '@/components/seo';
 import { IFrontMatterData } from '@/templates/interface';
 import { IMenuDataItem, IMenuData }  from './interface';
 import Article from './article';
+import ComponentDoc from './component-doc';
 import { getModuleDataWithProps, getMenuItems } from './utils';
 import styles from './main-content.module.less';
 
@@ -14,11 +15,14 @@ export interface ILocalizedPageData {
   meta: IFrontMatterData;
   toc: string | false;
   content: string;
+  descriptionHtml?: string;
+  apiHtml?: string;
 }
 
 export interface IMainContentProps {
   location?: Location;
   menus?: IMenuDataItem[];
+  demos?: any;
   localizedPageData?: ILocalizedPageData;
 }
 
@@ -172,11 +176,13 @@ class MainContent extends React.PureComponent<IMainContentProps, IState> {
   };
 
   render() {
-    const { localizedPageData } = this.props;
-    const title = localizedPageData.meta.title['zh-CN']
+    const { localizedPageData, demos } = this.props;
+    const title = localizedPageData.meta.title['zh-CN'];
     const { openKeys } = this.state;
     const menuItems = this.getMenuItems();
     const activeMenuItem = this.getActiveMenuItem();
+
+    console.log(demos);
 
     return (
       <div className={styles.mainContent}>
@@ -201,7 +207,16 @@ class MainContent extends React.PureComponent<IMainContentProps, IState> {
             {...containerColProps}
             className={styles.mainContainer}
           >
-            <Article content={localizedPageData} />
+            {demos ? (
+              <ComponentDoc
+                {...this.props}
+                doc={localizedPageData}
+                demos={[]}
+              />
+            ) : (
+              <Article content={localizedPageData} />
+            )}
+
           </Col>
         </Row>
       </div>

@@ -53,3 +53,14 @@ export interface IAllMarkdownRemarkData {
   }[];
 }
 
+export interface IDemos {
+  edges: {
+    node: {
+      content: string;
+      code: string;
+      frontmatter: IGraphQLFrontMatterData;
+      fields: IMarkDownFields;
+    };
+  }[]
+}
+

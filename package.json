@@ -82,6 +82,7 @@
     "nprogress": "^0.2.0",
     "prismjs": "^1.16.0",
     "react": "^16.8.6",
+    "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.8.6",
     "react-github-button": "^0.1.11",
     "react-helmet": "^5.2.1",
