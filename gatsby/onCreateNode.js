@@ -39,49 +39,50 @@ const getKebabCase = str => {
 module.exports = async ({ node, actions, getNode }) => {
   const { createNodeField } = actions;
 
-  if (node.internal.type === `MarkdownRemark`) {
-    const { permalink } = node.frontmatter;
-    let slug = permalink;
-    const { relativePath, sourceInstanceName } = getNode(node.parent);
-    const filePath = path.join(__dirname, '../', sourceInstanceName, relativePath);
-    const stats = fs.statSync(filePath);
-    const mTime = new Date(stats.mtime).getTime();
-    const mdFilePath = path.join(sourceInstanceName, relativePath);
+  switch (node.internal.type) {
+    case 'MarkdownRemark':
+      const { permalink } = node.frontmatter;
+      let slug = permalink;
+      const { relativePath, sourceInstanceName } = getNode(node.parent);
+      const filePath = path.join(__dirname, '../', sourceInstanceName, relativePath);
+      const stats = fs.statSync(filePath);
+      const mTime = new Date(stats.mtime).getTime();
+      const mdFilePath = path.join(sourceInstanceName, relativePath);
 
-    if (!slug) {
-      slug = `${sourceInstanceName}/${relativePath
-        .replace('.md', '')}`;
-    }
+      if (!slug) {
+        slug = `${sourceInstanceName}/${relativePath
+          .replace('.md', '')}`;
+      }
 
-    createNodeField({
-      node,
-      name: `modifiedTime`,
-      value: mTime,
-    });
+      createNodeField({
+        node,
+        name: `modifiedTime`,
+        value: mTime,
+      });
 
-    createNodeField({
-      node,
-      name: 'slug',
-      value: getKebabCase(slug.replace('/index', '')),
-    });
+      createNodeField({
+        node,
+        name: 'slug',
+        value: getKebabCase(slug.replace('/index', '')),
+      });
 
-    createNodeField({
-      node,
-      name: 'underScoreCasePath',
-      value: slug.replace('/index', ''),
-    });
+      createNodeField({
+        node,
+        name: 'underScoreCasePath',
+        value: slug.replace('/index', ''),
+      });
 
-    createNodeField({
-      node,
-      name: 'path',
-      value: mdFilePath,
-    });
+      createNodeField({
+        node,
+        name: 'path',
+        value: mdFilePath,
+      });
 
-    const html = await getAvatarList(mdFilePath);
-    createNodeField({
-      node,
-      name: 'avatars',
-      value: html,
-    });
+      const html = await getAvatarList(mdFilePath);
+      createNodeField({
+        node,
+        name: 'avatarList',
+        value: html || [],
+      });
   }
 };

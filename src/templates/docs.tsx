@@ -78,6 +78,11 @@ export const pageQuery = graphql`
         path
         slug
         modifiedTime
+        avatarList {
+          href
+          text
+          src
+        }
       }
     }
     allMarkdownRemark(

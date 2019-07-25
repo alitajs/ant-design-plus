@@ -16,7 +16,9 @@ class Article extends React.PureComponent<IArticleProps> {
   render() {
     const { content } = this.props;
     const { meta } = content;
-    const { title, subtitle, path, modifiedTime } = meta;
+    const { title, subtitle, path, modifiedTime, avatarList = [] } = meta;
+
+    console.log(avatarList);
 
     return (
       <article
@@ -37,6 +39,7 @@ class Article extends React.PureComponent<IArticleProps> {
         </h1>
 
         <div className={styles.modifiedTime}>
+          <AvatarList list={avatarList} />
           上次修改时间: {moment(modifiedTime).format('YYYY-MM-DD HH:mm:SS')}
         </div>
 

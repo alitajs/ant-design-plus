@@ -1,0 +1,23 @@
+@import '~antd/es/style/themes/default.less';
+
+.avatarList {
+  position: relative;
+}
+
+.hrefBox {
+  height: 18px;
+  width: 18px;
+  float: left;
+  margin-left: 12px;
+
+  :global {
+    .ant-avatar > img {
+      max-width: 32px;
+    }
+  }
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+}

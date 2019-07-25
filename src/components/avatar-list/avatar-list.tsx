@@ -1,5 +1,6 @@
 import React from 'react';
 import { Avatar, Tooltip } from 'antd';
+import styles from './avatar-list.module.less';
 
 export interface IAvatar {
   href: string;
@@ -15,10 +16,11 @@ const AvatarList: React.FC<IProps> = (props) => {
   const { list = [] } = props;
 
   return (
-    <div className="doc-avatar-list">
-      {list.map(item => (
+    <div className={styles.avatarList}>
+      {list.map((item, index) => (
         <a
-          className="href-box"
+          className={styles.hrefBox}
+          key={index}
           target="_blank"
           rel="noopener noreferrer"
           href={`http://github.com${item.href}`}

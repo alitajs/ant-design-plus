@@ -16,6 +16,8 @@ components/**/*.css
 
 # editor
 /.vscode
+.idea
+
 .cache
 public
 .rpt2_cache
