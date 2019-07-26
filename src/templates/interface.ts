@@ -39,7 +39,10 @@ export interface IGraphQLFrontMatterData extends Omit<IFrontMatterData, 'title'>
 
 export interface IMarkdownRemarkData {
   html: string;
-  description: string;
+  description: {
+    apiHtml: string;
+    descriptionHtml: string;
+  };
   tableOfContents: string;
   frontmatter: IGraphQLFrontMatterData;
   fields: IMarkDownFields;
