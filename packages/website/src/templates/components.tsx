@@ -48,8 +48,6 @@ const ComponentTemplate: React.FC<IProps> = (props) => {
   const { frontmatter, fields, html, description, tableOfContents } = markdownRemark;
   const { edges } = allMarkdownRemark;
 
-  console.log(props.data);
-
   const menus = edges
     .map(({ node }) => {
       const newFrontMatter = transformerFrontMatter(node.frontmatter);

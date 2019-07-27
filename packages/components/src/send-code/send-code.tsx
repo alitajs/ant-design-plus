@@ -65,7 +65,6 @@ class SendCode extends React.Component<ISendCodeProps, ISendCodeState> {
     if (nextProps.start) {
 
     }
-    console.log(nextProps);
   }
 
   startCountdown = () => {

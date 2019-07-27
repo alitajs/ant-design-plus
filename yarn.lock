@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@alitajs/autils@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@alitajs/autils/-/autils-0.1.2.tgz#74187aad75f45bd1dc5a4e34fe56942a74f320b3"
+  integrity sha512-x6YbzeNBiF25evmkPuT7DO7TWhixOKp2uYgmRqGmflouY/SMCWiPE721ai8Y9pKt2cFph/e3UzkyU85WJd1q9w==
+
 "@ant-design/colors@^3.1.0":
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@ant-design/colors/-/colors-3.1.0.tgz#b7e2cc61a4e86d3d109494034acfb1222dacaa3c"
@@ -2343,7 +2348,7 @@ ansi-styles@^3.2.0, ansi-styles@^3.2.1:
   dependencies:
     color-convert "^1.9.0"
 
-antd@^3.20.2, antd@^3.9.0:
+antd@^3.20.2, antd@^3.20.7, antd@^3.9.0:
   version "3.20.7"
   resolved "https://registry.yarnpkg.com/antd/-/antd-3.20.7.tgz#a01b0a23dc9bb93de79b8847fa754c6caae1686c"
   integrity sha512-tVovzxwVD1vVx43SDiHKOusQN11JNxGSsyOKDjcXUdlnZegSAXic/YmX8G7Aw0l/E6qhsbBYrB0PI6kCvp5arw==
@@ -3449,9 +3454,9 @@ caniuse-api@^3.0.0:
     lodash.uniq "^4.5.0"
 
 caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000844, caniuse-lite@^1.0.30000980, caniuse-lite@^1.0.30000984:
-  version "1.0.30000985"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000985.tgz#0eb40f6c8a8c219155cbe43c4975c0efb4a0f77f"
-  integrity sha512-1ngiwkgqAYPG0JSSUp3PUDGPKKY59EK7NrGGX+VOxaKCNzRbNc7uXMny+c3VJfZxtoK3wSImTvG9T9sXiTw2+w==
+  version "1.0.30000986"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000986.tgz#f34350e367cc900509511574817ac092112bf7ab"
+  integrity sha512-pM+LnkoAX0+QnIH3tpW5EnkmfpEoqOD8FAcoBvsl3Xh6DXkgctiCxeCbXphP/k3XJtJzm+zOAJbi6U6IVkpWZQ==
 
 capture-stack-trace@^1.0.0:
   version "1.0.1"
@@ -12267,9 +12272,9 @@ react-helmet@^5.2.1:
     react-side-effect "^1.1.0"
 
 react-hot-loader@^4.12.5:
-  version "4.12.9"
-  resolved "https://registry.yarnpkg.com/react-hot-loader/-/react-hot-loader-4.12.9.tgz#cb2a85731ca38366b0e9e28e7fd1dbd7dcacc1ef"
-  integrity sha512-lWT3JpWUN7nGHSoI9c4MV+42ov79bd8aqwDzhoyKev3owIh+hbEivT6Mb81lCV6tWuqm9trKo2/Th2/YDhFCdw==
+  version "4.12.10"
+  resolved "https://registry.yarnpkg.com/react-hot-loader/-/react-hot-loader-4.12.10.tgz#b3457c0f733423c4827c6d2672e50c9f8bedaf6b"
+  integrity sha512-dX+ZUigxQijWLsKPnxc0khuCt2sYiZ1W59LgSBMOLeGSG3+HkknrTlnJu6BCNdhYxbEQkGvBsr7zXlNWYUIhAQ==
   dependencies:
     fast-levenshtein "^2.0.6"
     global "^4.3.0"

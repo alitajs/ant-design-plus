@@ -18,8 +18,6 @@ class Article extends React.PureComponent<IArticleProps> {
     const { meta } = content;
     const { title, subtitle, path, modifiedTime, avatarList = [] } = meta;
 
-    console.log(avatarList);
-
     return (
       <article
         className="markdown"

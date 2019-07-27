@@ -1,5 +1,6 @@
 {
   "name": "antd-plus-website",
+  "version": "1.0.2",
   "private": true,
   "main": "index.js",
   "license": "MIT",
@@ -9,16 +10,10 @@
     "clean": "gatsby clean"
   },
   "dependencies": {
-    "antd": "^3.20.2",
     "@mdx-js/mdx": "^1.1.0",
     "@mdx-js/react": "^1.0.27",
-    "react": "^16.8.6",
-    "normalize.css": "^8.0.1",
+    "antd": "^3.20.2",
     "gatsby": "^2.13.25",
-    "less": "^3.9.0",
-    "moment": "^2.24.0",
-    "nprogress": "^0.2.0",
-    "node-fetch": "^2.6.0",
     "gatsby-image": "^2.2.6",
     "gatsby-plugin-antd": "^2.0.2",
     "gatsby-plugin-less": "^2.1.2",
@@ -30,9 +25,15 @@
     "gatsby-remark-prismjs": "^3.3.3",
     "gatsby-source-filesystem": "^2.1.5",
     "gatsby-transformer-remark-antd": "^1.0.0",
+    "less": "^3.9.0",
+    "moment": "^2.24.0",
+    "node-fetch": "^2.6.0",
+    "normalize.css": "^8.0.1",
+    "nprogress": "^0.2.0",
+    "react": "^16.8.6",
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.8.6",
-    "react-helmet": "^5.2.1",
-    "react-github-button": "^0.1.11"
+    "react-github-button": "^0.1.11",
+    "react-helmet": "^5.2.1"
   }
 }
