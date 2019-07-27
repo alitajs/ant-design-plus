@@ -31,9 +31,7 @@
     "node-fetch": "^2.6.0",
     "normalize.css": "^8.0.1",
     "nprogress": "^0.2.0",
-    "react": "^16.8.6",
     "react-copy-to-clipboard": "^5.0.1",
-    "react-dom": "^16.8.6",
     "react-github-button": "^0.1.11",
     "react-helmet": "^5.2.1",
     "webpack": "^4.38.0"
