@@ -1,0 +1,23 @@
+{
+  "name": "@alitajs/antd-plus",
+  "version": "1.0.0",
+  "description": "ant design plus",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "typings": "lib/index.d.ts",
+  "license": "MIT",
+  "peerDependencies": {
+    "antd": ">=3.0.0",
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
+  },
+  "overrideBrowserslist": [
+    "last 2 version",
+    "Firefox ESR",
+    "> 1%",
+    "ie >= 9"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}
