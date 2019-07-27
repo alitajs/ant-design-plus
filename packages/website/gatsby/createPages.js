@@ -54,6 +54,9 @@ module.exports = async ({ graphql, actions }) => {
           redirects[underScoreCasePath] = path;
         }
 
+        // 去除组件文档src路径
+        path = path.replace('/src', '');
+
         const demoQuery = slug
           .split('.')
           .shift()

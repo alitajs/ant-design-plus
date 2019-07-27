@@ -44,8 +44,7 @@ module.exports = async ({ node, actions, getNode }) => {
       const { permalink } = node.frontmatter;
       let slug = permalink;
       const { absolutePath, sourceInstanceName, relativePath } = getNode(node.parent);
-      const filePath = absolutePath;
-      const stats = fs.statSync(filePath);
+      const stats = fs.statSync(absolutePath);
       const mTime = new Date(stats.mtime).getTime();
       const mdFilePath = path.join(sourceInstanceName, relativePath);
 
