@@ -1,7 +1,6 @@
 {
   "name": "antd-plus-website",
   "private": true,
-  "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
