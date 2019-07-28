@@ -1,4 +1,4 @@
-import { IFrontMatterData } from '../../templates/interface';
+import { IFrontMatterData } from '@/templates/interface';
 
 export interface IMenuDataItem extends IFrontMatterData {
   meta: IFrontMatterData;

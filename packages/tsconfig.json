@@ -4,18 +4,13 @@
     "target": "esnext",
     "lib": ["esnext", "dom"],
     "sourceMap": true,
-    "baseUrl": ".",
     "jsx": "react",
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "suppressImplicitAnyIndexErrors": true,
-    "experimentalDecorators": true,
-    "paths": {
-      "components/*": ["./components/*"],
-      "@/*": ["./src/*"]
-    }
+    "experimentalDecorators": true
   },
   "exclude": [
     "node_modules",

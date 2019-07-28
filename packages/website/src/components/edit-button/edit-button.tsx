@@ -1,6 +1,6 @@
 import React from 'react';
 import { Tooltip, Icon } from 'antd';
-import { SOURCE_PATH } from '../../config/index';
+import { SOURCE_PATH } from '@/config';
 
 interface IProps {
   title: React.ReactNode;

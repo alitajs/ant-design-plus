@@ -2,7 +2,7 @@ import React from 'react';
 import { Layout, Menu } from 'antd';
 import { Location } from 'history';
 import { Link } from 'gatsby';
-import { LOGO_URL } from '../config/index';
+import { LOGO_URL } from '@/config';
 import styles from './header.module.less';
 
 interface IProps {

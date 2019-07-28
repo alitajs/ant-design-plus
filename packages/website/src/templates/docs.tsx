@@ -1,8 +1,8 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 import { Location } from 'history';
-import Layout from '../layout/index';
-import MainContent from '../components/content/main-content';
+import Layout from '@/layout';
+import MainContent from '@/components/content/main-content';
 import {
   IMarkdownRemarkData,
   IAllMarkdownRemarkData

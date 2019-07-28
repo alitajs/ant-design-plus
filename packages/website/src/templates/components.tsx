@@ -1,7 +1,7 @@
 import React from 'react';
 import { graphql } from 'gatsby';
-import Layout from '../layout/index';
-import MainContent from '../components/content/main-content';
+import Layout from '@/layout';
+import MainContent from '@/components/content/main-content';
 import {
   IGraphQLDemos,
   IMarkdownRemarkData,
@@ -19,22 +19,20 @@ export interface IProps {
 
 const transformerDemos = demos => {
   if (!demos || !demos.edges) {
-    return;
+    return [];
   }
   return demos.edges.map(({ node }) => {
     return {
-      preview: node.code,
-      ...node.content,
+      preview: node.body,
       meta: {
-        ...transformerFrontMatter(node.frontmatter),
-        filename: node.fields.slug,
-        path: node.fields.path,
+        ...node.frontmatter
       },
     };
   });
 };
 
 const ComponentTemplate: React.FC<IProps> = (props) => {
+  console.log(props);
   const {
     data: {
       demos = {
@@ -89,7 +87,7 @@ const ComponentTemplate: React.FC<IProps> = (props) => {
 export default ComponentTemplate;
 
 export const pageQuery = graphql`
-  query TemplateComponentsMarkdown($slug: String!, $demo: String) {
+  query TemplateComponentsMarkdown($slug: String!) {
     markdownRemark(fields: { slug: { eq: $slug } }) {
       description
       tableOfContents(maxDepth: 3)
@@ -132,37 +130,18 @@ export const pageQuery = graphql`
         }
       }
     }
-    demos: allMarkdownRemark(
-      filter: { fileAbsolutePath: { regex: "//components//" }, fields: { slug: { regex: $demo } } }
-      sort: { fields: [fields___slug], order: DESC }
+    demos: allMdx(
+      filter: {fileAbsolutePath: {regex: "//components//"}}
+      sort: { fields: [frontmatter___order], order: ASC }
     ) {
       edges {
         node {
-          content
-          code
           frontmatter {
-            title {
-              zh_CN
-              en_US
-            }
-            cols
             order
-            subtitle
-            type
+            title
           }
-          fields {
-            slug
-            path
-          }
+          body
         }
-      }
-    }
-    mdx(body: {}) {
-      id
-      body
-      frontmatter {
-        order
-        title
       }
     }
   }

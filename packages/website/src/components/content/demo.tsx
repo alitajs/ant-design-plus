@@ -1,16 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import antd from 'antd';
-import moment from 'moment';
+import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { Location } from 'history';
 import classNames from 'classnames';
-import CopyToClipboard from 'react-copy-to-clipboard';
-import { DOCS_DEFAULT_CONFIG } from '../../config/index';
-import EditButton from '../edit-button/index';
-import { IFrontMatterData } from '../../templates/interface';
+import { IFrontMatterData } from '@/templates/interface';
 
 interface IProps {
-  id: string;
+  id?: string;
   expand?: boolean;
   preview?: string;
   style?: string;
@@ -71,7 +68,7 @@ class Demo extends React.Component<IProps, IState> {
 
   render() {
     const { codeExpand } = this.state;
-    const { id, style, meta, content } = this.props;
+    const { id, style, meta, content, preview } = this.props;
     const localizedTitle = meta.title['zh-CN'];
     const localizeIntro = content || localizedTitle;
 
@@ -84,19 +81,16 @@ class Demo extends React.Component<IProps, IState> {
         id={id}
       >
         <section className="code-box-demo">
-          <div ref={ref => (this.dom = ref)} />
+          {preview && (
+            <MDXRenderer>
+              {preview}
+            </MDXRenderer>
+          )}
           {style ? <style dangerouslySetInnerHTML={{ __html: style }} /> : null}
         </section>
         <section className="code-box-meta markdown">
           <div className="code-box-title">
-            <a href={`#${id}`} ref={ref => (this.anchor = ref)}>
-              {localizedTitle}
-            </a>
-            <EditButton
-              title="在 Github 上编辑此页！"
-              filename={meta.path}
-              sourcePath={DOCS_DEFAULT_CONFIG.sourcePath}
-            />
+            {meta.title}
           </div>
           <div
             className="code-box-description"

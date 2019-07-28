@@ -1,8 +1,8 @@
 import React from 'react';
 import { Location } from 'history';
-import { Row, Col, Affix, Alert } from 'antd';
+import { Row } from 'antd';
 import Demo from './demo';
-import { IDemo } from '../../templates/interface';
+import { IDemo } from '@/templates/interface';
 import { ILocalizedPageData } from './main-content';
 import EditButton from '../edit-button/index';
 import styles from './article.module.less';
@@ -85,7 +85,7 @@ class ComponentDoc extends React.Component<IProps, IState> {
   };
 
   render() {
-    const { doc } = this.props;
+    const { doc, demos } = this.props;
     const {
       meta: { title, subtitle, path },
       toc,
@@ -94,7 +94,7 @@ class ComponentDoc extends React.Component<IProps, IState> {
     } = doc;
     const localTitle = title['zh-CN'];
 
-    const { leftChildren, demosJump, rightChildren, isSingleCol } = this.getShowDemos(localTitle);
+    // const { leftChildren, demosJump, rightChildren, isSingleCol } = this.getShowDemos(localTitle);
 
     return (
       <article>
@@ -128,17 +128,11 @@ class ComponentDoc extends React.Component<IProps, IState> {
           </h2>
         </section>
         <Row gutter={16}>
-          <Col
-            span={isSingleCol ? 24 : 12}
-            className={isSingleCol ? 'code-boxes-col-1-1' : 'code-boxes-col-2-1'}
-          >
-            {leftChildren}
-          </Col>
-          {isSingleCol ? null : (
-            <Col className="code-boxes-col-2-1" span={12}>
-              {rightChildren}
-            </Col>
-          )}
+          {demos.map((item, index) => {
+            return (
+              <Demo {...item} key={index} />
+            )
+          })}
         </Row>
         <section
           className="markdown api-container"

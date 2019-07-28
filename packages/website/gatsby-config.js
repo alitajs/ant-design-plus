@@ -16,7 +16,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
-        extensions: [`.mdx`, `.md`],
+        extensions: [`.mdx`],
       },
     },
     `gatsby-plugin-typescript`,
@@ -45,7 +45,7 @@ module.exports = {
       resolve: 'gatsby-source-filesystem',
       options: {
         name: '/components',
-        path: path.join(__dirname, '..', 'components')
+        path: path.join(__dirname, '..', 'components/src')
       }
     },
     {
@@ -62,6 +62,19 @@ module.exports = {
           },
         ],
       },
+    },
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `Ant Design Plus`,
+        short_name: `AntD Plus`,
+        description: `react components`,
+        start_url: `/`,
+        background_color: `#f7f7f7`,
+        theme_color: `#1890ff`,
+        display: `standalone`,
+        icon: `src/images/favicon.png`
+      }
     }
   ]
 };
