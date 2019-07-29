@@ -8,7 +8,8 @@ module.exports = ({ stage, actions }) => {
     },
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, '../src/')
+        '@': path.resolve(__dirname, '../src/'),
+        '@alitajs/antd-plus': path.resolve(__dirname, '../../components/src/index')
       }
     }
   });
