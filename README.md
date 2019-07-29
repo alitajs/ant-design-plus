@@ -26,3 +26,18 @@ npm install @alitajs/antd-plus --save
 // yarn
 yarn add @alitajs/antd-plus
 ```
+
+## ⌨️ 本地开发
+
+```bash
+# 克隆项目到本地
+git clone git@github.com:ant-design/ant-design.git
+
+# 安装依赖
+yarn bootstarp
+
+# 启动服务
+yarn start
+```
+
+打开浏览器访问 http://localhost:3000
