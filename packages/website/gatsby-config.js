@@ -5,6 +5,7 @@ module.exports = {
     title: `Ant Design Plus`,
     description: `react components`,
     author: `Alita Team`,
+    siteUrl: `https://antd-plus.alitajs.com`
   },
   plugins: [
     {
@@ -75,6 +76,7 @@ module.exports = {
         display: `standalone`,
         icon: `src/images/favicon.png`
       }
-    }
+    },
+    `gatsby-plugin-sitemap`
   ]
 };
