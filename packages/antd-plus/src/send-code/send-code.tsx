@@ -9,10 +9,10 @@
 import React from 'react';
 import { Button } from 'antd';
 import { ButtonProps } from 'antd/es/button';
-import { isPromise } from '@alitajs/autils';
 import { getTemplateText } from './utils';
 
 export interface ISendCodeProps extends ButtonProps {
+  // 是否开始倒计时
   start?: boolean;
   // 倒计时时长（秒）默认60
   second?: number;
@@ -25,9 +25,6 @@ export interface ISendCodeProps extends ButtonProps {
   resetText?: string;
   // 倒计时结束执行函数
   onEnd?: () => void;
-  // 获取验证码执行函数
-  // 会根据返回结果决定是否执行倒计时
-  onCaptcha?: () => boolean | Promise<any>;
 }
 
 interface ISendCodeState {
@@ -41,6 +38,10 @@ class SendCode extends React.Component<ISendCodeProps, ISendCodeState> {
 
   private lastSecond: number = 0;
 
+  constructor(props) {
+    super(props)
+  }
+
   static defaultProps: ISendCodeProps = {
     start: false,
     second: 60,
@@ -52,7 +53,7 @@ class SendCode extends React.Component<ISendCodeProps, ISendCodeState> {
   readonly state: ISendCodeState = {
     buttonText: this.props.initText,
     start: false,
-    loading: false,
+    loading: false
   };
 
   componentWillUnmount() {
@@ -63,7 +64,7 @@ class SendCode extends React.Component<ISendCodeProps, ISendCodeState> {
 
   componentWillReceiveProps(nextProps: ISendCodeProps) {
     if (nextProps.start) {
-
+      this.startCountdown();
     }
   }
 
@@ -108,48 +109,12 @@ class SendCode extends React.Component<ISendCodeProps, ISendCodeState> {
     }
   };
 
-  handleClick = e => {
-    e.preventDefault();
-    const { onCaptcha } = this.props;
-
-    this.setState({
-      loading: true,
-    });
-
-    const result = onCaptcha ? onCaptcha() : null;
-
-    if (isPromise(result)) {
-      result
-        // @ts-ignore
-        .then(() => {
-          this.setState({
-            loading: false,
-          });
-          this.startCountdown();
-        })
-        .catch(() => {
-          this.setState({
-            loading: false,
-          });
-        });
-      return;
-    }
-
-    if (result) {
-      this.setState({
-        loading: false,
-      });
-      this.startCountdown();
-    }
-  };
-
   render() {
-    const { start, second, initText, resetText, runText, onCaptcha, onEnd, ...rest } = this.props;
+    const { start, second, initText, resetText, runText, onEnd, ...rest } = this.props;
     const { loading, buttonText } = this.state;
 
     return (
       <Button
-        onClick={this.handleClick}
         loading={loading}
         disabled={this.state.start}
         {...rest}

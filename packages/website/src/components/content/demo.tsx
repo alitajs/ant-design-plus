@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import moment from 'moment';
+import numeral from 'numeral';
 import antd from 'antd';
-import { MDXRenderer } from 'gatsby-plugin-mdx';
+// import antDesignPlus from '@alitajs/antd-plus';
 import { Location } from 'history';
 import classNames from 'classnames';
-import { IFrontMatterData } from '@/templates/interface';
+import { IFrontMatterData } from '@website/templates/interface';
 
 interface IProps {
   id?: string;
@@ -29,13 +31,27 @@ interface IState {
 }
 
 const requireLib = path => {
+  console.log(path);
   const libs = path.split('/');
-  return antd;
+  // if (libs[0] === '@alitajs/antd-plus') {
+  //   return antDesignPlus[libs.pop()];
+  // }
+  if (libs[0] === 'react') {
+    return React;
+  }
+  if (libs[0] === 'antd') {
+    return antd;
+  }
+  if (libs[0] === 'numeral') {
+    return numeral;
+  }
+  if (libs[0] === 'moment') {
+    return moment;
+  }
 };
 
 class Demo extends React.Component<IProps, IState> {
   private dom: HTMLElement;
-  private anchor: HTMLElement;
   constructor(props) {
     super(props);
     this.state = {
@@ -50,10 +66,10 @@ class Demo extends React.Component<IProps, IState> {
     const { meta, location, preview } = this.props;
     this.componentWillReceiveProps(this.props);
 
-    const myRender = new Function('React', 'ReactDOM', 'require', 'mountNode', preview);
-    if (this.dom) {
-      myRender(React, ReactDOM, requireLib, this.dom);
-    }
+    // const myRender = new Function('React', 'ReactDOM', 'require', 'mountNode', preview);
+    // if (this.dom) {
+    //   myRender(React, ReactDOM, requireLib, this.dom);
+    // }
 
   }
 
@@ -68,9 +84,9 @@ class Demo extends React.Component<IProps, IState> {
 
   render() {
     const { codeExpand } = this.state;
-    const { id, style, meta, content, preview } = this.props;
+    const { id, style, meta, content } = this.props;
     const localizedTitle = meta.title['zh-CN'];
-    const localizeIntro = content || localizedTitle;
+    const localizeIntro = content['zh-CN'] || localizedTitle;
 
     return (
       <section
@@ -81,16 +97,12 @@ class Demo extends React.Component<IProps, IState> {
         id={id}
       >
         <section className="code-box-demo">
-          {preview && (
-            <MDXRenderer>
-              {preview}
-            </MDXRenderer>
-          )}
+          <div ref={ref => (this.dom = ref)} />
           {style ? <style dangerouslySetInnerHTML={{ __html: style }} /> : null}
         </section>
         <section className="code-box-meta markdown">
           <div className="code-box-title">
-            {meta.title}
+            {localizedTitle}
           </div>
           <div
             className="code-box-description"

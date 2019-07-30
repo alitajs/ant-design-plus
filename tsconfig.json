@@ -1,16 +1,23 @@
 {
   "compilerOptions": {
+    "baseUrl": "./packages",
     "module": "esnext",
     "target": "esnext",
     "lib": ["esnext", "dom"],
     "sourceMap": true,
     "jsx": "react",
+    "declaration": true,
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
+    "noErrorTruncation": true,
     "suppressImplicitAnyIndexErrors": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "paths": {
+      "@alitajs/antd-plus/*": ["./antd-plus/src/*"],
+      "@website/*": ["./website/src/*"]
+    }
   },
   "exclude": [
     "node_modules",

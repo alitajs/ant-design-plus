@@ -1,7 +1,7 @@
 import React from 'react';
 import { graphql } from 'gatsby';
-import Layout from '@/layout';
-import MainContent from '@/components/content/main-content';
+import Layout from '@website/layout';
+import MainContent from '@website/components/content/main-content';
 import {
   IGraphQLDemos,
   IMarkdownRemarkData,
@@ -23,16 +23,19 @@ const transformerDemos = demos => {
   }
   return demos.edges.map(({ node }) => {
     return {
-      preview: node.body,
+      preview: node.code,
+      ...node.content,
       meta: {
-        ...node.frontmatter
+        ...transformerFrontMatter(node.frontmatter),
+        filename: node.fields.slug,
+        path: node.fields.path,
       },
     };
   });
 };
 
+
 const ComponentTemplate: React.FC<IProps> = (props) => {
-  console.log(props);
   const {
     data: {
       demos = {
@@ -130,17 +133,31 @@ export const pageQuery = graphql`
         }
       }
     }
-    demos: allMdx(
-      filter: {fileAbsolutePath: {regex: "//components//"}}
-      sort: { fields: [frontmatter___order], order: ASC }
+    demos: allMarkdownRemark(
+      filter: {
+        fileAbsolutePath: { regex: "//components//" }
+        fields: { slug: { regex: "//demo//" } }
+      }
+      sort: { fields: [fields___slug], order: DESC }
     ) {
       edges {
         node {
+          content
+          code
           frontmatter {
+            title {
+              zh_CN
+              en_US
+            }
+            cols
             order
-            title
+            subtitle
+            type
           }
-          body
+          fields {
+            slug
+            path
+          }
         }
       }
     }

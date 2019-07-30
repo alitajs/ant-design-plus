@@ -4,8 +4,14 @@
   "description": "ant design plus",
   "main": "lib/index.js",
   "module": "es/index.js",
-  "typings": "lib/index.d.ts",
+  "typings": "es/index.d.ts",
   "license": "MIT",
+  "scripts": {
+    "build": "yarn build:cjs && yarn build:es",
+    "build:cjs": "cross-env NODE_ENV=production tsc --module CommonJS --outDir ./lib",
+    "build:es": "cross-env NODE_ENV=production tsc --module ES6 --outDir ./build/es",
+    "start": "cross-env NODE_ENV=production tsc -w --module ES6 --outDir ./es"
+  },
   "peerDependencies": {
     "antd": "^3.0.0",
     "react": "^16.8.0",
@@ -15,6 +21,9 @@
     "@alitajs/autils": "^0.1.2",
     "antd": "^3.20.7",
     "classnames": "^2.2.6"
+  },
+  "devDependencies": {
+    "cross-env": "^5.2.0"
   },
   "overrideBrowserslist": [
     "last 2 version",
