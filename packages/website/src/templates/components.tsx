@@ -34,7 +34,6 @@ const transformerDemos = demos => {
   });
 };
 
-
 const ComponentTemplate: React.FC<IProps> = (props) => {
   const {
     data: {
@@ -110,7 +109,7 @@ export const pageQuery = graphql`
     }
     allMarkdownRemark(
       filter: {
-        fileAbsolutePath: { regex: "//components//" }
+        fileAbsolutePath: { regex: "//antd-plus//" }
         fields: { slug: { regex: "/^((?!/demo/).)*$/" } }
       }
       sort: { fields: [fields___slug], order: DESC }
@@ -135,7 +134,7 @@ export const pageQuery = graphql`
     }
     demos: allMarkdownRemark(
       filter: {
-        fileAbsolutePath: { regex: "//components//" }
+        fileAbsolutePath: { regex: "//antd-plus//" }
         fields: { slug: { regex: "//demo//" } }
       }
       sort: { fields: [fields___slug], order: DESC }
