@@ -46,7 +46,7 @@ module.exports = {
       resolve: 'gatsby-source-filesystem',
       options: {
         name: '/components',
-        path: path.join(__dirname, '..', 'components/src')
+        path: path.join(__dirname, '..', 'antd-plus/src')
       }
     },
     {

@@ -6,7 +6,7 @@ import antd from 'antd';
 // import antDesignPlus from '@alitajs/antd-plus';
 import { Location } from 'history';
 import classNames from 'classnames';
-import { IFrontMatterData } from '@/templates/interface';
+import { IFrontMatterData } from '@website/templates/interface';
 
 interface IProps {
   id?: string;

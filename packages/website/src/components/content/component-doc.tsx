@@ -2,7 +2,7 @@ import React from 'react';
 import { Location } from 'history';
 import { Row } from 'antd';
 import Demo from './demo';
-import { IDemo } from '@/templates/interface';
+import { IDemo } from '@website/templates/interface';
 import { ILocalizedPageData } from './main-content';
 import EditButton from '../edit-button/index';
 import styles from './article.module.less';

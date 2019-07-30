@@ -4,7 +4,6 @@ import { Link } from 'gatsby';
 import GitHubButton from 'react-github-button';
 import styles from './home.module.less';
 
-
 const Home: React.FC = () => {
   return (
     <div className={styles.home}>

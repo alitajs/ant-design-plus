@@ -1,6 +1,6 @@
 import React from 'react';
-import Seo from '@/components/seo';
-import Home from '@/components/home/home';
+import Seo from '@website/components/seo';
+import Home from '@website/components/home/home';
 
 const HomePage = () => (
   <div>

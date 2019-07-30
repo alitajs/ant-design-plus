@@ -1,7 +1,7 @@
 import React from 'react';
 import { graphql } from 'gatsby';
-import Layout from '@/layout';
-import MainContent from '@/components/content/main-content';
+import Layout from '@website/layout';
+import MainContent from '@website/components/content/main-content';
 import {
   IGraphQLDemos,
   IMarkdownRemarkData,
