@@ -1,9 +1,7 @@
 ---
 order: 0
-title: 基础样例
+title: 自定义倒计时按钮
 ---
-
-Simplest of usage.
 
 ```jsx
 () => {
@@ -16,7 +14,11 @@ Simplest of usage.
   return (
     <SendCode
       start={start}
+      second={15}
+      initText="点击"
+      runText="剩余{%s}秒"
       onClick={handleClick}
+      resetText="重新发送"
     />
   )
 }

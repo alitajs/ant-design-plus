@@ -1,10 +1,10 @@
 import React from 'react';
 import { Location } from 'history';
 import { Row } from 'antd';
-import Demo from './demo';
-import { IDemo } from '@website/templates/interface';
+import { IDemo } from '@site/templates/interface';
 import { ILocalizedPageData } from './main-content';
 import EditButton from '../edit-button/index';
+import Demo from '@site/components/demo';
 import styles from './article.module.less';
 
 interface IProps {
@@ -27,63 +27,6 @@ class ComponentDoc extends React.Component<IProps, IState> {
     }
   }
 
-  getShowDemos = (localTitle: string) => {
-    const { location, demos } = this.props;
-    const { expand } = this.state;
-    const leftChildren = [];
-    const rightChildren = [];
-    const demosJump = [];
-    let isSingleCol = true;
-
-    const showedDemo = demos
-      .filter(demo => demo.preview)
-      .sort((a, b) => a.meta.order - b.meta.order);
-
-    showedDemo.forEach(({ meta: { col } }) => {
-      if (col && col !== 1) {
-        isSingleCol = false;
-      }
-    });
-
-    showedDemo.forEach((demoData, index) => {
-      const { filename, title } = demoData.meta;
-      const id = `scaffold-src-components-${localTitle}-demo-${
-        filename
-          .split('/')
-          .pop()
-          .split('.')[0]
-        }`;
-
-      demosJump.push({
-        title: title['zh-CN'],
-        id,
-      });
-
-      const demoElem = (
-        <Demo
-          key={filename}
-          expand={expand}
-          id={id}
-          meta={demoData.meta}
-          location={location}
-        />
-      );
-
-      if (index % 2 === 0 || isSingleCol) {
-        leftChildren.push(demoElem);
-      } else {
-        rightChildren.push(demoElem);
-      }
-    });
-
-    return {
-      leftChildren,
-      rightChildren,
-      isSingleCol,
-      demosJump,
-    };
-  };
-
   render() {
     const { doc, demos } = this.props;
     const {
@@ -92,9 +35,6 @@ class ComponentDoc extends React.Component<IProps, IState> {
       descriptionHtml,
       apiHtml,
     } = doc;
-    const localTitle = title['zh-CN'];
-
-    // const { leftChildren, demosJump, rightChildren, isSingleCol } = this.getShowDemos(localTitle);
 
     return (
       <article>
