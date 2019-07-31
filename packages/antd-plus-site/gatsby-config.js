@@ -14,12 +14,6 @@ module.exports = {
         javascriptEnabled: true,
       },
     },
-    {
-      resolve: `gatsby-plugin-mdx`,
-      options: {
-        extensions: [`.mdx`],
-      },
-    },
     `gatsby-plugin-typescript`,
     {
       resolve: 'gatsby-plugin-antd',

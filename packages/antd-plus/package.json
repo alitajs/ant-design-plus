@@ -5,6 +5,11 @@
   "main": "lib/index.js",
   "module": "es/index.js",
   "typings": "es/index.d.ts",
+  "files": [
+    "dist",
+    "lib",
+    "es"
+  ],
   "license": "MIT",
   "scripts": {
     "build": "yarn build:cjs && yarn build:es",
