@@ -87,8 +87,6 @@ class Demo extends React.Component<IProps, IState> {
     const localizedTitle = meta.title['zh-CN'] || meta.title;
     const localizeIntro = content['zh-CN'];
 
-    console.log(meta.path);
-
     return (
       <section
         className={classNames({
