@@ -1,11 +1,13 @@
 import React from 'react';
 import classNames from 'classnames';
-import { Tooltip } from 'antd';
+import { Tooltip, Icon } from 'antd';
+import CopyToClipboard from 'react-copy-to-clipboard';
 import Playground from '@site/components/playground';
 
 interface IProps {
   // 查看的效果
   preview?: string;
+  sourceCode?: string;
   // 需要显示的代码
   highlightedCode?: string;
 }
@@ -13,14 +15,34 @@ interface IProps {
 interface IState {
   // 代码是否折叠
   codeExpand: boolean;
+  // demo源代码
+  sourceCode: string;
+  copyTooltipVisible: boolean;
+  copied: boolean;
 }
 
 class Demo extends React.Component<IProps, IState> {
   constructor(props) {
     super(props);
     this.state = {
-      codeExpand: false
+      codeExpand: false,
+      sourceCode: '',
+      copyTooltipVisible: false,
+      copied: false
     }
+  }
+
+  componentDidMount() {
+    this.componentWillReceiveProps(this.props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { highlightedCode } = nextProps;
+    const div = document.createElement('div');
+    div.innerHTML = highlightedCode;
+    this.setState({
+      sourceCode: div.textContent
+    });
   }
 
   // 切换代码显示/隐藏
@@ -31,9 +53,28 @@ class Demo extends React.Component<IProps, IState> {
     });
   };
 
+  handleCodeCopied = () => {
+    this.setState({
+      copied: true
+    });
+  };
+
+  onCopyTooltipVisibleChange = visible => {
+    if (visible) {
+      this.setState({
+        copyTooltipVisible: visible,
+        copied: false,
+      });
+      return;
+    }
+    this.setState({
+      copyTooltipVisible: visible,
+    });
+  };
+
   render() {
     const { highlightedCode } = this.props;
-    const { codeExpand } = this.state;
+    const { codeExpand, sourceCode, copied, copyTooltipVisible } = this.state;
 
     return (
       <section
@@ -44,7 +85,7 @@ class Demo extends React.Component<IProps, IState> {
       >
         {/** Demo展示 */}
         <section className="code-box-demo">
-          <Playground code={this.props.preview} />
+          <Playground code={sourceCode} />
         </section>
 
         {/** 描述区域 */}
@@ -54,6 +95,18 @@ class Demo extends React.Component<IProps, IState> {
 
         {/** 操作区域 */}
         <div className="code-box-actions">
+          <CopyToClipboard text={sourceCode} onCopy={this.handleCodeCopied}>
+            <Tooltip
+              visible={copyTooltipVisible}
+              onVisibleChange={this.onCopyTooltipVisibleChange}
+              title={copied ? '复制成功' : '复制代码'}
+            >
+              <Icon
+                type={(copied && copyTooltipVisible) ? 'check' : 'copy'}
+                className="code-box-code-copy"
+              />
+            </Tooltip>
+          </CopyToClipboard>
           <Tooltip title={codeExpand ? 'Hide Code' : 'Show Code'}>
             <span className="code-expand-icon">
               <img

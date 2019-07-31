@@ -13,23 +13,7 @@ const Playground: React.FC<PlaygroundProps> = (props) => {
   return (
     <section>
       <LiveProvider
-        code={`
-          () => {
-            const [start, setStart] = React.useState(false);
-
-            function handleClick(c) {
-              setStart(true);
-            }
-
-            return (
-              <SendCode
-                start={start}
-                onClick={handleClick}
-              />
-            )
-          }
-         `
-        }
+        code={code}
         scope={scope}
       >
         <LiveError />
