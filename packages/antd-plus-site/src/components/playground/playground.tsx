@@ -1,9 +1,9 @@
 import React from 'react';
-import { SendCode } from '@alitajs/antd-plus';
+import * as AntDesignPlus from '@alitajs/antd-plus';
 import { LiveProvider, LiveError, LivePreview } from 'react-live';
 
 const scope = {
-  SendCode
+  ...AntDesignPlus
 };
 
 interface PlaygroundProps {
