@@ -1,12 +1,20 @@
 import React from 'react';
 import classNames from 'classnames';
 import { Tooltip, Icon } from 'antd';
+import { IFrontMatterData } from '@site/templates/interface';
 import CopyToClipboard from 'react-copy-to-clipboard';
+import EditButton from '@site/components/edit-button';
 import Playground from '@site/components/playground';
 
 interface IProps {
+  id: string;
   // 查看的效果
   preview?: string;
+  meta?: IFrontMatterData;
+  content?: {
+    'zh-CN': string;
+    'en-US': string;
+  },
   sourceCode?: string;
   // 需要显示的代码
   highlightedCode?: string;
@@ -73,8 +81,13 @@ class Demo extends React.Component<IProps, IState> {
   };
 
   render() {
-    const { highlightedCode } = this.props;
+    const { id, meta, highlightedCode, content } = this.props;
     const { codeExpand, sourceCode, copied, copyTooltipVisible } = this.state;
+
+    const localizedTitle = meta.title['zh-CN'] || meta.title;
+    const localizeIntro = content['zh-CN'];
+
+    console.log(meta.path);
 
     return (
       <section
@@ -90,7 +103,20 @@ class Demo extends React.Component<IProps, IState> {
 
         {/** 描述区域 */}
         <section className="code-box-meta markdown">
-
+          <div className="code-box-title">
+            <a href={`#${id}`}>
+              {localizedTitle}
+            </a>
+            <EditButton
+              title="在github上编辑此页！"
+              filename={meta.path.replace('components/', 'packages/antd-plus/src/')}
+              sourcePath="https://github.com/alitajs/ant-design-plus/edit/master"
+            />
+          </div>
+          <div
+            className="code-box-description"
+            dangerouslySetInnerHTML={{ __html: localizeIntro }}
+          />
         </section>
 
         {/** 操作区域 */}
