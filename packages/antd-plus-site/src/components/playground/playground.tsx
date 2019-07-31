@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { SendCode } from '@alitajs/antd-plus';
-import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
+import { LiveProvider, LiveError, LivePreview } from 'react-live';
 
 const scope = { SendCode };
 
 interface PlaygroundProps {
-  code?: any
+  code?: string;
 }
 
 const Playground: React.FC<PlaygroundProps> = (props) => {
