@@ -9,7 +9,7 @@
   "scripts": {
     "build": "yarn build:cjs && yarn build:es",
     "build:cjs": "cross-env NODE_ENV=production tsc --module CommonJS --outDir ./lib",
-    "build:es": "cross-env NODE_ENV=production tsc --module ES6 --outDir ./build/es",
+    "build:es": "cross-env NODE_ENV=production tsc --module ES6 --outDir ./es",
     "start": "cross-env NODE_ENV=production tsc -w --module ES6 --outDir ./es"
   },
   "peerDependencies": {

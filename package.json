@@ -15,6 +15,7 @@
     "bootstarp": "lerna bootstrap",
     "clean": "lerna clean --yes",
     "start": "lerna run start --parallel",
+    "build": "lerna run build --parallel",
     "build:website": "lerna run --scope antd-plus-website --stream build"
   },
   "devDependencies": {
