@@ -1,4 +1,4 @@
-import { IFrontMatterData } from '@website/templates/interface';
+import { IFrontMatterData } from '@site/templates/interface';
 import { IMainContentProps } from './main-content';
 import { IMenuDataItem, IMenuData } from './interface';
 

@@ -16,7 +16,7 @@
     "experimentalDecorators": true,
     "paths": {
       "@alitajs/antd-plus/*": ["./antd-plus/src/*"],
-      "@website/*": ["./website/src/*"]
+      "@site/*": ["./antd-plus-site/src/*"]
     }
   },
   "exclude": [

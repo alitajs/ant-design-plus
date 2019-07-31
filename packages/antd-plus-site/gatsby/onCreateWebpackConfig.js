@@ -8,7 +8,7 @@ module.exports = ({ stage, actions }) => {
     },
     resolve: {
       alias: {
-        '@website': path.resolve(__dirname, '../src/')
+        '@site': path.resolve(__dirname, '../src/')
       }
     }
   });

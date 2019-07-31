@@ -1,12 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import moment from 'moment';
-import numeral from 'numeral';
-import antd from 'antd';
-// import antDesignPlus from '@alitajs/antd-plus';
 import { Location } from 'history';
 import classNames from 'classnames';
-import { IFrontMatterData } from '@website/templates/interface';
+import { IFrontMatterData } from '@site/templates/interface';
+import Playground from '../playground';
 
 interface IProps {
   id?: string;
@@ -30,28 +26,7 @@ interface IState {
   copyTooltipVisible: boolean;
 }
 
-const requireLib = path => {
-  console.log(path);
-  const libs = path.split('/');
-  // if (libs[0] === '@alitajs/antd-plus') {
-  //   return antDesignPlus[libs.pop()];
-  // }
-  if (libs[0] === 'react') {
-    return React;
-  }
-  if (libs[0] === 'antd') {
-    return antd;
-  }
-  if (libs[0] === 'numeral') {
-    return numeral;
-  }
-  if (libs[0] === 'moment') {
-    return moment;
-  }
-};
-
 class Demo extends React.Component<IProps, IState> {
-  private dom: HTMLElement;
   constructor(props) {
     super(props);
     this.state = {
@@ -63,14 +38,7 @@ class Demo extends React.Component<IProps, IState> {
   }
 
   componentDidMount() {
-    const { meta, location, preview } = this.props;
     this.componentWillReceiveProps(this.props);
-
-    // const myRender = new Function('React', 'ReactDOM', 'require', 'mountNode', preview);
-    // if (this.dom) {
-    //   myRender(React, ReactDOM, requireLib, this.dom);
-    // }
-
   }
 
   componentWillReceiveProps(nextProps: IProps) {
@@ -88,6 +56,8 @@ class Demo extends React.Component<IProps, IState> {
     const localizedTitle = meta.title['zh-CN'];
     const localizeIntro = content['zh-CN'] || localizedTitle;
 
+    console.log(this.props);
+
     return (
       <section
         className={classNames({
@@ -97,7 +67,7 @@ class Demo extends React.Component<IProps, IState> {
         id={id}
       >
         <section className="code-box-demo">
-          <div ref={ref => (this.dom = ref)} />
+          <Playground code={this.props.preview} />
           {style ? <style dangerouslySetInnerHTML={{ __html: style }} /> : null}
         </section>
         <section className="code-box-meta markdown">

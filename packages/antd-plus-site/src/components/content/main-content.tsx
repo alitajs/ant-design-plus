@@ -4,7 +4,7 @@ import { Menu, Row, Col, Icon, Badge } from 'antd';
 import { Location } from 'history';
 import { Link } from 'gatsby';
 import SEO from '../seo';
-import { IFrontMatterData, IDemo } from '@website/templates/interface';
+import { IFrontMatterData, IDemo } from '@site/templates/interface';
 import { IMenuDataItem, IMenuData }  from './interface';
 import Article from './article';
 import ComponentDoc from './component-doc';
