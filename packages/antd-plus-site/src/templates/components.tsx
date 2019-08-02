@@ -89,7 +89,7 @@ const ComponentTemplate: React.FC<IProps> = (props) => {
 export default ComponentTemplate;
 
 export const pageQuery = graphql`
-  query TemplateComponentsMarkdown($slug: String!) {
+  query TemplateComponentsMarkdown($slug: String!, $demo: String) {
     markdownRemark(fields: { slug: { eq: $slug } }) {
       description
       tableOfContents(maxDepth: 3)
@@ -135,9 +135,12 @@ export const pageQuery = graphql`
     demos: allMarkdownRemark(
       filter: {
         fileAbsolutePath: { regex: "//antd-plus//" }
-        fields: { slug: { regex: "//demo//" } }
+        fields: { slug: { regex: $demo } }
       }
-      sort: { fields: [fields___slug], order: DESC }
+      sort: { 
+        fields: [fields___slug], 
+        order: DESC 
+      }
     ) {
       edges {
         node {

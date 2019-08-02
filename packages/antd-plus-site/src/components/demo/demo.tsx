@@ -84,6 +84,10 @@ class Demo extends React.Component<IProps, IState> {
     const { id, meta, highlightedCode, content } = this.props;
     const { codeExpand, sourceCode, copied, copyTooltipVisible } = this.state;
 
+    if (!this.props.preview) {
+      return null;
+    }
+
     const localizedTitle = meta.title['zh-CN'] || meta.title;
     const localizeIntro = content['zh-CN'];
 

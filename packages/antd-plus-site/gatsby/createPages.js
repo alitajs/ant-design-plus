@@ -22,12 +22,10 @@ module.exports = async ({ graphql, actions }) => {
         ) {
           edges {
             node {
-              id
               fields {
-                path
                 slug
                 underScoreCasePath
-                modifiedTime
+                path
               }
             }
           }
@@ -36,12 +34,18 @@ module.exports = async ({ graphql, actions }) => {
     `
   );
 
+  if (allMarkdown.errors) {
+    console.error(allMarkdown.errors);
+
+    throw Error(allMarkdown.errors);
+  }
+
   const redirects = {};
 
   const edges = allMarkdown.data.allMarkdownRemark.edges;
 
   edges.forEach(edge => {
-    const { slug, underScoreCasePath, path } = edge.node.fields;
+    const { slug, underScoreCasePath, path: mdPath } = edge.node.fields;
     if (slug.includes('docs/') || slug.includes('/components')) {
       let template = docsTemplate;
 
@@ -62,7 +66,7 @@ module.exports = async ({ graphql, actions }) => {
 
         if (!slug.includes('demo/')) {
           createPage({
-            path: `${path}`,
+            path: path,
             component: template,
             context: {
               slug,
@@ -76,8 +80,7 @@ module.exports = async ({ graphql, actions }) => {
           component: template,
           context: {
             slug,
-            // if is docs page
-            type: slug.includes('docs/') ? '/docs/' : '/blog/',
+            demo: `/${demoQuery}/demo/`,
           },
         });
       };
@@ -91,6 +94,12 @@ module.exports = async ({ graphql, actions }) => {
     fromPath: '/docs/',
     redirectInBrowser: true,
     toPath: '/docs/getting-started',
+  });
+
+  createRedirect({
+    fromPath: '/components/',
+    redirectInBrowser: true,
+    toPath: '/components/send-code',
   });
 
   Object.keys(redirects).map(path =>
