@@ -62,7 +62,7 @@ const Template: React.FC<IProps> = (props) => {
 export default Template;
 
 export const pageQuery = graphql`
-  query TemplateDocsMarkdown($slug: String!, $type: String!) {
+  query TemplateDocsMarkdown($slug: String!) {
     markdownRemark(fields: { slug: { eq: $slug } }) {
       html
       tableOfContents(maxDepth: 2)
@@ -86,7 +86,7 @@ export const pageQuery = graphql`
       }
     }
     allMarkdownRemark(
-      filter: { fileAbsolutePath: { regex: $type } }
+      filter: { fileAbsolutePath: { regex: "/docs/" } }
       sort: { fields: [fields___slug, frontmatter___time], order: DESC }
     ) {
       edges {
