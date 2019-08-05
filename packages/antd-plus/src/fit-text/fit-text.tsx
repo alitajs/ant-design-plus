@@ -63,14 +63,13 @@ class FitText extends React.Component<IFitTextProps> {
 
   _renderChildren = () => {
     const { children } = this.props;
-    const _this = this;
     return React.Children.map(children, (child) => {
       return React.cloneElement(child as any, {
         ref: (c) => {
           if (c) {
-            this.nodes.set(c, _this.props);
+            this.nodes.set(c, this.props);
           }
-          _this._childRef = c;
+          this._childRef = c;
         }
       })
     })
