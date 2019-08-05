@@ -19,6 +19,9 @@ title: 自定义倒计时按钮
       runText="剩余{%s}秒"
       onClick={handleClick}
       resetText="重新发送"
+      onEnd={() => {
+        setStart(false);
+      }}
     />
   )
 }
