@@ -17,6 +17,9 @@ Simplest of usage.
     <SendCode
       start={start}
       onClick={handleClick}
+      onEnd={() => {
+        setStart(false);
+      }}
     />
   )
 }

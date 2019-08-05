@@ -104,9 +104,7 @@ class SendCode extends React.Component<ISendCodeProps, ISendCodeState> {
       clearInterval(this.timer);
     }
     // 发出倒计时结束事件
-    if (onEnd) {
-      onEnd();
-    }
+    onEnd && onEnd();
   };
 
   render() {
