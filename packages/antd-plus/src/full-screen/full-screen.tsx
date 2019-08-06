@@ -1,16 +1,9 @@
 import React from 'react';
-import { getScreenFullFunMap } from './utils';
-
-interface IFunMap {
-  requestFullscreen: string;
-  exitFullscreen: string;
-  fullscreenElement: string;
-  fullscreenEnabled: string;
-  fullscreenchange: string;
-  fullscreenerror: string;
-}
+import { getScreenFullFunMap, IFunMap } from './utils';
 
 export interface IFullScreenProps {
+  className?: string;
+  style?: React.CSSProperties;
   // 是否全屏，默认为false
   isFullScreen?: boolean;
 }
@@ -29,22 +22,15 @@ class FullScreen extends React.Component<IFullScreenProps> {
     this.funMap = getScreenFullFunMap();
   }
 
-  componentDidMount() {
-    console.log(this.props);
-  }
-
   componentWillReceiveProps(nextProps: IFullScreenProps) {
-    if (nextProps.isFullScreen) {
-      this.request();
-    } else {
-      this.exit();
-    }
+    this.toggle(nextProps.isFullScreen);
   }
 
-  request = (
-    element: HTMLElement = document.documentElement
-  ) => {
+  // 切换到全屏
+  request = () => {
     if (typeof this.funMap === 'boolean') return null;
+    const { children } = this.props;
+    const element = children ? this.root : document.documentElement;
     const request = this.funMap.requestFullscreen;
     return new Promise(function (resolve, reject) {
       let promise;
@@ -56,12 +42,12 @@ class FullScreen extends React.Component<IFullScreenProps> {
       }
 
       Promise.resolve(promise).catch(reject);
-
     })
   };
 
+  // 退出全屏
   exit = () => {
-    const { isFullScreen } = this.props;
+    const isFullScreen = this.getIsFullScreen();
     if (typeof this.funMap === 'boolean') return null;
     const exit = this.funMap.exitFullscreen;
     return new Promise(function (resolve) {
@@ -75,15 +61,25 @@ class FullScreen extends React.Component<IFullScreenProps> {
     });
   };
 
+  // 切换全屏状态
+  toggle = (isFullScreen) => {
+    isFullScreen ? this.exit() : this.request();
+  };
+
+  getIsFullScreen = () => {
+    if (typeof this.funMap === 'boolean') return false;
+    return !!document[this.funMap.fullscreenElement];
+  };
+
   saveRoot = (node) => {
     this.root = node;
   };
 
   render() {
-    const { children } = this.props;
+    const { style, children } = this.props;
 
     return (
-      <div ref={this.saveRoot}>
+      <div style={style} ref={this.saveRoot}>
         {children}
       </div>
     )

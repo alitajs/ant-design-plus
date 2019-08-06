@@ -54,7 +54,7 @@ export interface IFunMap {
   fullscreenerror: string;
 }
 
-export function getScreenFullFunMap() {
+export function getScreenFullFunMap(): IFunMap | boolean {
   const result = {};
   for (let i= 0, len = fullScreenFunList.length; i < len; i++) {
     const item = fullScreenFunList[i];
