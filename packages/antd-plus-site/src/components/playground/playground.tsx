@@ -1,9 +1,11 @@
 import React from 'react';
 import * as AntDesignPlus from '@alitajs/antd-plus';
+import { Button } from 'antd';
 import { LiveProvider, LiveError, LivePreview } from 'react-live';
 
 const scope = {
-  ...AntDesignPlus
+  ...AntDesignPlus,
+  Button
 };
 
 interface PlaygroundProps {
