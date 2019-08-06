@@ -16,7 +16,7 @@
     "clean": "lerna clean --yes",
     "start": "lerna run start --parallel",
     "build": "lerna run build --parallel",
-    "build:website": "lerna run --scope antd-plus-website --stream build"
+    "release": "lerna publish --contents build --conventional-commits"
   },
   "devDependencies": {
     "@lotus-ui/angela": "^0.0.5",
