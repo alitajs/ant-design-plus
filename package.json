@@ -2,7 +2,7 @@
   "name": "@alitajs/workspace",
   "private": true,
   "license": "MIT",
-  "description": "alitajs/ant-design-plus",
+  "description": "ant-design-plus",
   "homepage": "https://github.com/alitajs/ant-design-plus",
   "bugs": {
     "url": "https://github.com/alitajs/ant-design-plus/issues"
@@ -16,10 +16,9 @@
     "clean": "lerna clean --yes",
     "start": "lerna run start --parallel",
     "build": "lerna run build --parallel",
-    "build:website": "lerna run --scope antd-plus-website --stream build"
+    "release": "lerna publish --contents build --conventional-commits"
   },
   "devDependencies": {
-    "@lotus-ui/angela": "^0.0.5",
     "@types/classnames": "^2.2.9",
     "@types/node": "^12.6.8",
     "@types/react": "^16.8.17",
