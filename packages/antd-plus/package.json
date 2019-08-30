@@ -6,7 +6,6 @@
   "module": "es/index.js",
   "typings": "es/index.d.ts",
   "files": [
-    "dist",
     "lib",
     "es"
   ],
