@@ -10,7 +10,6 @@ import React from 'react';
 import { Button } from 'antd';
 import { ButtonProps } from 'antd/es/button';
 import { getTemplateText } from './utils';
-import './style/index.less';
 
 export interface ISendCodeProps extends ButtonProps {
   // 是否开始倒计时
