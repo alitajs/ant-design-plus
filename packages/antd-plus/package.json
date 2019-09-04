@@ -5,6 +5,11 @@
   "main": "lib/index.js",
   "module": "es/index.js",
   "typings": "es/index.d.ts",
+  "keywords": [
+    "ant-design",
+    "components",
+    "react"
+  ],
   "files": [
     "lib",
     "es"
