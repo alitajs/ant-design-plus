@@ -1,14 +1,5 @@
-/**
- * @author wangxingkang
- * @date 2019-07-15 11:54
- * @description 验证码组件
- *
- * @last-modified-by wangxingkang
- * @last-modified-time 2019-07-15 11:54
- */
 import React from 'react';
-import { Button } from 'antd';
-import { ButtonProps } from 'antd/es/button';
+import Button, { ButtonProps } from 'antd/es/button';
 import { getTemplateText } from './utils';
 
 export interface ISendCodeProps extends ButtonProps {

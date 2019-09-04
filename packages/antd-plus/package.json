@@ -21,11 +21,11 @@
   },
   "dependencies": {
     "@alitajs/autils": "^0.1.2",
-    "antd": "^3.20.7",
     "classnames": "^2.2.6"
   },
   "devDependencies": {
-    "@lotus-ui/tools": "^0.1.3",
+    "@lotus-ui/tools": "^0.1.5",
+    "antd": "^3.20.7",
     "cross-env": "^5.2.0"
   },
   "overrideBrowserslist": [
