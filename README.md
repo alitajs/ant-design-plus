@@ -12,10 +12,10 @@
 
 ## ✨ 特性
 
-* 🚀 使用 TypeScript 构建，提供完整的类型定义文件。
-* 💎 优雅美观：基于 Ant Design 体系精心设计
-* 🎉 开箱即用的高质量 React 组件。
-* ⚡️ 代码/样式按需加载
+* 🚀 TypeScript: 使用TypeScript编写，提供完整的类型定义。
+* 💎 优雅美观: 基于 Ant Design。
+* 🎉 开箱即用: 高质量的 React 组件。
+* ⚡️ 按需加载: 支持按需加载，具体请查看[babel-plugin-import](https://github.com/ant-design/babel-plugin-import)
 
 ## 📦 安装
 
