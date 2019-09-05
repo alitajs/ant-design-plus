@@ -26,7 +26,8 @@
   },
   "dependencies": {
     "@alitajs/autils": "^0.1.2",
-    "classnames": "^2.2.6"
+    "classnames": "^2.2.6",
+    "react-use": "^12.2.0"
   },
   "devDependencies": {
     "@lotus-ui/tools": "^0.1.5",
