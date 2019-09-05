@@ -15,7 +15,7 @@ export interface IFullScreenProps {
 const FullScreen: React.FC<IFullScreenProps> = (props) => {
   const { prefixCls, className, style, children, onChange, isBody, targetRef } = props;
   const rootRef = useRef(null);
-  const [status, toggle] = useToggle(false);
+  const [status, toggle] = useToggle( false);
   const [domRef, setDomRef] = useState<RefObject<Element>>({ current: null });
   const isFullScreen = useFullScreen(domRef, status, {
     onClose: () => toggle(false)

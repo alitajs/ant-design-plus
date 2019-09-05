@@ -20,18 +20,17 @@
     "start": "lotus-tools run start"
   },
   "peerDependencies": {
-    "antd": "^3.0.0",
     "react": "^16.8.0",
     "react-dom": "^16.8.0"
   },
   "dependencies": {
     "@alitajs/autils": "^0.1.2",
+    "antd": "^3.23.1",
     "classnames": "^2.2.6",
     "react-use": "^12.2.0"
   },
   "devDependencies": {
-    "@lotus-ui/tools": "^0.1.5",
-    "antd": "^3.20.7",
+    "@lotus-ui/tools": "^0.2.0",
     "cross-env": "^5.2.0"
   },
   "overrideBrowserslist": [
