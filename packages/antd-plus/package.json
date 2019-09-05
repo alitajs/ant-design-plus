@@ -1,6 +1,6 @@
 {
   "name": "@alitajs/antd-plus",
-  "version": "1.0.2",
+  "version": "1.0.5",
   "description": "ant design plus",
   "main": "lib/index.js",
   "module": "es/index.js",
