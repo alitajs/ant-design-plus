@@ -1,11 +1,13 @@
 import React from 'react';
-import { FitText, SendCode } from '@alitajs/antd-plus';
+// @ts-ignore
+import { FitText, SendCode, FullScreen } from '@alitajs/antd-plus';
 import { Button } from 'antd';
 import { LiveProvider, LiveError, LivePreview } from 'react-live';
 
 const scope = {
   FitText,
   SendCode,
+  FullScreen,
   // ant-design
   Button
 };
