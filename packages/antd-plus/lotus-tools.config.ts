@@ -1,3 +1,6 @@
 export default {
-  libraryDir: 'src'
+  libraryDir: 'src',
+  createComponent: {
+    locale: false
+  }
 }
