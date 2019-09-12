@@ -19,6 +19,8 @@
     "release": "lerna publish --contents build --conventional-commits"
   },
   "devDependencies": {
+    "@commitlint/cli": "^8.1.0",
+    "@jiumao/commitlint-config": "^0.1.3",
     "@types/classnames": "^2.2.9",
     "@types/node": "^12.6.8",
     "@types/react": "^16.8.17",
@@ -27,7 +29,7 @@
     "babel-plugin-import": "^1.12.0",
     "glob": "^7.1.4",
     "himalaya": "^1.1.0",
-    "husky": "^2.2.0",
+    "husky": "^3.0.5",
     "lerna": "^3.16.4",
     "lerna-changelog": "^0.8.2",
     "lint-staged": "^9.2.0",
@@ -35,6 +37,11 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "typescript": "^3.5.3"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   },
   "workspaces": [
     "packages/*"
