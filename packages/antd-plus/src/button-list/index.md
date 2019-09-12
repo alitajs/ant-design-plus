@@ -1,7 +1,7 @@
 ---
 title: ButtonList
-subtitle: FIXME 中文名
 type: 基础组件
+order: 4
 ---
 
 ## ButtonList
