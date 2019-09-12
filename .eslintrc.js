@@ -25,6 +25,7 @@ module.exports = {
     'react/prop-types': 0,
     'react/forbid-prop-types': 0,
     'react/jsx-one-expression-per-line': 0,
+    'react/no-array-index-key': 1,
     'generator-star-spacing': 0,
     'function-paren-newline': 0,
     'import/order': 'warn',

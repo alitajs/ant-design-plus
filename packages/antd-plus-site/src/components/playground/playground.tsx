@@ -1,15 +1,16 @@
 import React from 'react';
 // @ts-ignore
-import { FitText, SendCode, FullScreen } from '@alitajs/antd-plus';
+import { FitText, SendCode, FullScreen, ButtonList } from '@alitajs/antd-plus';
 import { Button } from 'antd';
 import { LiveProvider, LiveError, LivePreview } from 'react-live';
 
 const scope = {
+  ButtonList,
   FitText,
   SendCode,
   FullScreen,
   // ant-design
-  Button
+  Button,
 };
 
 interface PlaygroundProps {
