@@ -57,7 +57,7 @@ const ButtonList: React.FC<ButtonListProps> = ({ prefixCls, className, buttons, 
   );
 };
 ButtonList.defaultProps = {
-  prefixCls: 'ant-plus-full-screen',
+  prefixCls: 'ant-plus-button-list',
   maxCount: 3,
 };
 
