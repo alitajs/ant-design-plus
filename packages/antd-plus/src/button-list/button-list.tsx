@@ -42,7 +42,7 @@ const ButtonList: React.FC<ButtonListProps> = (props) => {
 
   return (
     <div className={buttonListCls} style={style}>
-      {(menus.length > 0) && (
+      {(buttons.length > 0) && (
         buttons.map((button, index) => (
           <Button key={index} type={button.type} onClick={button.onClick}>
             {button.text}
