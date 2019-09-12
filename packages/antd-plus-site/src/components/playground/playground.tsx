@@ -1,6 +1,6 @@
 import React from 'react';
 import { FitText, SendCode, FullScreen, ButtonList } from '@alitajs/antd-plus';
-import { Button, Menu, Dropdown } from 'antd';
+import { Button } from 'antd';
 import { LiveProvider, LiveError, LivePreview } from 'react-live';
 
 const scope = {
@@ -9,9 +9,7 @@ const scope = {
   SendCode,
   FullScreen,
   // ant-design
-  Button,
-  Menu,
-  Dropdown
+  Button
 };
 
 interface PlaygroundProps {
