@@ -1,6 +1,6 @@
 {
   "name": "@alitajs/antd-plus",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "ant design plus",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -24,13 +24,14 @@
     "react-dom": "^16.8.0"
   },
   "dependencies": {
-    "@alitajs/autils": "^0.1.2",
+    "@alitajs/autils": "^0.1.6",
     "antd": "^3.23.1",
     "classnames": "^2.2.6",
     "react-use": "^12.2.0"
   },
   "devDependencies": {
     "@lotus-ui/tools": "^0.2.5",
+    "babel-plugin-import": "^1.12.1",
     "cross-env": "^5.2.0"
   },
   "overrideBrowserslist": [
