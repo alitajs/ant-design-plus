@@ -8,8 +8,9 @@ export interface IFullScreenProps {
   className?: string;
   style?: React.CSSProperties;
   isBody?: boolean;
+  status?: boolean;
   targetRef?: RefObject<Element>;
-  onChange: (isFullScreen: boolean) => void;
+  onChange?: (isFullScreen: boolean) => void;
 }
 
 const FullScreen: React.FC<IFullScreenProps> = (props) => {
@@ -31,7 +32,14 @@ const FullScreen: React.FC<IFullScreenProps> = (props) => {
     }
   }, [props.isBody, props.targetRef]);
 
+  useEffect(() => {
+    if ('status' in props && domRef && domRef.current) {
+      toggle(props.status);
+    }
+  }, [props.status]);
+
   const changeFullScreen = () => {
+    if ('status' in props) return;
     toggle();
     onChange && onChange(isFullScreen);
   };
