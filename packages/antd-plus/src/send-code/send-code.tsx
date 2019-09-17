@@ -1,5 +1,6 @@
 import React from 'react';
-import Button, { ButtonProps } from 'antd/es/button';
+import { Button } from 'antd';
+import { ButtonProps } from 'antd/es/button';
 import { getTemplateText } from './utils';
 
 export interface ISendCodeProps extends ButtonProps {
