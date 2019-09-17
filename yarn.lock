@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@alitajs/autils@^0.1.6":
-  version "0.1.6"
-  resolved "https://registry.yarnpkg.com/@alitajs/autils/-/autils-0.1.6.tgz#8d874c7028afc33a8c2bea60c3eb19894ed045f3"
-  integrity sha512-R1pMjN5/LtT+OwQHB1fzfF9ZhVOYJ2hi8vdWjPrvI6mEe6EmuUK8q2Tkcxo9kLPxawD4Eh+JoQlhy9M0U2ztZg==
+"@alitajs/autils@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@alitajs/autils/-/autils-0.2.0.tgz#1b001f725e4f8ddb76fd07fd6a0f70969d1ff146"
+  integrity sha512-tTDKXeJ8Gg0TdgED8+grXkf1obC/AopyxMMlsLWXY8ARni1GcktuYnHCO30Gr9GCI6pPIR4L8uP4E7MFH/tJXA==
 
 "@ant-design/colors@^3.1.0":
   version "3.1.0"

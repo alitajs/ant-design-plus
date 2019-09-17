@@ -24,7 +24,7 @@
     "react-dom": "^16.8.0"
   },
   "dependencies": {
-    "@alitajs/autils": "^0.1.6",
+    "@alitajs/autils": "^0.2.0",
     "antd": "^3.23.1",
     "classnames": "^2.2.6",
     "react-use": "^12.2.0"
@@ -34,7 +34,7 @@
     "babel-plugin-import": "^1.12.1",
     "cross-env": "^5.2.0"
   },
-  "overrideBrowserslist": [
+  "browserslist": [
     "last 2 version",
     "Firefox ESR",
     "> 1%",

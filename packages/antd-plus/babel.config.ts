@@ -1,8 +1,9 @@
 export default {
   plugins: [
-    require.resolve('babel-plugin-import'), {
+    [require.resolve('babel-plugin-import'), {
       libraryName: '@alitajs/autils',
-      libraryDirectory: 'es'
-    }
+      libraryDirectory: 'es',
+      camel2DashComponentName: false
+    }, 'autils-import']
   ]
 }
