@@ -33,18 +33,13 @@ const ButtonList: React.FC<ButtonListProps> = (props) => {
   const [menus, setMenus] = useState<ActionButtonProps[]>([]);
 
   React.useEffect(() => {
-    let buttons = [...list];
-    if (list.length) {
-      buttons = buttons.map(item => {
-        item.size = size;
-        return item;
-      })
-    }
-    if (buttons.length > maxCount) {
-      setButtons(buttons.slice(0, maxCount));
-      setMenus(buttons.slice(maxCount))
-    } else {
+    if (list.length > maxCount) {
+      let buttons = list.slice(0, maxCount);
+      buttons.map(item => Object.assign(item, { size }));
       setButtons(buttons);
+      setMenus(list.slice(maxCount))
+    } else {
+      setButtons(list);
     }
   }, [props.list]);
 
@@ -56,7 +51,7 @@ const ButtonList: React.FC<ButtonListProps> = (props) => {
       })}
       style={style}
     >
-      {(menus.length > 0) && (
+      {(buttons.length > 0) && (
         buttons.map((item, index) => {
           const { text, ...buttonProps } = item;
           return (
@@ -84,7 +79,7 @@ const ButtonList: React.FC<ButtonListProps> = (props) => {
           }
         >
           <Button
-            size={menus[0].size}
+            size={size}
             type={isLink ? 'link' : 'default'}
           >
             更多操作
