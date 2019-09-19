@@ -9,6 +9,7 @@ title: link
 <ButtonList
   isLink={true}
   size="small"
+  moreType="icon"
   list={[
     { text: '新增', type: 'primary', onClick: () => console.log(1) },
     { text: '修改', type: 'default', onClick: () => console.log(2) },
