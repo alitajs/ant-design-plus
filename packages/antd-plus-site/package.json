@@ -10,7 +10,7 @@
     "clean": "gatsby clean"
   },
   "dependencies": {
-    "@alitajs/antd-plus": "^1.0.2",
+    "@alitajs/antd-plus": "^1.0.7",
     "@babel/core": "^7.5.5",
     "antd": "^3.20.2",
     "gatsby": "^2.13.43",

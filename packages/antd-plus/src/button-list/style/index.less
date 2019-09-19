@@ -1,3 +1,4 @@
+@import '~antd/lib/style/themes/default.less';
 @import '../../style/themes/index';
 
 @prefix-cls: ~'@{prefix}-button-list';
@@ -5,5 +6,19 @@
 .@{prefix-cls} {
   .ant-btn {
     margin-right: 8px;
+  }
+
+  &.is-link {
+    .ant-btn {
+      margin-right: 0;
+    }
+  }
+
+  &__button-danger {
+    color: @error-color;
+
+    &:hover {
+      color: color(~`colorPalette('@{error-color}', 5) `);;
+    }
   }
 }

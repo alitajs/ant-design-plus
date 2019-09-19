@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
 import { Button, Dropdown, Menu, Icon } from 'antd';
-import { ButtonProps } from 'antd/lib/button';
+import { ButtonSize, ButtonProps } from 'antd/lib/button';
 
 export interface ActionButtonProps extends ButtonProps {
   text: string;
@@ -13,7 +13,10 @@ export interface ButtonListProps {
   className?: string;
   style?: React.CSSProperties;
   list: ActionButtonProps[];
+  // button 大小
+  size?: ButtonSize;
   maxCount?: number;
+  isLink?: boolean;
 }
 
 const ButtonList: React.FC<ButtonListProps> = (props) => {
@@ -22,46 +25,68 @@ const ButtonList: React.FC<ButtonListProps> = (props) => {
     className,
     style,
     list = [],
+    size,
+    isLink,
     maxCount
   } = props;
   const [buttons, setButtons] = useState<ActionButtonProps[]>([]);
   const [menus, setMenus] = useState<ActionButtonProps[]>([]);
 
-  const buttonListCls = classNames(className, {
-    [`${prefixCls}`]: true
-  });
-
   React.useEffect(() => {
-    if (list && list.length && list.length > maxCount) {
-      setButtons(list.slice(0, maxCount));
-      setMenus(list.slice(maxCount))
+    let buttons = [...list];
+    if (list.length) {
+      buttons = buttons.map(item => {
+        item.size = size;
+        return item;
+      })
+    }
+    if (buttons.length > maxCount) {
+      setButtons(buttons.slice(0, maxCount));
+      setMenus(buttons.slice(maxCount))
     } else {
-      setButtons(list);
+      setButtons(buttons);
     }
   }, [props.list]);
 
   return (
-    <div className={buttonListCls} style={style}>
+    <div
+      className={classNames(className, {
+        [`${prefixCls}`]: true,
+        [`is-link`]: isLink
+      })}
+      style={style}
+    >
       {(menus.length > 0) && (
-        buttons.map((button, index) => (
-          <Button key={index} type={button.type} onClick={button.onClick}>
-            {button.text}
-          </Button>
-        ))
+        buttons.map((item, index) => {
+          const { text, ...buttonProps } = item;
+          return (
+            <Button
+              key={index}
+              {...buttonProps}
+              type={isLink ? 'link' : item.type}
+              className={isLink ? `${prefixCls}__button-${item.type}`: ''}
+            >
+              {text}
+            </Button>
+          )
+        })
       )}
       {(menus.length > 0) && (
         <Dropdown
           overlay={
             <Menu>
               {menus.map((item, index) => (
-                <Menu.Item key={index} onClick={item.onClick}>
+                <Menu.Item key={index} onClick={item.onClick} disabled={item.disabled}>
                   {item.text}
                 </Menu.Item>
               ))}
             </Menu>
           }
         >
-          <Button>
+          <Button
+            size={menus[0].size}
+            type={isLink ? 'link' : 'default'}
+          >
             更多操作
             <Icon type="down" />
           </Button>
@@ -74,6 +99,8 @@ const ButtonList: React.FC<ButtonListProps> = (props) => {
 ButtonList.defaultProps = {
   prefixCls: 'ant-plus-button-list',
   maxCount: 3,
+  size: 'default',
+  isLink: false
 };
 
 export default ButtonList;
