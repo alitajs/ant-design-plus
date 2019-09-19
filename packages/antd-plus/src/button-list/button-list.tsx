@@ -35,7 +35,7 @@ const ButtonList: React.FC<ButtonListProps> = (props) => {
   React.useEffect(() => {
     if (list.length > maxCount) {
       let buttons = list.slice(0, maxCount);
-      buttons.map(item => Object.assign(item, { size }));
+      buttons = buttons.map(item => Object.assign(item, { size }));
       setButtons(buttons);
       setMenus(list.slice(maxCount))
     } else {
@@ -52,18 +52,33 @@ const ButtonList: React.FC<ButtonListProps> = (props) => {
       style={style}
     >
       {(buttons.length > 0) && (
-        buttons.map((button, index) => (
-          <Button key={index} type={button.type} onClick={button.onClick}>
-            {button.text}
-          </Button>
-        ))
+        buttons.map((item, index) => {
+          const { text, type, className, ...buttonProps } = item;
+
+          return (
+            <Button
+              key={index}
+              {...buttonProps}
+              type={isLink ? 'link' : type}
+              className={classNames(className, {
+                [`${prefixCls}__button-${type}`]: isLink
+              })}
+            >
+              {text}
+            </Button>
+          )
+        })
       )}
       {(menus.length > 0) && (
         <Dropdown
           overlay={
             <Menu>
               {menus.map((item, index) => (
-                <Menu.Item key={index} onClick={item.onClick} disabled={item.disabled}>
+                <Menu.Item
+                  key={index}
+                  onClick={item.onClick}
+                  disabled={item.disabled}
+                >
                   {item.text}
                 </Menu.Item>
               ))}
