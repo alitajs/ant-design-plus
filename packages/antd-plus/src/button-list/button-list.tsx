@@ -16,6 +16,9 @@ export interface ButtonListProps {
   // button 大小
   size?: ButtonSize;
   maxCount?: number;
+  // 自定义更多操作节点
+  more?: React.ReactNode;
+  moreType?: 'text' | 'icon';
   isLink?: boolean;
 }
 
@@ -27,6 +30,8 @@ const ButtonList: React.FC<ButtonListProps> = (props) => {
     list = [],
     size,
     isLink,
+    more,
+    moreType,
     maxCount
   } = props;
   const [buttons, setButtons] = useState<ActionButtonProps[]>([]);
@@ -42,6 +47,24 @@ const ButtonList: React.FC<ButtonListProps> = (props) => {
       setButtons(list);
     }
   }, [props.list]);
+
+  const moreRender = () => {
+    if (more) {
+      return more;
+    }
+    if (moreType === 'text') {
+      return (
+        <span>
+          更多操作<Icon type="down" />
+        </span>
+      )
+    }
+    return (
+      <span>
+        <Icon type="more" />
+      </span>
+    )
+  };
 
   return (
     <div
@@ -89,8 +112,7 @@ const ButtonList: React.FC<ButtonListProps> = (props) => {
             size={size}
             type={isLink ? 'link' : 'default'}
           >
-            更多操作
-            <Icon type="down" />
+            {moreRender()}
           </Button>
         </Dropdown>
       )}
@@ -102,7 +124,8 @@ ButtonList.defaultProps = {
   prefixCls: 'ant-plus-button-list',
   maxCount: 3,
   size: 'default',
-  isLink: false
+  isLink: false,
+  moreType: 'text'
 };
 
 export default ButtonList;
