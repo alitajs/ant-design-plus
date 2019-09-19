@@ -3,6 +3,7 @@
   "plugins": [
     ["import", {
       "libraryName": "@alitajs/antd-plus",
+      "libraryDirectory": "lib",
       "style": true
     }]
   ]

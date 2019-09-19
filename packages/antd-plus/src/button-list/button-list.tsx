@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
 import { Button, Dropdown, Menu, Icon } from 'antd';
-import { ButtonProps } from 'antd/lib/button';
+import { ButtonSize, ButtonProps } from 'antd/lib/button';
 
 export interface ActionButtonProps extends ButtonProps {
   text: string;
@@ -13,7 +13,10 @@ export interface ButtonListProps {
   className?: string;
   style?: React.CSSProperties;
   list: ActionButtonProps[];
+  // button 大小
+  size?: ButtonSize;
   maxCount?: number;
+  isLink?: boolean;
 }
 
 const ButtonList: React.FC<ButtonListProps> = (props) => {
@@ -22,18 +25,18 @@ const ButtonList: React.FC<ButtonListProps> = (props) => {
     className,
     style,
     list = [],
+    size,
+    isLink,
     maxCount
   } = props;
   const [buttons, setButtons] = useState<ActionButtonProps[]>([]);
   const [menus, setMenus] = useState<ActionButtonProps[]>([]);
 
-  const buttonListCls = classNames(className, {
-    [`${prefixCls}`]: true
-  });
-
   React.useEffect(() => {
-    if (list && list.length && list.length > maxCount) {
-      setButtons(list.slice(0, maxCount));
+    if (list.length > maxCount) {
+      let buttons = list.slice(0, maxCount);
+      buttons.map(item => Object.assign(item, { size }));
+      setButtons(buttons);
       setMenus(list.slice(maxCount))
     } else {
       setButtons(list);
@@ -54,14 +57,17 @@ const ButtonList: React.FC<ButtonListProps> = (props) => {
           overlay={
             <Menu>
               {menus.map((item, index) => (
-                <Menu.Item key={index} onClick={item.onClick}>
+                <Menu.Item key={index} onClick={item.onClick} disabled={item.disabled}>
                   {item.text}
                 </Menu.Item>
               ))}
             </Menu>
           }
         >
-          <Button>
+          <Button
+            size={size}
+            type={isLink ? 'link' : 'default'}
+          >
             更多操作
             <Icon type="down" />
           </Button>
@@ -74,6 +80,8 @@ const ButtonList: React.FC<ButtonListProps> = (props) => {
 ButtonList.defaultProps = {
   prefixCls: 'ant-plus-button-list',
   maxCount: 3,
+  size: 'default',
+  isLink: false
 };
 
 export default ButtonList;
