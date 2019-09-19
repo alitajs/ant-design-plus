@@ -44,7 +44,13 @@ const ButtonList: React.FC<ButtonListProps> = (props) => {
   }, [props.list]);
 
   return (
-    <div className={buttonListCls} style={style}>
+    <div
+      className={classNames(className, {
+        [`${prefixCls}`]: true,
+        [`is-link`]: isLink
+      })}
+      style={style}
+    >
       {(buttons.length > 0) && (
         buttons.map((button, index) => (
           <Button key={index} type={button.type} onClick={button.onClick}>
