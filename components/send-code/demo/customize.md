@@ -4,7 +4,7 @@ title: 自定义倒计时按钮
 ---
 
 ```jsx
-() => {
+const Example = () => {
   const [start, setStart] = React.useState(false);
   
   function handleClick(c) {
@@ -25,4 +25,8 @@ title: 自定义倒计时按钮
     />
   )
 }
+
+render(
+  <Example />
+)
 ```

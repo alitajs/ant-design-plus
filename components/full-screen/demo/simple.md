@@ -6,7 +6,7 @@ title: 基础样例
 点击按钮切换全屏
 
 ```jsx
-() => {
+const Example = () => {
   return (
     <div>
       <FullScreen isBody={true}>
@@ -15,4 +15,8 @@ title: 基础样例
     </div> 
   )
 }
+
+render(
+  <Example />
+)
 ```

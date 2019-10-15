@@ -6,7 +6,7 @@ title: 基础样例
 Simplest of usage.
 
 ```jsx
-() => {
+const Example = () => {
   const [start, setStart] = React.useState(false);
   
   function handleClick(c) {
@@ -23,4 +23,8 @@ Simplest of usage.
     />
   )
 }
+
+render(
+  <Example />
+)
 ```

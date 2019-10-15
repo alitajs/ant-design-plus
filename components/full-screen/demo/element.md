@@ -6,7 +6,7 @@ title: 控制某个DOM节点
 点击图片
 
 ```jsx
-() => {
+const Example = () => {
   return (
     <div>
       <FullScreen>
@@ -23,4 +23,8 @@ title: 控制某个DOM节点
     </div> 
   )
 }
+
+render(
+  <Example />
+)
 ```

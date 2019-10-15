@@ -6,7 +6,7 @@ title: 受控组件
 点击按钮切换
 
 ```jsx
-() => {
+const Example = () => {
   const rootRef = React.useRef(null);
   const [isFullScreen, setIsFullScreen] = React.useState(false);
   
@@ -35,4 +35,8 @@ title: 受控组件
     </div> 
   )
 }
+
+render(
+  <Example />
+)
 ```
