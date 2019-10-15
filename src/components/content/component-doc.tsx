@@ -70,7 +70,7 @@ class ComponentDoc extends React.Component<IProps, IState> {
         <Row gutter={16}>
           {demos.map((item, index) => {
             return (
-              <Demo {...item} key={index} />
+              <Demo {...item as any} key={index} />
             )
           })}
         </Row>

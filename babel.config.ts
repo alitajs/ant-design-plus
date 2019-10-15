@@ -4,6 +4,6 @@ export default {
       libraryName: '@alitajs/autils',
       libraryDirectory: 'es',
       camel2DashComponentName: false
-    }, 'autils-import']
+    }, 'autils']
   ]
 }

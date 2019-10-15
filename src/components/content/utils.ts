@@ -1,6 +1,5 @@
-import { IFrontMatterData } from '@site/templates/interface';
 import { IMainContentProps } from './main-content';
-import { IMenuDataItem, IMenuData } from './interface';
+import { IMenuDataItem } from './interface';
 
 export function getModuleDataWithProps(
   props: IMainContentProps

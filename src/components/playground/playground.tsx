@@ -1,13 +1,11 @@
 import React from 'react';
-import { FitText, SendCode, FullScreen, ButtonList } from '@alitajs/antd-plus';
 import { Button } from 'antd';
 import { LiveProvider, LiveError, LivePreview } from 'react-live';
 
+const components = require('../../../index');
+
 const scope = {
-  ButtonList,
-  FitText,
-  SendCode,
-  FullScreen,
+  ...components,
   // ant-design
   Button
 };

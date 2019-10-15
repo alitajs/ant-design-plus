@@ -1,4 +1,4 @@
-const { resolve } = require('path');
+const { resolve } = require(`path`);
 
 module.exports = async ({ graphql, actions }) => {
   const { createPage, createRedirect } = actions;

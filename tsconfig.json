@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": "./packages",
+    "baseUrl": ".",
     "module": "esnext",
     "target": "esnext",
     "lib": ["esnext", "dom"],
@@ -15,8 +15,8 @@
     "suppressImplicitAnyIndexErrors": true,
     "experimentalDecorators": true,
     "paths": {
-      "@alitajs/antd-plus/*": ["./antd-plus/src/*"],
-      "@site/*": ["./antd-plus-site/src/*"]
+      "@components/*": ["./components/*"],
+      "@site/*": ["./src/*"]
     }
   },
   "exclude": [

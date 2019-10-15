@@ -109,7 +109,7 @@ export const pageQuery = graphql`
     }
     allMarkdownRemark(
       filter: {
-        fileAbsolutePath: { regex: "//antd-plus//" }
+        fileAbsolutePath: { regex: "//components//" }
         fields: { slug: { regex: "/^((?!/demo/).)*$/" } }
       }
       sort: { fields: [fields___slug], order: DESC }
@@ -134,7 +134,7 @@ export const pageQuery = graphql`
     }
     demos: allMarkdownRemark(
       filter: {
-        fileAbsolutePath: { regex: "//antd-plus//" }
+        fileAbsolutePath: { regex: "//components//" }
         fields: { slug: { regex: $demo } }
       }
       sort: { 

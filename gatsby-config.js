@@ -1,5 +1,3 @@
-const path = require('path');
-
 module.exports = {
   siteMetadata: {
     title: `Ant Design Plus`,
@@ -33,14 +31,14 @@ module.exports = {
       resolve: 'gatsby-source-filesystem',
       options: {
         name: '/docs',
-        path: path.join(__dirname, '..', '..', 'docs'),
+        path: `${__dirname}/docs/`,
       }
     },
     {
       resolve: 'gatsby-source-filesystem',
       options: {
         name: '/components',
-        path: path.join(__dirname, '..', 'antd-plus/src')
+        path: `${__dirname}/components/`,
       }
     },
     {
