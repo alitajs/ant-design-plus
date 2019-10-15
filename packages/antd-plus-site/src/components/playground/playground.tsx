@@ -1,15 +1,22 @@
 import React from 'react';
-import { FitText, SendCode, FullScreen, ButtonList } from '@alitajs/antd-plus';
-import { Button } from 'antd';
+import { FitText, SendCode, FullScreen, ButtonList, ErrorBoundary } from '@alitajs/antd-plus';
+import { Button, Menu, Dropdown, Icon } from 'antd';
 import { LiveProvider, LiveError, LivePreview } from 'react-live';
+import { ErrorComponent, Fallback } from '../error-components';
 
 const scope = {
+  ErrorBoundary,
   ButtonList,
   FitText,
   SendCode,
   FullScreen,
+  ErrorComponent,
+  Fallback,
   // ant-design
-  Button
+  Button,
+  Menu,
+  Dropdown,
+  Icon,
 };
 
 interface PlaygroundProps {
