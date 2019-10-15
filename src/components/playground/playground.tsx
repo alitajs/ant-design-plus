@@ -19,6 +19,7 @@ const Playground: React.FC<PlaygroundProps> = (props) => {
   return (
     <section>
       <LiveProvider
+        noInline
         code={code}
         scope={scope}
       >

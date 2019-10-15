@@ -70,7 +70,7 @@
     "react-github-button": "^0.1.11",
     "react-helmet": "^5.2.1",
     "react-intl": "^2.9.0",
-    "react-live": "^2.1.2",
+    "react-live": "^2.2.1",
     "typescript": "^3.5.3",
     "webpack": "^4.38.0"
   },
