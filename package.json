@@ -1,8 +1,13 @@
 {
-  "name": "@alitajs/workspace",
-  "private": true,
+  "name": "@alitajs/antd-plus",
+  "version": "1.0.8",
   "license": "MIT",
   "description": "ant-design-plus",
+  "keywords": [
+    "ant-design",
+    "components",
+    "react"
+  ],
   "homepage": "https://github.com/alitajs/ant-design-plus",
   "bugs": {
     "url": "https://github.com/alitajs/ant-design-plus/issues"
@@ -12,40 +17,77 @@
     "url": "https://github.com/alitajs/ant-design-plus"
   },
   "scripts": {
-    "bootstarp": "lerna bootstrap",
-    "clean": "lerna clean --yes",
-    "start": "lerna run start --parallel",
-    "build": "lerna run build --parallel",
-    "release": "lerna publish --contents build --conventional-commits"
+    "bootstarp": "yarn || npm i",
+    "start": "gatsby develop --port 3000 --open",
+    "build:component": "lotus-tools build",
+    "build": "gatsby build --no-uglify"
+  },
+  "dependencies": {
+    "@alitajs/autils": "^0.2.0",
+    "antd": "^3.23.1",
+    "classnames": "^2.2.6",
+    "react-use": "^12.2.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.5.5",
     "@commitlint/cli": "^8.1.0",
     "@jiumao/commitlint-config": "^0.1.3",
+    "@lotus-ui/tools": "^0.2.5",
     "@types/classnames": "^2.2.9",
     "@types/node": "^12.6.8",
     "@types/react": "^16.8.17",
     "@types/react-dom": "^16.8.4",
     "@types/react-helmet": "^5.0.8",
-    "babel-plugin-import": "^1.12.0",
+    "babel-plugin-import": "^1.12.1",
+    "cross-env": "^5.2.0",
+    "gatsby": "^2.13.43",
+    "gatsby-image": "^2.2.7",
+    "gatsby-plugin-antd": "^2.0.2",
+    "gatsby-plugin-less": "^2.1.2",
+    "gatsby-plugin-manifest": "^2.2.4",
+    "gatsby-plugin-netlify": "^2.1.3",
+    "gatsby-plugin-offline": "^2.2.4",
+    "gatsby-plugin-react-helmet": "^3.1.2",
+    "gatsby-plugin-sitemap": "^2.2.4",
+    "gatsby-plugin-typescript": "^2.1.2",
+    "gatsby-remark-prismjs": "^3.3.3",
+    "gatsby-source-filesystem": "^2.1.6",
+    "gatsby-transformer-remark-antd": "^1.0.0",
     "glob": "^7.1.4",
     "himalaya": "^1.1.0",
     "husky": "^3.0.5",
-    "lerna": "^3.16.4",
-    "lerna-changelog": "^0.8.2",
+    "less": "^3.9.0",
     "lint-staged": "^9.2.0",
+    "moment": "^2.24.0",
+    "node-fetch": "^2.6.0",
+    "normalize.css": "^8.0.1",
+    "nprogress": "^0.2.0",
+    "numeral": "^2.0.6",
     "prismjs": "^1.16.0",
     "react": "^16.8.6",
+    "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.8.6",
-    "typescript": "^3.5.3"
+    "react-github-button": "^0.1.11",
+    "react-helmet": "^5.2.1",
+    "react-intl": "^2.9.0",
+    "react-live": "^2.2.1",
+    "typescript": "^3.5.3",
+    "webpack": "^4.38.0"
   },
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
-  "workspaces": [
-    "packages/*"
+  "browserslist": [
+    "last 2 version",
+    "Firefox ESR",
+    "> 1%",
+    "ie >= 9"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "engines": {
     "node": ">=10.9.0",
     "yarn": ">=1.3.2"
