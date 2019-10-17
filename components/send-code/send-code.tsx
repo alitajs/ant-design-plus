@@ -2,6 +2,8 @@ import React from 'react';
 import { Button } from 'antd';
 import { ButtonProps } from 'antd/es/button';
 import { getTemplateText } from './utils';
+import enUS from './locale/en_US';
+import LocaleReceive from 'antd/lib/locale-provider/LocaleReceiver';
 
 export interface ISendCodeProps extends ButtonProps {
   // 是否开始倒计时
@@ -20,32 +22,34 @@ export interface ISendCodeProps extends ButtonProps {
 }
 
 interface ISendCodeState {
-  buttonText: string;
-  start: boolean;
   loading: boolean;
+  // 运行状态 0: 初始 1: 运行时  2: 结速时
+  status: number; 
+  second: number | undefined;
+}
+
+export interface ISendCodeLocale {
+  initText: string;
+  runText: string;
+  resetText: string;
 }
 
 class SendCode extends React.Component<ISendCodeProps, ISendCodeState> {
   private timer: NodeJS.Timer = null;
 
-  private lastSecond: number = 0;
-
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   static defaultProps: ISendCodeProps = {
     start: false,
     second: 60,
-    initText: '获取验证码',
-    runText: '{%s}秒后重新获取',
-    resetText: '重新获取验证码',
   };
 
   readonly state: ISendCodeState = {
-    buttonText: this.props.initText,
-    start: false,
-    loading: false
+    loading: false,
+    status: this.props.start ? 1 : 0,
+    second: undefined,
   };
 
   componentWillUnmount() {
@@ -61,23 +65,13 @@ class SendCode extends React.Component<ISendCodeProps, ISendCodeState> {
   }
 
   startCountdown = () => {
-    const { runText } = this.props;
-    let second = this.lastSecond ? this.lastSecond : this.props.second;
-    this.setState({
-      start: true,
-    });
+    let second = this.state.second || this.props.second;
+    this.setState({ second, status: 1 });
 
-    if (!this.lastSecond) {
-      this.setState({
-        buttonText: getTemplateText(runText, second),
-      });
-    }
     this.timer = setInterval(() => {
       second -= 1;
 
-      this.setState({
-        buttonText: getTemplateText(runText, second),
-      });
+      this.setState({ second });
 
       if (second <= 0) {
         this.timeout();
@@ -86,11 +80,11 @@ class SendCode extends React.Component<ISendCodeProps, ISendCodeState> {
   };
 
   timeout = () => {
-    const { resetText, onEnd } = this.props;
-    // 设置为运行结束后文本
+    const { onEnd } = this.props;
+    // 设置为运行结束后状态
     this.setState({
-      buttonText: resetText,
-      start: false,
+      second: undefined,
+      status: 2,
     });
     if (this.timer) {
       clearInterval(this.timer);
@@ -99,18 +93,35 @@ class SendCode extends React.Component<ISendCodeProps, ISendCodeState> {
     onEnd && onEnd();
   };
 
-  render() {
-    const { start, second, initText, resetText, runText, onEnd, ...rest } = this.props;
-    const { loading, buttonText } = this.state;
+  buttonText = (sendCodeLocale: ISendCodeLocale) => {
+    const { initText, resetText, runText } = this.props;
+    const { status, second } = this.state;
+    switch (status) {
+      case 1:
+        return getTemplateText(runText || sendCodeLocale.runText, second);
+      case 2:
+        return resetText || sendCodeLocale.resetText;
+      default:
+        return initText || sendCodeLocale.initText;
+    }
+  };
+
+  renderSendCode = (sendCodeLocale: ISendCodeLocale) => {
+    const { start, initText, resetText, runText, onEnd, ...rest } = this.props;
+    const { loading, status } = this.state;
 
     return (
-      <Button
-        loading={loading}
-        disabled={this.state.start}
-        {...rest}
-      >
-        {buttonText}
+      <Button loading={loading} disabled={status === 1} {...rest}>
+        {this.buttonText(sendCodeLocale)}
       </Button>
+    );
+  };
+
+  render() {
+    return (
+      <LocaleReceive componentName="SendCode" defaultLocale={enUS}>
+        {(sendCodeLocale: ISendCodeLocale) => this.renderSendCode(sendCodeLocale)}
+      </LocaleReceive>
     );
   }
 }
