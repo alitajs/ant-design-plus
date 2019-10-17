@@ -23,3 +23,5 @@ public
 .rpt2_cache
 packages/antd-plus/es
 packages/antd-plus/lib
+es
+lib

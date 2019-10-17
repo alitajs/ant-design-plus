@@ -1,13 +1,21 @@
 {
   "name": "@alitajs/antd-plus",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "license": "MIT",
   "description": "ant-design-plus",
   "keywords": [
-    "ant-design",
+    "ant-design-plus",
     "components",
     "react"
   ],
+  "files": [
+    "es",
+    "lib"
+  ],
+  "main": "lib/index.js",
+  "unpkg": "lib/index.js",
+  "module": "es/index.js",
+  "types": "lib/index.d.ts",
   "homepage": "https://github.com/alitajs/ant-design-plus",
   "bugs": {
     "url": "https://github.com/alitajs/ant-design-plus/issues"
@@ -19,6 +27,7 @@
   "scripts": {
     "bootstarp": "yarn || npm i",
     "start": "gatsby develop --port 3000 --open",
+    "build:lib": "lotus-tools build",
     "build:component": "lotus-tools build",
     "build": "gatsby build --no-uglify"
   },
