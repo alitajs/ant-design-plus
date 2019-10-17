@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { Policy, isFunction } from '@alitajs/autils';
-import checkAuth, { TAuthority } from './check-authority';
+import { checkAuthority, TAuthority } from './check-authority';
 
 export interface AuthorizedProps {
   authority?: TAuthority;
@@ -17,7 +17,7 @@ const Authorized: React.FC<AuthorizedProps> = (props) => {
   } = props;
   const childrenRender = typeof children === 'undefined' ? null : children;
 
-  const checkResult = checkAuth(policy, authority);
+  const checkResult = checkAuthority(policy, authority);
 
   if (isFunction(children)) {
     return (

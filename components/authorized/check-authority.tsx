@@ -8,7 +8,7 @@ export type TAuthority = string[] | string;
  * @param { 权限判定 | Permission judgment } authority
  * @param { 权限验证方法 | no pass components } policy
  */
-const checkAuthority = (policy?: Policy, authority?: TAuthority): boolean => {
+export const checkAuthority = (policy?: Policy, authority?: TAuthority): boolean => {
   let result = true;
 
   // 数组处理
@@ -27,5 +27,3 @@ const checkAuthority = (policy?: Policy, authority?: TAuthority): boolean => {
 
   return result;
 };
-
-export default checkAuthority;
