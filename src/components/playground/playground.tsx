@@ -1,11 +1,14 @@
 import React from 'react';
 import { Button } from 'antd';
+import { Policy } from '@alitajs/autils';
 import { LiveProvider, LiveError, LivePreview } from 'react-live';
 
 const components = require('../../../index');
 
 const scope = {
   ...components,
+  // utils
+  Policy,
   // ant-design
   Button
 };
