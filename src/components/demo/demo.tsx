@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { Tooltip, Icon } from 'antd';
+import less from 'less';
 import { IFrontMatterData } from '@site/templates/interface';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import EditButton from '@site/components/edit-button';
@@ -25,6 +26,8 @@ interface IState {
   codeExpand: boolean;
   // demo源代码
   sourceCode: string;
+  // demo样式源码
+  styleCode: string;
   copyTooltipVisible: boolean;
   copied: boolean;
 }
@@ -35,6 +38,7 @@ class Demo extends React.Component<IProps, IState> {
     this.state = {
       codeExpand: false,
       sourceCode: '',
+      styleCode: '',
       copyTooltipVisible: false,
       copied: false
     }
@@ -45,9 +49,36 @@ class Demo extends React.Component<IProps, IState> {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { highlightedCode } = nextProps;
+    let { highlightedCode } = nextProps;
+    const styleRegExp = new RegExp(`(<style>).+?(</style>)`, 's');
+
+    let styleStr = styleRegExp.exec(highlightedCode)
+      ? styleRegExp.exec(highlightedCode)[0]
+      : '';
+
+    highlightedCode = highlightedCode.replace(styleRegExp, '');
+
     const div = document.createElement('div');
     div.innerHTML = highlightedCode;
+
+    const cssDiv = document.createElement('div');
+    cssDiv.innerHTML = styleStr;
+
+    // css代码
+    styleStr = cssDiv.textContent || '';
+
+    try {
+      less.render(styleStr, (e, output) => {
+        if (output && output.css) {
+          this.setState({
+            styleCode: output.css
+          });
+        }
+      });
+    } catch (e) {
+      console.warn('demo style render error');
+    }
+
     this.setState({
       sourceCode: div.textContent
     });
@@ -81,12 +112,16 @@ class Demo extends React.Component<IProps, IState> {
   };
 
   render() {
-    const { id, meta, highlightedCode, content } = this.props;
-    const { codeExpand, sourceCode, copied, copyTooltipVisible } = this.state;
+    const { id, meta, content } = this.props;
+    let { highlightedCode } = this.props;
+    const { codeExpand, sourceCode, copied, copyTooltipVisible, styleCode } = this.state;
 
     if (!this.props.preview) {
       return null;
     }
+
+    const styleRegExp = new RegExp(`(<style>).+?(</style>)`, 's');
+    highlightedCode = highlightedCode.replace(styleRegExp, '');
 
     const localizedTitle = meta.title['zh-CN'] || meta.title;
     const localizeIntro = content['zh-CN'];
@@ -101,6 +136,7 @@ class Demo extends React.Component<IProps, IState> {
         {/** Demo展示 */}
         <section className="code-box-demo">
           <Playground code={sourceCode} />
+          {styleCode ? <style dangerouslySetInnerHTML={{ __html: styleCode }} /> : null}
         </section>
 
         {/** 描述区域 */}
