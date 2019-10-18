@@ -2,10 +2,14 @@ import React from 'react';
 import classNames from 'classnames';
 import { Tooltip, Icon } from 'antd';
 import less from 'less';
+import { Button } from 'antd';
+import { Policy } from '@alitajs/autils';
+import { LiveProvider, LiveError, LivePreview, LiveEditor } from 'react-live';
 import { IFrontMatterData } from '@site/templates/interface';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import EditButton from '@site/components/edit-button';
-import Playground from '@site/components/playground';
+
+const components = require('../../../index');
 
 interface IProps {
   id: string;
@@ -24,20 +28,32 @@ interface IProps {
 interface IState {
   // 代码是否折叠
   codeExpand: boolean;
+  editCodeExpand: boolean;
   // demo源代码
   sourceCode: string;
+  code: string;
   // demo样式源码
   styleCode: string;
   copyTooltipVisible: boolean;
   copied: boolean;
 }
 
+const scope = {
+  ...components,
+  // utils
+  Policy,
+  // ant-design
+  Button
+};
+
 class Demo extends React.Component<IProps, IState> {
   constructor(props) {
     super(props);
     this.state = {
       codeExpand: false,
+      editCodeExpand: false,
       sourceCode: '',
+      code: '',
       styleCode: '',
       copyTooltipVisible: false,
       copied: false
@@ -80,7 +96,8 @@ class Demo extends React.Component<IProps, IState> {
     }
 
     this.setState({
-      sourceCode: div.textContent
+      sourceCode: div.textContent,
+      code: div.textContent
     });
   }
 
@@ -96,6 +113,20 @@ class Demo extends React.Component<IProps, IState> {
     this.setState({
       copied: true
     });
+  };
+
+  handleEditCodeExpand = () => {
+    const { editCodeExpand } = this.state;
+    this.setState({
+      editCodeExpand: !editCodeExpand
+    })
+  };
+
+  handleCodeChange = (code) => {
+    console.log(code);
+    this.setState({
+      code
+    })
   };
 
   onCopyTooltipVisibleChange = visible => {
@@ -114,7 +145,7 @@ class Demo extends React.Component<IProps, IState> {
   render() {
     const { id, meta, content } = this.props;
     let { highlightedCode } = this.props;
-    const { codeExpand, sourceCode, copied, copyTooltipVisible, styleCode } = this.state;
+    const { codeExpand, editCodeExpand, sourceCode, code, copied, copyTooltipVisible, styleCode } = this.state;
 
     if (!this.props.preview) {
       return null;
@@ -135,7 +166,16 @@ class Demo extends React.Component<IProps, IState> {
       >
         {/** Demo展示 */}
         <section className="code-box-demo">
-          <Playground code={sourceCode} />
+          <section>
+            <LiveProvider
+              noInline
+              code={code}
+              scope={scope}
+            >
+              <LiveError />
+              <LivePreview />
+            </LiveProvider>
+          </section>
           {styleCode ? <style dangerouslySetInnerHTML={{ __html: styleCode }} /> : null}
         </section>
 
@@ -187,9 +227,16 @@ class Demo extends React.Component<IProps, IState> {
               />
             </span>
           </Tooltip>
+          <Tooltip title="Edit Code">
+            <Icon
+              className="code-box-code-copy"
+              onClick={this.handleEditCodeExpand}
+              type="edit"
+            />
+          </Tooltip>
         </div>
 
-        {/** 代码显示区域 */}
+        {/** 代码显示 */}
         <section
           className={classNames({
             'highlight-wrapper': true,
@@ -199,6 +246,26 @@ class Demo extends React.Component<IProps, IState> {
         >
           <div className="highlight">
             <div dangerouslySetInnerHTML={{ __html: highlightedCode }} />
+          </div>
+        </section>
+
+        {/** 编辑代码 */}
+        <section
+          className={classNames({
+            'highlight-wrapper': true,
+            'highlight-wrapper-expand': editCodeExpand,
+          })}
+          key="editCode"
+        >
+          <div className="highlight">
+            <LiveProvider
+              noInline
+              code={code}
+              scope={scope}
+            >
+              <LiveEditor onChange={this.handleCodeChange} />
+              <LiveError />
+            </LiveProvider>
           </div>
         </section>
 
