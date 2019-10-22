@@ -101,27 +101,27 @@ class Demo extends React.Component<IProps, IState> {
     });
   }
 
-  // 切换代码显示/隐藏
-  handleCodeExpand = () => {
-    const { codeExpand } = this.state;
-    this.setState({
-      codeExpand: !codeExpand,
-      editCodeExpand: codeExpand
-    });
-  };
-
   handleCodeCopied = () => {
     this.setState({
       copied: true
     });
   };
 
-  handleEditCodeExpand = () => {
-    const { editCodeExpand } = this.state;
-    this.setState({
-      codeExpand: editCodeExpand,
-      editCodeExpand: !editCodeExpand
-    })
+  // 切换代码显示/隐藏
+  handleCodeExpand = (type: 'edit' | 'view') => {
+    const { editCodeExpand, codeExpand } = this.state;
+
+    if (type === 'edit') {
+      this.setState({
+        codeExpand: editCodeExpand,
+        editCodeExpand: !editCodeExpand
+      })
+    } else {
+      this.setState({
+        codeExpand: !codeExpand,
+        editCodeExpand: codeExpand
+      })
+    }
   };
 
   handleCodeChange = (code) => {
@@ -218,20 +218,26 @@ class Demo extends React.Component<IProps, IState> {
                 alt="expand code"
                 src="https://gw.alipayobjects.com/zos/rmsportal/wSAkBuJFbdxsosKKpqyq.svg"
                 className={codeExpand ? 'code-expand-icon-hide' : 'code-expand-icon-show'}
-                onClick={this.handleCodeExpand}
+                onClick={() => {
+                  this.handleCodeExpand('view')
+                }}
               />
               <img
                 alt="expand code"
                 src="https://gw.alipayobjects.com/zos/rmsportal/OpROPHYqWmrMDBFMZtKF.svg"
                 className={codeExpand ? 'code-expand-icon-show' : 'code-expand-icon-hide'}
-                onClick={this.handleCodeExpand}
+                onClick={() => {
+                  this.handleCodeExpand('view')
+                }}
               />
             </span>
           </Tooltip>
           <Tooltip title="Edit Code">
             <Icon
               className="code-box-code-copy"
-              onClick={this.handleEditCodeExpand}
+              onClick={() => {
+                this.handleCodeExpand('edit')
+              }}
               type="edit"
             />
           </Tooltip>
