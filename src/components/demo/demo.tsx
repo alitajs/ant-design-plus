@@ -105,7 +105,8 @@ class Demo extends React.Component<IProps, IState> {
   handleCodeExpand = () => {
     const { codeExpand } = this.state;
     this.setState({
-      codeExpand: !codeExpand
+      codeExpand: !codeExpand,
+      editCodeExpand: codeExpand
     });
   };
 
@@ -118,12 +119,12 @@ class Demo extends React.Component<IProps, IState> {
   handleEditCodeExpand = () => {
     const { editCodeExpand } = this.state;
     this.setState({
+      codeExpand: editCodeExpand,
       editCodeExpand: !editCodeExpand
     })
   };
 
   handleCodeChange = (code) => {
-    console.log(code);
     this.setState({
       code
     })
