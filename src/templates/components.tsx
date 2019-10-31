@@ -45,6 +45,7 @@ const ComponentTemplate: React.FC<IProps> = (props) => {
     },
     ...rest
   } = props;
+
   const { frontmatter, fields, html, description, tableOfContents } = markdownRemark;
   const { edges } = allMarkdownRemark;
 

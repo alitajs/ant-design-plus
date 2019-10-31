@@ -1,7 +1,15 @@
 ---
 order: 0
-title: 基础样例
+title:
+  zh-CN: 基础样例
+  en-US: Basic Simple
 ---
+
+## zh-CN
+
+简单使用示例。
+
+## en-US
 
 Simplest of usage.
 

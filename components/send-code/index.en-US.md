@@ -10,7 +10,7 @@ cols: 1
 
 ### SendCode
 
-| 参数       | 说明             | 类型        | 默认值   |
+| params       | intro             | Type        | default   |
 | --------- | ----------------| ---------- | --------- |
 | start     | 是否开始倒计时     | boolean    | false     |
 | second    | 倒计时时长（秒）    | number     | 60        |

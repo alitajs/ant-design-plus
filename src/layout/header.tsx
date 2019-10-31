@@ -1,17 +1,19 @@
 import React from 'react';
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Button } from 'antd';
 import { Location } from 'history';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import { Link } from 'gatsby';
 import { LOGO_URL } from '@site/config';
+import * as utils from '../utils';
 import styles from './header.module.less';
 
 interface IProps {
-  location?: Location
+  location?: Location;
 }
 
 const { Header } = Layout;
 
-const HeaderView: React.FC<IProps> = (props) => {
+const HeaderView: React.FC<IProps> = props => {
   const { location } = props;
   const [activeMenu, setActiveMenu] = React.useState<string>('docs');
 
@@ -36,28 +38,35 @@ const HeaderView: React.FC<IProps> = (props) => {
     }
   }, [props.location]);
 
+  const handleLangChange = () => {
+    const { pathname } = location;
+    const currentProtocol = `${window.location.protocol}//`;
+    const currentHref = window.location.href.substr(currentProtocol.length);
+
+    if (utils.isLocalStorageNameSupported()) {
+      localStorage.setItem('locale', utils.isZhCN(pathname) ? 'en-US' : 'zh-CN');
+    }
+
+    window.location.href =
+      currentProtocol +
+      currentHref.replace(
+        window.location.pathname,
+        utils.getLocalizedPathname(pathname, !utils.isZhCN(pathname)),
+      );
+  };
+
   const menu = [
-    <Menu
-      key="nav"
-      mode="horizontal"
-      selectedKeys={[activeMenu]}
-    >
+    <Menu key="nav" mode="horizontal" selectedKeys={[activeMenu]}>
       <Menu.Item key="home">
-        <Link to="/">
-          首页
-        </Link>
+        <Link to="/">首页</Link>
       </Menu.Item>
       <Menu.Item key="docs">
-        <Link to="/docs/getting-started">
-          文档
-        </Link>
+        <Link to="/docs/getting-started">文档</Link>
       </Menu.Item>
       <Menu.Item key="components">
-        <Link to="/components/send-code">
-          组件
-        </Link>
+        <Link to="/components/send-code">组件</Link>
       </Menu.Item>
-    </Menu>
+    </Menu>,
   ];
 
   return (
@@ -70,12 +79,13 @@ const HeaderView: React.FC<IProps> = (props) => {
       </div>
 
       <div className={styles.headerMeta}>
-        <div className={styles.menu}>
-          {menu}
-        </div>
+        <Button size="small" onClick={handleLangChange} className={styles.headerLangButton}>
+          <FormattedMessage id="app.header.lang" />
+        </Button>
+        <div className={styles.menu}>{menu}</div>
       </div>
     </Header>
-  )
+  );
 };
 
-export default HeaderView;
+export default injectIntl(HeaderView);

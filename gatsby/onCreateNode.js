@@ -36,6 +36,18 @@ const getKebabCase = str => {
     .replace(/\/-/g, '/');
 };
 
+const localePath = str => {
+  str = str.replace('/index', '');
+  if (str.includes('.zh-CN')) {
+    str = str.replace('.zh-CN', '-cn');
+  }
+  if (str.includes('.en-US')) {
+    str = str.replace('.en-US', '');
+  }
+  console.log('ewe',str)
+  return str;
+};
+
 module.exports = async ({ node, actions, getNode }) => {
   const { createNodeField } = actions;
 
@@ -48,10 +60,13 @@ module.exports = async ({ node, actions, getNode }) => {
       const mTime = new Date(stats.mtime).getTime();
       const mdFilePath = path.join(sourceInstanceName, relativePath);
 
+      console.log(slug)
+
       if (!slug) {
-        slug = `${sourceInstanceName}/${relativePath
-          .replace('.md', '')}`;
+        slug = `${sourceInstanceName}/${relativePath.replace('.md', '')}`;
       }
+
+      console.log('>>>>>', localePath(slug));
 
       createNodeField({
         node,
@@ -62,13 +77,13 @@ module.exports = async ({ node, actions, getNode }) => {
       createNodeField({
         node,
         name: 'slug',
-        value: getKebabCase(slug.replace('/index', '')),
+        value: getKebabCase(localePath(slug)),
       });
 
       createNodeField({
         node,
         name: 'underScoreCasePath',
-        value: slug.replace('/index', ''),
+        value: localePath(slug),
       });
 
       createNodeField({
