@@ -1,9 +1,17 @@
 ---
 order: 1
-title: 控制某个DOM节点 
+title: 
+  zh-CN: 控制某个DOM节点
+  en-US: Control DOM 
 ---
 
+## zh-CN
+
 点击图片
+
+## en-US
+
+Click image.
 
 ```jsx
 const Example = () => {

@@ -1,7 +1,15 @@
 ---
 order: 1
-title: 固定宽度
+title: 
+  zh-CN: 固定宽度
+  en-US: Fixed Width
 ---
+
+## zh-CN
+
+最简单的用法。
+
+## en-US
 
 Simplest of usage.
 

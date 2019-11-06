@@ -1,9 +1,17 @@
 ---
 order: 0
-title: 基础样例
+title: 
+  zh-CN: 基础样例
+  en-US: Basic Example
 ---
 
-权限组件使用示例
+## zh-CN
+
+权限组件使用示例。
+
+## en-US
+
+Permission component usage example.
 
 ```jsx
 const AuthorizedPlus = (props) => {

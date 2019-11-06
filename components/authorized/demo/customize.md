@@ -1,9 +1,17 @@
 ---
 order: 1
-title: 自定义渲染逻辑
+title: 
+  zh-CN: 自定义渲染逻辑
+  en-US: Custom Rendering Logic
 ---
 
-权限组件使用示例
+## zh-CN
+
+权限组件使用示例。
+
+## en-US
+
+Permission component usage example.
 
 ```jsx
 const AuthorizedPlus = (props) => {

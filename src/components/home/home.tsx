@@ -15,9 +15,7 @@ const Home: React.FC = () => {
         <p>提炼于真实场景的业务组件</p>
         <div className={styles.buttonWrapper}>
           <Link to="/docs/getting-started">
-            <Button type="primary">
-              文档
-            </Button>
+            <Button type="primary">文档</Button>
           </Link>
           <Link to="/components/send-code">
             <Button style={{ margin: '0 16px' }} type="primary" ghost>
@@ -33,7 +31,7 @@ const Home: React.FC = () => {
         </div>
       </div>
     </div>
-  )
+  );
 };
 
 export default Home;

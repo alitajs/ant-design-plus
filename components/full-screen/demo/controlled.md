@@ -1,9 +1,17 @@
 ---
 order: 2
-title: 受控组件
+title: 
+  zh-CN: 受控组件
+  en-US: Controlled Component
 ---
 
-点击按钮切换
+## zh-CN
+
+点击按钮切换。
+
+## en-US
+
+Click the button to switch.
 
 ```jsx
 const Example = () => {

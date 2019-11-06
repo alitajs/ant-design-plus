@@ -62,7 +62,7 @@ module.exports = async ({ graphql, actions }) => {
           .split('.')
           .shift()
           .split('/')
-          .pop();
+          .pop().replace('-cn', '');
 
         if (!slug.includes('demo/')) {
           createPage({

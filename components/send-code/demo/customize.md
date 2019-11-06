@@ -1,6 +1,8 @@
 ---
 order: 0
-title: 自定义倒计时按钮
+title: 
+  zh-CN: 自定义倒计时按钮
+  en-US: Custom Button
 ---
 
 ```jsx

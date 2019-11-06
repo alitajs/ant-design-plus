@@ -182,6 +182,8 @@ class MainContent extends React.PureComponent<IMainContentProps, IState> {
     const menuItems = this.getMenuItems();
     const activeMenuItem = this.getActiveMenuItem();
 
+    console.log(this.props)
+
     return (
       <div className={styles.mainContent}>
         <SEO title={title} />

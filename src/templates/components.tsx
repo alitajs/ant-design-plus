@@ -1,12 +1,11 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 import Layout from '@site/layout';
+import { Location } from 'history';
 import MainContent from '@site/components/content/main-content';
-import {
-  IGraphQLDemos,
-  IMarkdownRemarkData,
-  IAllMarkdownRemarkData
-} from './interface';
+import * as utils from '../utils';
+
+import { IGraphQLDemos, IMarkdownRemarkData, IAllMarkdownRemarkData } from './interface';
 import { transformerFrontMatter } from './utils';
 
 export interface IProps {
@@ -14,7 +13,8 @@ export interface IProps {
     markdownRemark: IMarkdownRemarkData;
     allMarkdownRemark: IAllMarkdownRemarkData;
     demos: IGraphQLDemos;
-  }
+  };
+  location?: Location;
 }
 
 const transformerDemos = demos => {
@@ -34,17 +34,18 @@ const transformerDemos = demos => {
   });
 };
 
-const ComponentTemplate: React.FC<IProps> = (props) => {
+const ComponentTemplate: React.FC<IProps> = props => {
   const {
     data: {
       demos = {
         edges: [],
       },
       markdownRemark,
-      allMarkdownRemark
+      allMarkdownRemark,
     },
     ...rest
   } = props;
+
   const { frontmatter, fields, html, description, tableOfContents } = markdownRemark;
   const { edges } = allMarkdownRemark;
 
@@ -62,7 +63,11 @@ const ComponentTemplate: React.FC<IProps> = (props) => {
         ...newFrontMatter,
       };
     })
-    .filter(({ slug }) => !slug.includes('/demo/'));
+    .filter(
+      ({ slug }) =>
+        !slug.includes('/demo/') &&
+        (utils.isZhCN(props.location.pathname) ? slug.includes('cn') : !slug.includes('cn')),
+    );
 
   return (
     <Layout {...rest}>
@@ -78,12 +83,12 @@ const ComponentTemplate: React.FC<IProps> = (props) => {
           },
           toc: tableOfContents,
           content: html,
-          ...description
+          ...description,
         }}
         menus={menus}
       />
     </Layout>
-  )
+  );
 };
 
 export default ComponentTemplate;
@@ -133,14 +138,8 @@ export const pageQuery = graphql`
       }
     }
     demos: allMarkdownRemark(
-      filter: {
-        fileAbsolutePath: { regex: "//components//" }
-        fields: { slug: { regex: $demo } }
-      }
-      sort: { 
-        fields: [fields___slug], 
-        order: DESC 
-      }
+      filter: { fileAbsolutePath: { regex: "//components//" }, fields: { slug: { regex: $demo } } }
+      sort: { fields: [fields___slug], order: DESC }
     ) {
       edges {
         node {

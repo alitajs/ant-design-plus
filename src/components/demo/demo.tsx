@@ -4,10 +4,12 @@ import { Tooltip, Icon } from 'antd';
 import less from 'less';
 import { Button } from 'antd';
 import { Policy } from '@alitajs/autils';
+import { Location } from 'history';
 import { LiveProvider, LiveError, LivePreview, LiveEditor } from 'react-live';
 import { IFrontMatterData } from '@site/templates/interface';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import EditButton from '@site/components/edit-button';
+import * as utils from '../../utils';
 
 const components = require('../../../index');
 
@@ -19,10 +21,11 @@ interface IProps {
   content?: {
     'zh-CN': string;
     'en-US': string;
-  },
+  };
   sourceCode?: string;
   // 需要显示的代码
   highlightedCode?: string;
+  location?: Location;
 }
 
 interface IState {
@@ -43,7 +46,7 @@ const scope = {
   // utils
   Policy,
   // ant-design
-  Button
+  Button,
 };
 
 class Demo extends React.Component<IProps, IState> {
@@ -56,8 +59,8 @@ class Demo extends React.Component<IProps, IState> {
       code: '',
       styleCode: '',
       copyTooltipVisible: false,
-      copied: false
-    }
+      copied: false,
+    };
   }
 
   componentDidMount() {
@@ -68,9 +71,7 @@ class Demo extends React.Component<IProps, IState> {
     let { highlightedCode } = nextProps;
     const styleRegExp = new RegExp(`(<style>).+?(</style>)`, 's');
 
-    let styleStr = styleRegExp.exec(highlightedCode)
-      ? styleRegExp.exec(highlightedCode)[0]
-      : '';
+    let styleStr = styleRegExp.exec(highlightedCode) ? styleRegExp.exec(highlightedCode)[0] : '';
 
     highlightedCode = highlightedCode.replace(styleRegExp, '');
 
@@ -87,7 +88,7 @@ class Demo extends React.Component<IProps, IState> {
       less.render(styleStr, (e, output) => {
         if (output && output.css) {
           this.setState({
-            styleCode: output.css
+            styleCode: output.css,
           });
         }
       });
@@ -97,13 +98,13 @@ class Demo extends React.Component<IProps, IState> {
 
     this.setState({
       sourceCode: div.textContent,
-      code: div.textContent
+      code: div.textContent,
     });
   }
 
   handleCodeCopied = () => {
     this.setState({
-      copied: true
+      copied: true,
     });
   };
 
@@ -114,20 +115,20 @@ class Demo extends React.Component<IProps, IState> {
     if (type === 'edit') {
       this.setState({
         codeExpand: editCodeExpand,
-        editCodeExpand: !editCodeExpand
-      })
+        editCodeExpand: !editCodeExpand,
+      });
     } else {
       this.setState({
         codeExpand: !codeExpand,
-        editCodeExpand: codeExpand
-      })
+        editCodeExpand: codeExpand,
+      });
     }
   };
 
-  handleCodeChange = (code) => {
+  handleCodeChange = code => {
     this.setState({
-      code
-    })
+      code,
+    });
   };
 
   onCopyTooltipVisibleChange = visible => {
@@ -144,9 +145,24 @@ class Demo extends React.Component<IProps, IState> {
   };
 
   render() {
-    const { id, meta, content } = this.props;
+    const {
+      id,
+      meta,
+      content,
+      location: { pathname },
+    } = this.props;
+
+    console.log(this.props)
     let { highlightedCode } = this.props;
-    const { codeExpand, editCodeExpand, sourceCode, code, copied, copyTooltipVisible, styleCode } = this.state;
+    const {
+      codeExpand,
+      editCodeExpand,
+      sourceCode,
+      code,
+      copied,
+      copyTooltipVisible,
+      styleCode,
+    } = this.state;
 
     if (!this.props.preview) {
       return null;
@@ -155,24 +171,20 @@ class Demo extends React.Component<IProps, IState> {
     const styleRegExp = new RegExp(`(<style>).+?(</style>)`, 's');
     highlightedCode = highlightedCode.replace(styleRegExp, '');
 
-    const localizedTitle = meta.title['zh-CN'] || meta.title;
-    const localizeIntro = content['zh-CN'];
+    const localizedTitle = utils.isZhCN(pathname) ? meta.title['zh-CN'] : meta.title['en-US'];
+    const localizeIntro = utils.isZhCN(pathname) ? content['zh-CN'] : content['en-US'];
 
     return (
       <section
         className={classNames({
           [`code-box`]: true,
-          expand: codeExpand
+          expand: codeExpand,
         })}
       >
         {/** Demo展示 */}
         <section className="code-box-demo">
           <section>
-            <LiveProvider
-              noInline
-              code={code}
-              scope={scope}
-            >
+            <LiveProvider noInline code={code} scope={scope}>
               <LiveError />
               <LivePreview />
             </LiveProvider>
@@ -183,9 +195,7 @@ class Demo extends React.Component<IProps, IState> {
         {/** 描述区域 */}
         <section className="code-box-meta markdown">
           <div className="code-box-title">
-            <a href={`#${id}`}>
-              {localizedTitle}
-            </a>
+            <a href={`#${id}`}>{localizedTitle}</a>
             <EditButton
               title="在github上编辑此页！"
               filename={meta.path.replace('components/', 'packages/antd-plus/src/')}
@@ -207,7 +217,7 @@ class Demo extends React.Component<IProps, IState> {
               title={copied ? '复制成功' : '复制代码'}
             >
               <Icon
-                type={(copied && copyTooltipVisible) ? 'check' : 'copy'}
+                type={copied && copyTooltipVisible ? 'check' : 'copy'}
                 className="code-box-code-copy"
               />
             </Tooltip>
@@ -219,7 +229,7 @@ class Demo extends React.Component<IProps, IState> {
                 src="https://gw.alipayobjects.com/zos/rmsportal/wSAkBuJFbdxsosKKpqyq.svg"
                 className={codeExpand ? 'code-expand-icon-hide' : 'code-expand-icon-show'}
                 onClick={() => {
-                  this.handleCodeExpand('view')
+                  this.handleCodeExpand('view');
                 }}
               />
               <img
@@ -227,7 +237,7 @@ class Demo extends React.Component<IProps, IState> {
                 src="https://gw.alipayobjects.com/zos/rmsportal/OpROPHYqWmrMDBFMZtKF.svg"
                 className={codeExpand ? 'code-expand-icon-show' : 'code-expand-icon-hide'}
                 onClick={() => {
-                  this.handleCodeExpand('view')
+                  this.handleCodeExpand('view');
                 }}
               />
             </span>
@@ -236,7 +246,7 @@ class Demo extends React.Component<IProps, IState> {
             <Icon
               className="code-box-code-copy"
               onClick={() => {
-                this.handleCodeExpand('edit')
+                this.handleCodeExpand('edit');
               }}
               type="edit"
             />
@@ -265,19 +275,14 @@ class Demo extends React.Component<IProps, IState> {
           key="editCode"
         >
           <div className="highlight">
-            <LiveProvider
-              noInline
-              code={code}
-              scope={scope}
-            >
+            <LiveProvider noInline code={code} scope={scope}>
               <LiveEditor onChange={this.handleCodeChange} />
               <LiveError />
             </LiveProvider>
           </div>
         </section>
-
       </section>
-    )
+    );
   }
 }
 
