@@ -1,9 +1,17 @@
 ---
 order: 1
-title: link
+title: 
+  zh-CN: Link
+  en-US: Link
 ---
 
-提取button type=link 为组件属性
+## zh-CN
+
+提取button type=link 为组件属性。
+
+## en-US
+
+Extract button type=link for component properties.
 
 ```jsx
 render(

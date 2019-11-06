@@ -1,12 +1,10 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 import { Location } from 'history';
+import * as utils from '../utils';
 import Layout from '@site/layout';
 import MainContent from '@site/components/content/main-content';
-import {
-  IMarkdownRemarkData,
-  IAllMarkdownRemarkData
-} from './interface';
+import { IMarkdownRemarkData, IAllMarkdownRemarkData } from './interface';
 import { transformerFrontMatter } from './utils';
 
 interface IProps {
@@ -17,27 +15,31 @@ interface IProps {
   location: Location;
 }
 
-const Template: React.FC<IProps> = (props) => {
+const Template: React.FC<IProps> = props => {
   const { data, ...rest } = props;
   const { markdownRemark, allMarkdownRemark } = data;
 
   const { frontmatter, fields, html, tableOfContents } = markdownRemark;
   const { edges } = allMarkdownRemark;
 
-  const menus = edges.map(({ node }) => {
-    const newFrontMatter = transformerFrontMatter(node.frontmatter);
+  const menus = edges
+    .map(({ node }) => {
+      const newFrontMatter = transformerFrontMatter(node.frontmatter);
 
-    return {
-      slug: node.fields.slug,
-      meta: {
-        ...newFrontMatter,
+      return {
         slug: node.fields.slug,
-        filename: node.fields.slug,
-      },
-      ...newFrontMatter,
-      filename: node.fields.path,
-    };
-  });
+        meta: {
+          ...newFrontMatter,
+          slug: node.fields.slug,
+          filename: node.fields.slug,
+        },
+        ...newFrontMatter,
+        filename: node.fields.path,
+      };
+    })
+    .filter(({ slug }) =>
+      utils.isZhCN(props.location.pathname) ? slug.includes('cn') : !slug.includes('cn'),
+    );
 
   return (
     <Layout {...rest}>
@@ -51,12 +53,12 @@ const Template: React.FC<IProps> = (props) => {
             path: fields.path,
           },
           toc: tableOfContents,
-          content: html
+          content: html,
         }}
         menus={menus}
       />
     </Layout>
-  )
+  );
 };
 
 export default Template;

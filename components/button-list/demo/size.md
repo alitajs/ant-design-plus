@@ -1,9 +1,17 @@
 ---
 order: 1
-title: 修改button大小
+title: 
+  zh-CN: 修改button大小
+  en-US: Basic Example
 ---
 
+## zh-CN
+
 设置button大小
+
+## en-US
+
+Set the button size.
 
 ```jsx
 render(

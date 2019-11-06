@@ -1,9 +1,17 @@
 ---
-order: 0
-title: 基础样例
+order: 0 
+title: 
+  zh-CN: 基础样例
+  en-US: Basic Example
 ---
 
+## zh-CN
+
 默认的最大显示数量
+
+## en-US
+
+Default maximum number of displays.
 
 ```jsx
 render(

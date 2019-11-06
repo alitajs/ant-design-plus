@@ -55,6 +55,10 @@ const HeaderView: React.FC<IProps> = props => {
       );
   };
 
+  const localeLink = str => {
+    return str + (utils.isZhCN(location.pathname) ? '-cn' : '');
+  };
+
   const menu = [
     <Menu key="nav" mode="horizontal" selectedKeys={[activeMenu]}>
       <Menu.Item key="home">
@@ -63,12 +67,12 @@ const HeaderView: React.FC<IProps> = props => {
         </Link>
       </Menu.Item>
       <Menu.Item key="docs">
-        <Link to="/docs/getting-started">
+        <Link to={localeLink('/docs/getting-started')}>
           <FormattedMessage id="app.header.docs" />
         </Link>
       </Menu.Item>
       <Menu.Item key="components">
-        <Link to="/components/send-code">
+        <Link to={localeLink('/components/send-code')}>
           <FormattedMessage id="app.header.components" />
         </Link>
       </Menu.Item>
