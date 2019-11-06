@@ -19,11 +19,7 @@ const BasicLayout: React.FC<IProps> = props => {
   const { children, location } = props;
   const { pathname } = location;
   const appLocale = utils.isZhCN(pathname) ? cnLocale : enLocale;
-  // const appLocale = localStorage.getItem('locale') === 'zh-CN' ? cnLocale : enLocale;
 
-  console.log('cn', cnLocale)
-  console.log('en', enLocale)
-  console.log(';s', appLocale)
   return (
     <IntlProvider locale={appLocale.locale} messages={appLocale.messages} defaultLocale="en-US">
       <ConfigProvider locale={appLocale.locale === 'zh-CN' ? zhCN : null}>

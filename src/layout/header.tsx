@@ -58,13 +58,19 @@ const HeaderView: React.FC<IProps> = props => {
   const menu = [
     <Menu key="nav" mode="horizontal" selectedKeys={[activeMenu]}>
       <Menu.Item key="home">
-        <Link to="/">首页</Link>
+        <Link to="/">
+          <FormattedMessage id="app.header.home" />
+        </Link>
       </Menu.Item>
       <Menu.Item key="docs">
-        <Link to="/docs/getting-started">文档</Link>
+        <Link to="/docs/getting-started">
+          <FormattedMessage id="app.header.docs" />
+        </Link>
       </Menu.Item>
       <Menu.Item key="components">
-        <Link to="/components/send-code">组件</Link>
+        <Link to="/components/send-code">
+          <FormattedMessage id="app.header.components" />
+        </Link>
       </Menu.Item>
     </Menu>,
   ];

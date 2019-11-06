@@ -1,6 +1,8 @@
 import React from 'react';
 import { Location } from 'history';
 import { Row } from 'antd';
+
+import { FormattedMessage } from 'react-intl';
 import { IDemo } from '@site/templates/interface';
 import { ILocalizedPageData } from './main-content';
 import EditButton from '../edit-button/index';
@@ -53,7 +55,9 @@ class ComponentDoc extends React.Component<IProps, IState> {
             className="markdown api-container"
             dangerouslySetInnerHTML={{ __html: descriptionHtml }}
           />
-          <p>引用方式</p>
+          <p>
+          <FormattedMessage id="app.content.quote" />
+          </p>
           <pre className="language-jsx">
             <code>
               <span className="token keyword">import </span>
@@ -64,7 +68,7 @@ class ComponentDoc extends React.Component<IProps, IState> {
             </code>
           </pre>
           <h2 style={{ marginBottom: 32 }} id="demos">
-            代码演示
+            <FormattedMessage id="app.content.demo" />
           </h2>
         </section>
         <Row gutter={16}>

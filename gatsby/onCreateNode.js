@@ -44,7 +44,6 @@ const localePath = str => {
   if (str.includes('.en-US')) {
     str = str.replace('.en-US', '');
   }
-  console.log('ewe',str)
   return str;
 };
 
@@ -60,13 +59,9 @@ module.exports = async ({ node, actions, getNode }) => {
       const mTime = new Date(stats.mtime).getTime();
       const mdFilePath = path.join(sourceInstanceName, relativePath);
 
-      console.log(slug)
-
       if (!slug) {
         slug = `${sourceInstanceName}/${relativePath.replace('.md', '')}`;
       }
-
-      console.log('>>>>>', localePath(slug));
 
       createNodeField({
         node,
