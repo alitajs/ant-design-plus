@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
-import { Policy, isFunction } from '@alitajs/autils';
+import Policy from '@pansy/policy';
+import isFunction from '@pansy/is-function';
 import { checkAuthority, TAuthority } from './check-authority';
 
 export interface AuthorizedProps {

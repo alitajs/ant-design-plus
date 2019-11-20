@@ -1,5 +1,7 @@
 import React from 'react';
-import { Policy, isArray, isString } from '@alitajs/autils';
+import Policy from '@pansy/policy';
+import isArray from '@pansy/is-array';
+import isString from '@pansy/is-string';
 
 export type TAuthority = string[] | string;
 

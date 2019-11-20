@@ -33,7 +33,7 @@
     "clean": "gatsby clean"
   },
   "dependencies": {
-    "@alitajs/autils": "^0.5.2",
+    "@pansy/utils": "^0.1.3",
     "antd": "^3.23.1",
     "classnames": "^2.2.6",
     "react-use": "^12.2.0"

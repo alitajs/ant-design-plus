@@ -87,11 +87,19 @@ module.exports = async ({ node, actions, getNode }) => {
         value: mdFilePath,
       });
 
-      const html = await getAvatarList(mdFilePath);
+      const html = await getAvatarList(mdFilePath) ;
+
       createNodeField({
         node,
         name: 'avatarList',
-        value: html || [],
+        value: [
+          {
+            href: '/wangxingkang',
+            text: 'wangxingkang',
+            src: 'https://avatars1.githubusercontent.com/u/14227679?s=40&v=4'
+          },
+          ...html
+        ]
       });
   }
 };
