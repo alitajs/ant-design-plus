@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { Tooltip, Icon } from 'antd';
 import less from 'less';
 import { Button } from 'antd';
-import { Policy } from '@alitajs/autils';
+import Policy from '@pansy/policy';
 import { Location } from 'history';
 import { LiveProvider, LiveError, LivePreview, LiveEditor } from 'react-live';
 import { IFrontMatterData } from '@site/templates/interface';
