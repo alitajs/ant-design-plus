@@ -30,7 +30,8 @@
     "build:lib": "lotus-tools build",
     "build:component": "lotus-tools build",
     "build": "gatsby build --no-uglify",
-    "clean": "gatsby clean"
+    "clean": "gatsby clean",
+    "prepublishOnly": "yarn build:lib"
   },
   "dependencies": {
     "@pansy/utils": "^0.1.3",
