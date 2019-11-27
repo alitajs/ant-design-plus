@@ -3,6 +3,7 @@ import Policy from '@pansy/policy';
 import isArray from '@pansy/is-array';
 import isString from '@pansy/is-string';
 
+// 权限
 export type Authority = string[] | string;
 
 /**
@@ -10,7 +11,7 @@ export type Authority = string[] | string;
  * @param { 权限判定 | Permission judgment } authority
  * @param { 权限验证方法 | no pass components } policy
  */
-export const checkAuthority = (policy?: Policy, authority?: Authority): boolean => {
+const checkAuthority = (policy: Policy, authority: Authority): boolean => {
   let result = true;
 
   // 数组处理
@@ -30,6 +31,4 @@ export const checkAuthority = (policy?: Policy, authority?: Authority): boolean 
   return result;
 };
 
-export {
-  Policy
-}
+export default checkAuthority;
