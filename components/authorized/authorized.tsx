@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
+import Policy from '@pansy/policy';
 import isFunction from '@pansy/is-function';
-import { checkAuthority, Authority, Policy } from './check-authority';
+import checkAuthority, { Authority } from './check-authority';
 
 export interface AuthorizedProps {
   authority?: Authority;
