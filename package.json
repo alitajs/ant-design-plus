@@ -1,13 +1,13 @@
 {
   "name": "@alitajs/antd-plus",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "license": "MIT",
   "description": "基于ant-design封装的偏业务组件",
   "keywords": [
-    "ant-design-plus",
+    "react",
     "ant-design",
     "components",
-    "react"
+    "ant-design-plus"
   ],
   "files": [
     "es",
@@ -28,11 +28,10 @@
   "scripts": {
     "bootstarp": "yarn || npm i",
     "start": "gatsby develop --port 3000 --open",
-    "build:lib": "lotus-tools build",
-    "build:component": "lotus-tools build",
     "build": "gatsby build --no-uglify",
+    "build:component": "lotus-tools build",
     "clean": "gatsby clean",
-    "prepublishOnly": "yarn build:lib"
+    "prepublishOnly": "yarn build:component"
   },
   "dependencies": {
     "@pansy/utils": "^0.2.0",
