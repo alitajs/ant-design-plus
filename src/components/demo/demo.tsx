@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { Tooltip, Icon } from 'antd';
+import { Tooltip, Icon, Switch } from 'antd';
 import less from 'less';
 import { Button } from 'antd';
 import Policy from '@pansy/policy';
@@ -32,6 +32,7 @@ interface IState {
   // 代码是否折叠
   codeExpand: boolean;
   editCodeExpand: boolean;
+  editCodeTheme: 'default' | 'dark',
   // demo源代码
   sourceCode: string;
   code: string;
@@ -55,6 +56,7 @@ class Demo extends React.Component<IProps, IState> {
     this.state = {
       codeExpand: false,
       editCodeExpand: false,
+      editCodeTheme: 'default',
       sourceCode: '',
       code: '',
       styleCode: '',
@@ -113,14 +115,30 @@ class Demo extends React.Component<IProps, IState> {
     const { editCodeExpand, codeExpand } = this.state;
 
     if (type === 'edit') {
+      if (editCodeExpand) {
+        this.setState({
+          editCodeExpand: false
+        });
+      } else {
+        this.setState({
+          editCodeExpand: true
+        });
+      }
       this.setState({
-        codeExpand: editCodeExpand,
-        editCodeExpand: !editCodeExpand,
+        codeExpand: false
       });
     } else {
+      if (codeExpand) {
+        this.setState({
+          codeExpand: false
+        });
+      } else {
+        this.setState({
+          codeExpand: true
+        });
+      }
       this.setState({
-        codeExpand: !codeExpand,
-        editCodeExpand: codeExpand,
+        editCodeExpand: false
       });
     }
   };
@@ -152,11 +170,11 @@ class Demo extends React.Component<IProps, IState> {
       location: { pathname },
     } = this.props;
 
-    console.log(this.props)
     let { highlightedCode } = this.props;
     const {
       codeExpand,
       editCodeExpand,
+      editCodeTheme,
       sourceCode,
       code,
       copied,
@@ -271,9 +289,29 @@ class Demo extends React.Component<IProps, IState> {
           className={classNames({
             'highlight-wrapper': true,
             'highlight-wrapper-expand': editCodeExpand,
+            'highlight-wrapper-dark': editCodeTheme === 'dark'
           })}
+          style={{
+            position: 'relative'
+          }}
           key="editCode"
         >
+          <div style={{ position: 'absolute', right: 16, top: 16, zIndex: 10 }}>
+            {editCodeExpand && (
+              <span style={{ color: editCodeTheme === 'dark' ? '#ffff' : '#000' }}>
+                暗黑 &nbsp;
+                <Switch
+                  checked={editCodeTheme === 'dark'}
+                  size="small"
+                  onChange={() => {
+                    this.setState({
+                      editCodeTheme: editCodeTheme === 'dark' ? 'default' : 'dark'
+                    })
+                  }}
+                />
+              </span>
+            )}
+          </div>
           <div className="highlight">
             <LiveProvider noInline code={code} scope={scope}>
               <LiveEditor onChange={this.handleCodeChange} />

@@ -2,9 +2,10 @@
   "name": "@alitajs/antd-plus",
   "version": "1.0.12",
   "license": "MIT",
-  "description": "ant-design-plus",
+  "description": "基于ant-design封装的偏业务组件",
   "keywords": [
     "ant-design-plus",
+    "ant-design",
     "components",
     "react"
   ],
