@@ -16,7 +16,26 @@ Simplest of usage.
 ```jsx
 const Example = () => {
   return (
-    <ScrollableBar style={{ width: 400 }} />
+    <ScrollableBar style={{ width: 400 }}>
+      <ScrollableBar.Item>
+        123456789
+      </ScrollableBar.Item>
+      <ScrollableBar.Item>
+        123456789
+      </ScrollableBar.Item>
+      <ScrollableBar.Item>
+        123456789
+      </ScrollableBar.Item>
+      <ScrollableBar.Item>
+        123456789
+      </ScrollableBar.Item>
+      <ScrollableBar.Item>
+        123456789
+      </ScrollableBar.Item>
+      <ScrollableBar.Item>
+        123456789
+      </ScrollableBar.Item>
+    </ScrollableBar>
   )
 }
 

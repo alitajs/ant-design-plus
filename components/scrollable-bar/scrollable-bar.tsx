@@ -8,37 +8,50 @@ import React, {
   useCallback
 } from 'react';
 import { Icon } from 'antd';
+import Item from './item';
 import classNames from '@pansy/classnames';
 import { setTransform, isTransform3dSupported } from './utils';
 
 /**
- * 模式
+ * 展示模式
  * vertical:垂直; horizontal:水平;
  * */
 export type Mode = 'vertical' | 'horizontal';
+interface ScrollableBarFC<P> extends FC<P> {
+  Item?: typeof Item;
+}
 
 interface ScrollableBarProps {
   prefixCls?: string;
   className?: string;
   style?: CSSProperties;
+  // 当前活动的Key
   activeKey?: string;
+  // 展示模式 - (垂直/水平)
   mode?: Mode;
+  // 是否开启滚动动画
   scrollAnimated?: boolean;
+  // 上一个点击回调
   onPrevClick?: (e) => void;
+  // 下一个点击回调
   onNextClick?: (e) => void;
+  // 上一个Icon图标
   prevIcon?: ReactNode;
+  // 下一个Icon图标
   nextIcon?: ReactNode;
+  // 方向设置(右向左/左向右)
   direction?: 'rtl' | 'ltr'
 }
 
 let offset: number = 0;
 
-const ScrollableBar: FC<ScrollableBarProps> = (props) => {
+const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
   const {
     prefixCls,
     className,
     style,
     mode,
+    children,
     prevIcon,
     nextIcon,
     onNextClick,
@@ -200,6 +213,15 @@ const ScrollableBar: FC<ScrollableBarProps> = (props) => {
     }
   }
 
+  /**
+   * 滚动到活动的节点
+   * @param e
+   */
+  const scrollToActiveNode = (e) => {
+    const navWrapNode = navWrapRef.current;
+
+  }
+
   const showNextPrev = prev || next;
 
   const prevButton = (
@@ -261,15 +283,7 @@ const ScrollableBar: FC<ScrollableBarProps> = (props) => {
             ref={navRef}
           >
             <div ref={navContainerRef}>
-              <span>
-                1234555
-              </span>
-              <span>
-                1234555
-              </span>
-              <span>
-                1234555
-              </span>
+              {children}
             </div>
           </div>
         </div>
