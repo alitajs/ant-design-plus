@@ -16,7 +16,7 @@ Simplest of usage.
 ```jsx
 const Example = () => {
   return (
-    <ScrollableBar />
+    <ScrollableBar style={{ width: 400 }} />
   )
 }
 

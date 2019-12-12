@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import classNames from 'classnames';
+import classNames from '@pansy/classnames';
 import { Button, Dropdown, Menu, Icon } from 'antd';
 import { ButtonSize, ButtonProps } from 'antd/lib/button';
 
