@@ -7,7 +7,8 @@ export interface ItemProps {
   prefixCls?: string;
   className?: string;
   style?: CSSProperties;
-  key: KeyType;
+  key?: KeyType;
+  children?: any;
   onClick?: (key: KeyType) => void;
 }
 
