@@ -1,5 +1,5 @@
 import React, { RefObject, useRef, useEffect, useState } from 'react';
-import classNames from 'classnames';
+import classNames from '@pansy/classnames';
 import useToggle from 'react-use/esm/useToggle';
 import useFullScreen from 'react-use/esm/useFullscreen';
 
