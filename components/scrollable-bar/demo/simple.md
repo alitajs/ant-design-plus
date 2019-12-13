@@ -19,6 +19,9 @@ const Example = () => {
     <ScrollableBar 
       activeKey="item-05"
       onItemClick={(key) => { console.log(key) }}
+      style={{
+        width: 400
+      }}
     >
       <ScrollableBar.Item key="item-01">
         helloworld1

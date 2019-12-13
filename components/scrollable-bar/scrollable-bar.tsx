@@ -12,7 +12,7 @@ import React, {
 import { Icon } from 'antd';
 import classNames from '@pansy/classnames';
 import ResizeObserver from 'resize-observer-polyfill';
-import Item, { ItemProps } from './item';
+import Item, { ItemProps, KeyType } from './item';
 import { setTransform, isTransform3dSupported } from './utils';
 
 /**
@@ -38,6 +38,7 @@ interface ScrollableBarProps {
   onPrevClick?: (e) => void;
   // 下一个点击回调
   onNextClick?: (e) => void;
+  // 子项点击回调
   onItemClick?: (key) => void;
   // 上一个Icon图标
   prevIcon?: ReactNode;
@@ -76,8 +77,10 @@ const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
   const navContainerRef = useRef(null);
   const [next, setNext] = useState<boolean>(false);
   const [prev, setPrev] = useState<boolean>(false);
+  const [currentKey, setCurrentKey] = useState<KeyType>('');
 
   useEffect(() => {
+    setCurrentKey(activeKey)
     const debouncedResize = () => {
       setNextPrev();
       scrollToActiveNode();
@@ -92,6 +95,10 @@ const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
       }
     }
   }, [props.activeKey])
+
+  const debouncedResize = useCallback(() => {
+
+  }, [props.children])
 
   const handlePrevClick = (e) => {
     if (!prev) return;
@@ -118,7 +125,7 @@ const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
     if (mode === 'vertical') {
       prop = 'offsetHeight';
     }
-    return node[prop];
+    return node && node[prop];
   }
 
   const getOffsetLT = (node) => {
@@ -254,12 +261,14 @@ const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
     const wrapOffset = getOffsetLT(navWrapNode);
     const activeTabOffset = getOffsetLT(activeItemNode);
 
+    let offsetCopy = offset;
+
     if (wrapOffset > activeTabOffset) {
-      offset += (wrapOffset - activeTabOffset);
-      setOffset(offset);
+      offsetCopy += (wrapOffset - activeTabOffset);
+      setOffset(offsetCopy);
     } else if ((wrapOffset + navWrapNodeWH) < (activeTabOffset + activeTabWH)) {
-      offset -= (activeTabOffset + activeTabWH) - (wrapOffset + navWrapNodeWH);
-      setOffset(offset);
+      offsetCopy -= (activeTabOffset + activeTabWH) - (wrapOffset + navWrapNodeWH);
+      setOffset(offsetCopy);
     }
   }
 
@@ -311,6 +320,11 @@ const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
     </span>
   );
 
+  const handleItemClick = (key) => {
+    key && setCurrentKey(key);
+    onItemClick && onItemClick(key);
+  }
+
   const childNodes = [];
   Children.forEach(children, (child: React.ReactElement<ItemProps>) => {
     if (!child) return;
@@ -320,16 +334,18 @@ const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
     const ref = {
       ref: null
     };
-    if (activeKey === key) {
+    if (currentKey === key) {
       ref.ref = activeItemRef;
     }
 
     const node = cloneElement(child as any, {
       prefixCls: `${prefixCls}-item`,
       className: classNames(className, {
-        [`${prefixCls}-item-active`]: activeKey === key
+        [`${prefixCls}-item-active`]: currentKey === key
       }),
-      onClick: onItemClick.bind(this, key),
+      onClick: () => {
+        handleItemClick(key)
+      },
       ...ref
     })
 
