@@ -37,7 +37,8 @@
     "@pansy/classnames": "^1.0.1",
     "@pansy/utils": "^0.3.3",
     "antd": "^3.23.1",
-    "react-use": "^12.2.0"
+    "react-use": "^12.2.0",
+    "resize-observer-polyfill": "^1.5.1"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",

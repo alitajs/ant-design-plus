@@ -18,7 +18,6 @@ const Example = () => {
   return (
     <ScrollableBar 
       activeKey="item-05"
-      style={{ width: 400 }} 
       onItemClick={(key) => { console.log(key) }}
     >
       <ScrollableBar.Item key="item-01">
@@ -38,6 +37,9 @@ const Example = () => {
       </ScrollableBar.Item>
       <ScrollableBar.Item key="item-06">
         helloworld6
+      </ScrollableBar.Item>
+      <ScrollableBar.Item key="item-07">
+        helloworld7
       </ScrollableBar.Item>
     </ScrollableBar>
   )

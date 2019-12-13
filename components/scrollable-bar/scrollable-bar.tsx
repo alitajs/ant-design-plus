@@ -10,8 +10,9 @@ import React, {
   useCallback
 } from 'react';
 import { Icon } from 'antd';
-import Item, { ItemProps } from './item';
 import classNames from '@pansy/classnames';
+import ResizeObserver from 'resize-observer-polyfill';
+import Item, { ItemProps } from './item';
 import { setTransform, isTransform3dSupported } from './utils';
 
 /**
@@ -47,6 +48,7 @@ interface ScrollableBarProps {
 }
 
 let offset: number = 0;
+let resizeObserver;
 
 const defaultPrefixCls: string = 'ant-plus-scrollable-bar';
 
@@ -76,8 +78,19 @@ const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
   const [prev, setPrev] = useState<boolean>(false);
 
   useEffect(() => {
-    const nextPrev = setNextPrev();
-    scrollToActiveNode();
+    const debouncedResize = () => {
+      setNextPrev();
+      scrollToActiveNode();
+    };
+    const containerNode = containerRef.current;
+    resizeObserver = new ResizeObserver(debouncedResize);
+    resizeObserver.observe(containerNode);
+
+    () => {
+      if (resizeObserver) {
+        resizeObserver.disconnect();
+      }
+    }
   }, [props.activeKey])
 
   const handlePrevClick = (e) => {
@@ -121,7 +134,7 @@ const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
     if (mode === 'vertical') {
       prop = 'scrollHeight';
     }
-    return node[prop];
+    return node && node[prop];
   }
 
   const setNextPrev = () => {
