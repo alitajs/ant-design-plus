@@ -1,29 +1,35 @@
-import React, { FC, CSSProperties } from 'react';
+import React, { FC, CSSProperties, forwardRef } from 'react';
 import classNames from '@pansy/classnames';
 
-interface ItemProps {
+export type KeyType = string | number;
+
+export interface ItemProps {
   prefixCls?: string;
   className?: string;
   style?: CSSProperties;
+  key: KeyType;
+  onClick?: (key: KeyType) => void;
 }
 
-const Item: FC<ItemProps> = (props) => {
-  const { prefixCls, className, style, children } = props;
+const Item: FC<ItemProps> = (props, ref) => {
+  const { prefixCls, className, style, children, onClick, key } = props;
+
+  const handleClick = () => {
+    onClick && onClick(key);
+  }
 
   return (
     <div
       className={classNames(className, {
         [`${prefixCls}`]: true
       })}
+      ref={ref}
       style={style}
+      onClick={handleClick}
     >
       {children}
     </div>
   )
 }
 
-Item.defaultProps = {
-  prefixCls: 'ant-plus-scrollable-bar-item'
-}
-
-export default Item;
+export default forwardRef(Item);

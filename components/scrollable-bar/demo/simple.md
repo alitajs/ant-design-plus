@@ -16,24 +16,28 @@ Simplest of usage.
 ```jsx
 const Example = () => {
   return (
-    <ScrollableBar style={{ width: 400 }}>
-      <ScrollableBar.Item>
-        123456789
+    <ScrollableBar 
+      activeKey="item-05"
+      style={{ width: 400 }} 
+      onItemClick={(key) => { console.log(key) }}
+    >
+      <ScrollableBar.Item key="item-01">
+        helloworld1
       </ScrollableBar.Item>
-      <ScrollableBar.Item>
-        123456789
+      <ScrollableBar.Item key="item-02">
+        helloworld2
       </ScrollableBar.Item>
-      <ScrollableBar.Item>
-        123456789
+      <ScrollableBar.Item key="item-03">
+        helloworld3
       </ScrollableBar.Item>
-      <ScrollableBar.Item>
-        123456789
+      <ScrollableBar.Item key="item-04">
+        helloworld4
       </ScrollableBar.Item>
-      <ScrollableBar.Item>
-        123456789
+      <ScrollableBar.Item key="item-05">
+        helloworld5
       </ScrollableBar.Item>
-      <ScrollableBar.Item>
-        123456789
+      <ScrollableBar.Item key="item-06">
+        helloworld6
       </ScrollableBar.Item>
     </ScrollableBar>
   )

@@ -1,14 +1,16 @@
 import React, {
   FC,
   CSSProperties,
+  Children,
   ReactNode,
+  cloneElement,
   useRef,
   useState,
   useEffect,
   useCallback
 } from 'react';
 import { Icon } from 'antd';
-import Item from './item';
+import Item, { ItemProps } from './item';
 import classNames from '@pansy/classnames';
 import { setTransform, isTransform3dSupported } from './utils';
 
@@ -35,6 +37,7 @@ interface ScrollableBarProps {
   onPrevClick?: (e) => void;
   // 下一个点击回调
   onNextClick?: (e) => void;
+  onItemClick?: (key) => void;
   // 上一个Icon图标
   prevIcon?: ReactNode;
   // 下一个Icon图标
@@ -45,17 +48,21 @@ interface ScrollableBarProps {
 
 let offset: number = 0;
 
+const defaultPrefixCls: string = 'ant-plus-scrollable-bar';
+
 const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
   const {
     prefixCls,
     className,
     style,
     mode,
+    activeKey,
     children,
     prevIcon,
     nextIcon,
     onNextClick,
     onPrevClick,
+    onItemClick,
     direction,
     scrollAnimated
   } = props;
@@ -63,13 +70,15 @@ const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
   const navRef = useRef(null);
   const navWrapRef = useRef(null);
   const containerRef = useRef(null);
+  const activeItemRef = useRef(null);
   const navContainerRef = useRef(null);
   const [next, setNext] = useState<boolean>(false);
   const [prev, setPrev] = useState<boolean>(false);
 
   useEffect(() => {
     const nextPrev = setNextPrev();
-  }, [1])
+    scrollToActiveNode();
+  }, [props.activeKey])
 
   const handlePrevClick = (e) => {
     if (!prev) return;
@@ -217,9 +226,37 @@ const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
    * 滚动到活动的节点
    * @param e
    */
-  const scrollToActiveNode = (e) => {
+  const scrollToActiveNode = (e?) => {
     const navWrapNode = navWrapRef.current;
+    const activeItemNode = activeItemRef.current;
 
+    if (e && e.target !== e.currentTarget || !activeItemNode) return;
+
+    // 当不可滚动或首次进入可滚动状态时，请勿发出滚动
+    if (next || prev) return;
+
+    const activeTabWH = getScrollWH(activeItemNode);
+    const navWrapNodeWH = getOffsetWH(navWrapNode);
+
+    const wrapOffset = getOffsetLT(navWrapNode);
+    const activeTabOffset = getOffsetLT(activeItemNode);
+
+    if (wrapOffset > activeTabOffset) {
+      offset += (wrapOffset - activeTabOffset);
+      setOffset(offset);
+    } else if ((wrapOffset + navWrapNodeWH) < (activeTabOffset + activeTabWH)) {
+      offset -= (activeTabOffset + activeTabWH) - (wrapOffset + navWrapNodeWH);
+      setOffset(offset);
+    }
+  }
+
+  const prevTransitionEnd = (e) => {
+    if (e.propertyName !== 'opacity') return;
+    const containerNode = containerRef.current;
+    scrollToActiveNode({
+      target: containerNode,
+      currentTarget: containerNode,
+    });
   }
 
   const showNextPrev = prev || next;
@@ -233,6 +270,7 @@ const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
         [`${prefixCls}-btn-disabled`]: !prev,
         [`${prefixCls}-arrow-show`]: showNextPrev,
       })}
+      onTransitionEnd={prevTransitionEnd}
     >
       {prevIcon || (
         <span className={`${prefixCls}-prev-icon`} >
@@ -260,6 +298,31 @@ const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
     </span>
   );
 
+  const childNodes = [];
+  Children.forEach(children, (child: React.ReactElement<ItemProps>) => {
+    if (!child) return;
+    const key = child.key;
+    const className = child['className'];
+
+    const ref = {
+      ref: null
+    };
+    if (activeKey === key) {
+      ref.ref = activeItemRef;
+    }
+
+    const node = cloneElement(child as any, {
+      prefixCls: `${prefixCls}-item`,
+      className: classNames(className, {
+        [`${prefixCls}-item-active`]: activeKey === key
+      }),
+      onClick: onItemClick.bind(this, key),
+      ...ref
+    })
+
+    childNodes.push(node);
+  })
+
   return (
     <div
       className={classNames(className, {
@@ -283,7 +346,7 @@ const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
             ref={navRef}
           >
             <div ref={navContainerRef}>
-              {children}
+              {childNodes}
             </div>
           </div>
         </div>
@@ -293,9 +356,10 @@ const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
 }
 
 ScrollableBar.defaultProps = {
-  prefixCls: 'ant-plus-scrollable-bar',
+  prefixCls: defaultPrefixCls,
   mode: 'horizontal',
-  scrollAnimated: true
+  scrollAnimated: true,
+  onItemClick: (key) => { }
 }
 
 export default ScrollableBar;
