@@ -10,6 +10,7 @@ import React, {
   useCallback
 } from 'react';
 import { Icon } from 'antd';
+import debounce from 'lodash/debounce';
 import classNames from '@pansy/classnames';
 import ResizeObserver from 'resize-observer-polyfill';
 import Item, { ItemProps, KeyType } from './item';
@@ -79,12 +80,13 @@ const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
   const [prev, setPrev] = useState<boolean>(false);
   const [currentKey, setCurrentKey] = useState<KeyType>('');
 
+  const debouncedResize = useCallback(debounce(() => {
+    setNextPrev();
+    scrollToActiveNode();
+  }, 200), [])
+
   useEffect(() => {
     setCurrentKey(activeKey)
-    const debouncedResize = () => {
-      setNextPrev();
-      scrollToActiveNode();
-    };
     const containerNode = containerRef.current;
     resizeObserver = new ResizeObserver(debouncedResize);
     resizeObserver.observe(containerNode);
@@ -95,10 +97,6 @@ const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
       }
     }
   }, [props.activeKey])
-
-  const debouncedResize = useCallback(() => {
-
-  }, [props.children])
 
   const handlePrevClick = (e) => {
     if (!prev) return;
@@ -202,7 +200,7 @@ const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
       } = {};
 
       const navNode = navRef.current;
-      const navStyle = navNode.style;
+      const navStyle = (navNode && navNode.style) || {};
 
       const transformSupported = isTransform3dSupported(navStyle);
 
@@ -252,7 +250,6 @@ const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
 
     if (e && e.target !== e.currentTarget || !activeItemNode) return;
 
-    // 当不可滚动或首次进入可滚动状态时，请勿发出滚动
     if (next || prev) return;
 
     const activeTabWH = getScrollWH(activeItemNode);
@@ -321,7 +318,10 @@ const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
   );
 
   const handleItemClick = (key) => {
-    key && setCurrentKey(key);
+    if (key) {
+      setCurrentKey(key);
+      debouncedResize();
+    }
     onItemClick && onItemClick(key);
   }
 
