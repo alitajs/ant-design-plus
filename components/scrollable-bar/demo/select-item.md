@@ -58,6 +58,7 @@ render(
   .scrollable-bar-demo-02 {
     .ant-plus-scrollable-bar-item {
       cursor: pointer;
+      padding: 0 10px;
     }
 
     .ant-plus-scrollable-bar-item-active {

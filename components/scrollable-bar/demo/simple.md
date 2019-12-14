@@ -15,35 +15,43 @@ Simplest of usage.
 
 ```jsx
 const Example = () => {
+  const defaultData = [1, 2, 3];
+  const [data, setData] = React.useState(defaultData);
+
+  const handleAddClick = () => {
+    setData([...data, data.length + 1])
+  }
+
+  const handleResetClick = () => {
+    setData(defaultData)
+  }
+
   return (
-    <ScrollableBar 
-      key="ScrollableBar-01"
-      style={{
-        width: 400
-      }}
-    >
-      <ScrollableBar.Item key="item-01">
-        helloworld1
-      </ScrollableBar.Item>
-      <ScrollableBar.Item key="item-02">
-        helloworld2
-      </ScrollableBar.Item>
-      <ScrollableBar.Item key="item-03">
-        helloworld3
-      </ScrollableBar.Item>
-      <ScrollableBar.Item key="item-04">
-        helloworld4
-      </ScrollableBar.Item>
-      <ScrollableBar.Item key="item-05">
-        helloworld5
-      </ScrollableBar.Item>
-      <ScrollableBar.Item key="item-06">
-        helloworld6
-      </ScrollableBar.Item>
-      <ScrollableBar.Item key="item-07">
-        helloworld7
-      </ScrollableBar.Item>
-    </ScrollableBar>
+    <div>
+      <Button onClick={handleAddClick}>
+        添加
+      </Button>
+      <Button onClick={handleResetClick}>
+        重置
+      </Button>
+      <br />
+      <br />
+      <ScrollableBar 
+        key="ScrollableBar-01"
+        className="scrollable-bar-demo-01"
+        style={{
+          width: 400
+        }}
+      >
+        {data.map(((item, index) => {
+          return (
+            <ScrollableBar.Item key={`item-${index}`}>
+              helloworld{item}
+            </ScrollableBar.Item>
+          )
+        }))}
+      </ScrollableBar>
+    </div>
   )
 }
 
@@ -51,3 +59,11 @@ render(
   <Example />
 )
 ```
+
+<style>
+  .scrollable-bar-demo-01 {
+    .ant-plus-scrollable-bar-item {
+      padding: 0 10px;
+    }
+  }
+</style>

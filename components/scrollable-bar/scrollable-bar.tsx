@@ -96,7 +96,12 @@ const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
         resizeObserver.disconnect();
       }
     }
-  }, [props.activeKey])
+  }, [1])
+
+  useEffect(() => {
+    setNextPrev();
+    scrollToActiveNode();
+  }, [props.activeKey, props.mode, props.children])
 
   const handlePrevClick = (e) => {
     if (!prev) return;
