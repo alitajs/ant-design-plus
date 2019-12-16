@@ -13,7 +13,7 @@ import { Icon } from 'antd';
 import debounce from 'lodash/debounce';
 import classNames from '@pansy/classnames';
 import ResizeObserver from 'resize-observer-polyfill';
-import Item, { ItemProps, KeyType } from './item';
+import Item, { ItemProps } from './item';
 import { setTransform, isTransform3dSupported } from './utils';
 
 /**
@@ -46,7 +46,7 @@ interface ScrollableBarProps {
   // 下一个Icon图标
   nextIcon?: ReactNode;
   // 方向设置(右向左/左向右)
-  direction?: 'rtl' | 'ltr'
+  direction?: 'rtl' | 'ltr';
 }
 
 let offset: number = 0;
@@ -78,15 +78,17 @@ const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
   const navContainerRef = useRef(null);
   const [next, setNext] = useState<boolean>(false);
   const [prev, setPrev] = useState<boolean>(false);
-  const [currentKey, setCurrentKey] = useState<KeyType>('');
+  const [currentKey, setCurrentKey] = useState<string>('');
 
-  const debouncedResize = useCallback(debounce(() => {
-    setNextPrev();
-    scrollToActiveNode();
-  }, 200), [])
+  const debouncedResize = useCallback(
+    debounce(() => {
+      setNextPrev();
+      scrollToActiveNode();
+    }, 200),
+    []
+  );
 
   useEffect(() => {
-    setCurrentKey(activeKey)
     const containerNode = containerRef.current;
     resizeObserver = new ResizeObserver(debouncedResize);
     resizeObserver.observe(containerNode);
@@ -95,13 +97,14 @@ const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
       if (resizeObserver) {
         resizeObserver.disconnect();
       }
-    }
-  }, [1])
+    };
+  }, [1]);
 
   useEffect(() => {
+    setCurrentKey(activeKey);
     setNextPrev();
     scrollToActiveNode();
-  }, [props.activeKey, props.mode, props.children])
+  }, [props.activeKey, props.mode, props.children]);
 
   const handlePrevClick = (e) => {
     if (!prev) return;
@@ -111,7 +114,7 @@ const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
     const navWrapNodeWH = getOffsetWH(navWrapNode);
 
     setOffset(offset + navWrapNodeWH);
-  }
+  };
 
   const handleNextClick = (e) => {
     if (!next) return;
@@ -120,8 +123,8 @@ const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
     const navWrapNode = navWrapRef.current;
     const navWrapNodeWH = getOffsetWH(navWrapNode);
 
-    setOffset((offset - navWrapNodeWH));
-  }
+    setOffset(offset - navWrapNodeWH);
+  };
 
   const getOffsetWH = (node) => {
     let prop = 'offsetWidth';
@@ -129,7 +132,7 @@ const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
       prop = 'offsetHeight';
     }
     return node && node[prop];
-  }
+  };
 
   const getOffsetLT = (node) => {
     let prop = 'left';
@@ -137,7 +140,7 @@ const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
       prop = 'top';
     }
     return node.getBoundingClientRect()[prop];
-  }
+  };
 
   const getScrollWH = (node) => {
     let prop = 'scrollWidth';
@@ -145,7 +148,7 @@ const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
       prop = 'scrollHeight';
     }
     return node && node[prop];
-  }
+  };
 
   const setNextPrev = () => {
     const navNode = navRef.current;
@@ -187,7 +190,7 @@ const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
       next: nextCopy,
       prev: prevCopy
     };
-  }
+  };
 
   /**
    *
@@ -200,8 +203,8 @@ const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
     if (offset !== target) {
       offset = target;
       let navOffset: {
-        name?: string,
-        value?: string
+        name?: string;
+        value?: string;
       } = {};
 
       const navNode = navRef.current;
@@ -212,12 +215,12 @@ const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
       if (mode === 'vertical') {
         if (transformSupported) {
           navOffset = {
-            value: `translate3d(0,${target}px,0)`,
+            value: `translate3d(0,${target}px,0)`
           };
         } else {
           navOffset = {
             name: 'top',
-            value: `${target}px`,
+            value: `${target}px`
           };
         }
       } else if (transformSupported) {
@@ -225,12 +228,12 @@ const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
           target = -target;
         }
         navOffset = {
-          value: `translate3d(${target}px,0,0)`,
+          value: `translate3d(${target}px,0,0)`
         };
       } else {
         navOffset = {
           name: 'left',
-          value: `${target}px`,
+          value: `${target}px`
         };
       }
 
@@ -243,7 +246,7 @@ const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
         setNextPrev();
       }
     }
-  }
+  };
 
   /**
    * 滚动到活动的节点
@@ -253,7 +256,7 @@ const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
     const navWrapNode = navWrapRef.current;
     const activeItemNode = activeItemRef.current;
 
-    if (e && e.target !== e.currentTarget || !activeItemNode) return;
+    if ((e && e.target !== e.currentTarget) || !activeItemNode) return;
 
     if (next || prev) return;
 
@@ -266,22 +269,22 @@ const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
     let offsetCopy = offset;
 
     if (wrapOffset > activeTabOffset) {
-      offsetCopy += (wrapOffset - activeTabOffset);
+      offsetCopy += wrapOffset - activeTabOffset;
       setOffset(offsetCopy);
-    } else if ((wrapOffset + navWrapNodeWH) < (activeTabOffset + activeTabWH)) {
-      offsetCopy -= (activeTabOffset + activeTabWH) - (wrapOffset + navWrapNodeWH);
+    } else if (wrapOffset + navWrapNodeWH < activeTabOffset + activeTabWH) {
+      offsetCopy -= activeTabOffset + activeTabWH - (wrapOffset + navWrapNodeWH);
       setOffset(offsetCopy);
     }
-  }
+  };
 
   const prevTransitionEnd = (e) => {
     if (e.propertyName !== 'opacity') return;
     const containerNode = containerRef.current;
     scrollToActiveNode({
       target: containerNode,
-      currentTarget: containerNode,
+      currentTarget: containerNode
     });
-  }
+  };
 
   const showNextPrev = prev || next;
 
@@ -292,12 +295,12 @@ const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
       className={classNames({
         [`${prefixCls}-prev`]: 1,
         [`${prefixCls}-btn-disabled`]: !prev,
-        [`${prefixCls}-arrow-show`]: showNextPrev,
+        [`${prefixCls}-arrow-show`]: showNextPrev
       })}
       onTransitionEnd={prevTransitionEnd}
     >
       {prevIcon || (
-        <span className={`${prefixCls}-prev-icon`} >
+        <span className={`${prefixCls}-prev-icon`}>
           <Icon type="left" />
         </span>
       )}
@@ -311,7 +314,7 @@ const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
       className={classNames({
         [`${prefixCls}-next`]: 1,
         [`${prefixCls}-btn-disabled`]: !next,
-        [`${prefixCls}-arrow-show`]: showNextPrev,
+        [`${prefixCls}-arrow-show`]: showNextPrev
       })}
     >
       {nextIcon || (
@@ -328,7 +331,7 @@ const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
       debouncedResize();
     }
     onItemClick && onItemClick(key);
-  }
+  };
 
   const childNodes = [];
   Children.forEach(children, (child: React.ReactElement<ItemProps>) => {
@@ -349,13 +352,13 @@ const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
         [`${prefixCls}-item-active`]: currentKey === key
       }),
       onClick: () => {
-        handleItemClick(key)
+        handleItemClick(key);
       },
       ...ref
-    })
+    });
 
     childNodes.push(node);
-  })
+  });
 
   return (
     <div
@@ -368,10 +371,7 @@ const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
     >
       {prevButton}
       {nextButton}
-      <div
-        className={`${prefixCls}-nav-wrap`}
-        ref={navWrapRef}
-      >
+      <div className={`${prefixCls}-nav-wrap`} ref={navWrapRef}>
         <div className={`${prefixCls}-nav-scroll`}>
           <div
             className={classNames(`${prefixCls}-nav`, {
@@ -379,21 +379,19 @@ const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
             })}
             ref={navRef}
           >
-            <div ref={navContainerRef}>
-              {childNodes}
-            </div>
+            <div ref={navContainerRef}>{childNodes}</div>
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 ScrollableBar.defaultProps = {
   prefixCls: defaultPrefixCls,
   mode: 'horizontal',
   scrollAnimated: true,
-  onItemClick: (key) => { }
-}
+  onItemClick: (key) => {}
+};
 
 export default ScrollableBar;

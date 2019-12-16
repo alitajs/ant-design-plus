@@ -15,43 +15,30 @@ Simplest of usage.
 
 ```jsx
 const Example = () => {
+  const data = ['1', '2', '3', '4', '5', '6', '7'];
+  const [activeKey, setActiveKey] = React.useState(undefined);
+
+  React.useEffect(() => {
+    setActiveKey(data[4]);
+  }, []);
+
   return (
-    <ScrollableBar 
+    <ScrollableBar
       key="ScrollableBar-02"
-      activeKey="05"
+      activeKey={activeKey}
       className="scrollable-bar-demo-02"
       style={{
         width: 400
       }}
     >
-      <ScrollableBar.Item key="01">
-        helloworld1
-      </ScrollableBar.Item>
-      <ScrollableBar.Item key="02">
-        helloworld2
-      </ScrollableBar.Item>
-      <ScrollableBar.Item key="03">
-        helloworld3
-      </ScrollableBar.Item>
-      <ScrollableBar.Item key="04">
-        helloworld4
-      </ScrollableBar.Item>
-      <ScrollableBar.Item key="05">
-        helloworld5
-      </ScrollableBar.Item>
-      <ScrollableBar.Item key="06">
-        helloworld6
-      </ScrollableBar.Item>
-      <ScrollableBar.Item key="07">
-        helloworld7
-      </ScrollableBar.Item>
+      {data.map((item) => (
+        <ScrollableBar.Item key={item}>helloworld{item}</ScrollableBar.Item>
+      ))}
     </ScrollableBar>
-  )
-}
+  );
+};
 
-render(
-  <Example />
-)
+render(<Example />);
 ```
 
 <style>

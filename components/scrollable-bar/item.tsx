@@ -1,15 +1,13 @@
 import React, { FC, CSSProperties, forwardRef } from 'react';
 import classNames from '@pansy/classnames';
 
-export type KeyType = string | number;
-
 export interface ItemProps {
   prefixCls?: string;
   className?: string;
   style?: CSSProperties;
-  key?: KeyType;
+  key?: string;
   children?: any;
-  onClick?: (key: KeyType) => void;
+  onClick?: (key: string) => void;
 }
 
 const Item: FC<ItemProps> = (props, ref) => {
@@ -17,7 +15,7 @@ const Item: FC<ItemProps> = (props, ref) => {
 
   const handleClick = () => {
     onClick && onClick(key);
-  }
+  };
 
   return (
     <div
@@ -30,7 +28,7 @@ const Item: FC<ItemProps> = (props, ref) => {
     >
       {children}
     </div>
-  )
-}
+  );
+};
 
 export default forwardRef(Item);
