@@ -10,28 +10,20 @@ export interface AuthorizedProps {
 }
 
 const Authorized: React.FC<AuthorizedProps> = (props) => {
-  const {
-    policy,
-    children,
-    authority,
-    noMatch
-  } = props;
+  const { policy, children, authority, noMatch } = props;
   const childrenRender = typeof children === 'undefined' ? null : children;
+
+  // 防止policy不存在报错
+  if (!policy) {
+    return <Fragment>{childrenRender}</Fragment>;
+  }
 
   const checkResult = checkAuthority(policy, authority);
 
   if (isFunction(children)) {
-    return (
-      <Fragment>
-        {children(checkResult)}
-      </Fragment>
-    )
+    return <Fragment>{children(checkResult)}</Fragment>;
   } else {
-    return (
-      <Fragment>
-        {checkResult ? childrenRender : noMatch}
-      </Fragment>
-    );
+    return <Fragment>{checkResult ? childrenRender : noMatch}</Fragment>;
   }
 };
 
