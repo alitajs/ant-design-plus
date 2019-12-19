@@ -1,8 +1,8 @@
 ---
 order: 1
-title: 
+title:
   zh-CN: 控制某个DOM节点
-  en-US: Control DOM 
+  en-US: Control DOM
 ---
 
 ## zh-CN
@@ -15,24 +15,30 @@ Click image.
 
 ```jsx
 const Example = () => {
+  const [isFullScreen, setIsFullScreen] = React.useState(false);
+
+  const handleClick = () => {
+    setIsFullScreen(!isFullScreen);
+  };
+
   return (
     <div>
-      <FullScreen>
-        <div 
-          style={{ 
+      <FullScreen isFullScreen={isFullScreen}>
+        <div
+          onClick={handleClick}
+          style={{
             height: 300,
             width: 500,
-            backgroundImage: 'url("https://aip.bdstatic.com/portal-pc-node/dist/1568277945052/images/technology/face/detect/demo-card-1.jpg")',
+            backgroundImage:
+              'url("https://aip.bdstatic.com/portal-pc-node/dist/1568277945052/images/technology/face/detect/demo-card-1.jpg")',
             backgroundRepeat: 'no-repeat',
             backgroundSize: '100% 100%'
           }}
         />
       </FullScreen>
-    </div> 
-  )
-}
+    </div>
+  );
+};
 
-render(
-  <Example />
-)
+render(<Example />);
 ```

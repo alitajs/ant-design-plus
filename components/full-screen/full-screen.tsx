@@ -1,48 +1,54 @@
-import React, { RefObject, useRef, useEffect, useState } from 'react';
+import React, { FC, CSSProperties, RefObject, useRef, useEffect, useState } from 'react';
 import classNames from '@pansy/classnames';
-import useToggle from 'react-use/esm/useToggle';
-import useFullScreen from 'react-use/esm/useFullscreen';
+import useToggle from '@pansy/hooks/dist/use-toggle';
+import useFullscreen from '@pansy/hooks/dist/use-fullscreen';
 
-export interface IFullScreenProps {
+export interface FullScreenProps {
   prefixCls?: string;
   className?: string;
-  style?: React.CSSProperties;
-  isBody?: boolean;
-  status?: boolean;
+  style?: CSSProperties;
+  // 目标Ref
   targetRef?: RefObject<Element>;
-  onChange?: (isFullScreen: boolean) => void;
+  // 是否全屏
+  isFullScreen?: boolean;
+  // 是否整个页面全屏 默认为true
+  isBody?: boolean;
+  // 全屏状态改变的回调
+  onChange?: (status: boolean) => void;
 }
 
-const FullScreen: React.FC<IFullScreenProps> = (props) => {
-  const { prefixCls, className, style, children, onChange, isBody, targetRef } = props;
+const FullScreen: FC<FullScreenProps> = (props) => {
+  const {
+    prefixCls,
+    className,
+    style,
+    children,
+    targetRef,
+    isFullScreen,
+    isBody,
+    onChange
+  } = props;
   const rootRef = useRef(null);
-  const [status, toggle] = useToggle( false);
-  const [domRef, setDomRef] = useState<RefObject<Element>>({ current: null });
-  const isFullScreen = useFullScreen(domRef, status, {
-    onClose: () => toggle(false)
-  });
+  const [status, toggle] = useToggle(!!isFullScreen);
+  const [domRef, setDomRef] = useState<RefObject<Element>>(undefined);
+  const fullscreenStatus = useFullscreen(domRef, status);
 
+  // 设置Ref
   useEffect(() => {
     if (isBody) {
-      setDomRef({ current: document.documentElement });
-    } else if (targetRef) {
-      setDomRef(targetRef);
-    } else {
-      setDomRef(rootRef);
+      setDomRef(undefined);
+      return;
     }
+    setDomRef(targetRef || rootRef);
   }, [props.isBody, props.targetRef]);
 
   useEffect(() => {
-    if ('status' in props && domRef && domRef.current) {
-      toggle(props.status);
-    }
-  }, [props.status]);
+    toggle(!!isFullScreen);
+  }, [props.isFullScreen]);
 
-  const changeFullScreen = () => {
-    if ('status' in props) return;
-    toggle();
-    onChange && onChange(isFullScreen);
-  };
+  useEffect(() => {
+    onChange && onChange(fullscreenStatus);
+  }, [fullscreenStatus]);
 
   return (
     <div
@@ -51,16 +57,16 @@ const FullScreen: React.FC<IFullScreenProps> = (props) => {
       })}
       ref={rootRef}
       style={style}
-      onClick={changeFullScreen}
     >
       {children}
     </div>
-  )
+  );
 };
 
 FullScreen.defaultProps = {
   prefixCls: 'ant-plus-full-screen',
-  isBody: false
+  isBody: false,
+  isFullScreen: false
 };
 
-export default FullScreen
+export default FullScreen;

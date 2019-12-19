@@ -1,6 +1,6 @@
 ---
 order: 0
-title: 
+title:
   zh-CN: 基础样例
   en-US: Basic Example
 ---
@@ -15,16 +15,26 @@ Click the button to switch to full screen.
 
 ```jsx
 const Example = () => {
+  const [isFullScreen, setIsFullScreen] = React.useState(false);
+
+  const handleClick = () => {
+    setIsFullScreen(!isFullScreen);
+  };
+
   return (
     <div>
-      <FullScreen isBody={true}>
-        <Button>切换全屏</Button>  
+      <FullScreen
+        isFullScreen={isFullScreen}
+        isBody={true}
+        onChange={(value) => {
+          console.log(value);
+        }}
+      >
+        <Button onClick={handleClick}>切换全屏</Button>
       </FullScreen>
-    </div> 
-  )
-}
+    </div>
+  );
+};
 
-render(
-  <Example />
-)
+render(<Example />);
 ```

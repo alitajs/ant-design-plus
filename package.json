@@ -38,10 +38,10 @@
   },
   "dependencies": {
     "@pansy/classnames": "^1.0.1",
+    "@pansy/hooks": "^0.0.3",
     "@pansy/utils": "^0.3.3",
     "antd": "^3.23.1",
     "lodash": "^4.17.15",
-    "react-use": "^12.2.0",
     "resize-observer-polyfill": "^1.5.1"
   },
   "devDependencies": {
