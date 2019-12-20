@@ -351,6 +351,7 @@ const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
       className: classNames(className, {
         [`${prefixCls}-item-active`]: currentKey === key
       }),
+      key,
       onClick: () => {
         handleItemClick(key);
       },
