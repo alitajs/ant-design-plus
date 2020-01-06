@@ -15,15 +15,15 @@ Click image.
 
 ```jsx
 const Example = () => {
-  const [isFullScreen, setIsFullScreen] = React.useState(false);
+  const [isFull, setIsFull] = React.useState(false);
 
   const handleClick = () => {
-    setIsFullScreen(!isFullScreen);
+    setIsFull(!isFull);
   };
 
   return (
     <div>
-      <FullScreen isFullScreen={isFullScreen}>
+      <FullScreen enabled={isFull}>
         <div
           onClick={handleClick}
           style={{

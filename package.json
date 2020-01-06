@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "@pansy/classnames": "^1.0.1",
-    "@pansy/hooks": "^0.0.3",
+    "@pansy/react-fullscreen": "^1.0.1",
     "@pansy/utils": "^0.3.3",
     "antd": "^3.23.1",
     "lodash": "^4.17.15",

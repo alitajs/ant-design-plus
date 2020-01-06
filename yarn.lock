@@ -3081,14 +3081,6 @@
   resolved "https://registry.yarnpkg.com/@pansy/group-by/-/group-by-0.3.3.tgz#61b7871aae96e2d2cbb3907f76c20b98278ea2d1"
   integrity sha512-0bTnqAXI+r38UmWN4NiFNY8oIVBTqy6pldJe5jPHwBi4IcUU64poe1iTtkhy/0OHHp2c0KRftuwQrPpugv2z3A==
 
-"@pansy/hooks@^0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@pansy/hooks/-/hooks-0.0.3.tgz#08eb1d9f92c2f14203ee036902b25b55d2f7d4bb"
-  integrity sha512-MFDHh3dI/tohJ4MaHy4GM4Al7Lkcz8zySOVgMeXAlE4PV+sFaHqzCb4rUvp6uURRbz6kYq50orSpKvBMOV7ExQ==
-  dependencies:
-    "@pansy/is-boolean" "^0.3.3"
-    screenfull "^5.0.0"
-
 "@pansy/indent@^0.3.3":
   version "0.3.3"
   resolved "https://registry.yarnpkg.com/@pansy/indent/-/indent-0.3.3.tgz#77b435845d22e7c411aeda7f1b97fc2508037abe"
@@ -3215,6 +3207,13 @@
     "@pansy/group-by" "^0.3.3"
     "@pansy/is-array" "^0.3.3"
     "@pansy/is-string" "^0.3.3"
+
+"@pansy/react-fullscreen@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@pansy/react-fullscreen/-/react-fullscreen-1.0.1.tgz#085bd72c2ac43763d14cfe632a612873e8e3b18b"
+  integrity sha512-eReVrsawqxwMUSh5vJuoFoB6KPwrMRtRMy/xp77pIIz5UwC3nWqvB1U9t/T6J8UhhQwbtywMiO7tTbi1zC9TyA==
+  dependencies:
+    screenfull "^5.0.0"
 
 "@pansy/replace-object-keys@^0.3.3":
   version "0.3.3"
