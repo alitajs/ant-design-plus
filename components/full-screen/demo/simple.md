@@ -15,19 +15,19 @@ Click the button to switch to full screen.
 
 ```jsx
 const Example = () => {
-  const [isFullScreen, setIsFullScreen] = React.useState(false);
+  const [isFull, setIsFull] = React.useState(false);
 
   const handleClick = () => {
-    setIsFullScreen(!isFullScreen);
+    setIsFull(!isFull);
   };
 
   return (
     <div>
       <FullScreen
-        isFullScreen={isFullScreen}
-        isBody={true}
-        onChange={(value) => {
-          console.log(value);
+        enabled={isFull}
+        target={document.documentElement}
+        onClose={(error) => {
+          console.log('close');
         }}
       >
         <Button onClick={handleClick}>切换全屏</Button>

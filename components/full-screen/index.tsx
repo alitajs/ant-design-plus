@@ -1,3 +1,3 @@
-import FullScreen from './full-screen';
+import FullScreen from '@pansy/react-fullscreen';
 
 export default FullScreen;
