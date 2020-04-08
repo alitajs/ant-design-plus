@@ -25,6 +25,8 @@
     "url": "https://github.com/alitajs/ant-design-plus"
   },
   "scripts": {
+    "start": "dumi dev",
+    "site": "dumi build",
     "prettier": "walrus prettier",
     "lint:commit": "walrus commitlint --env HUSKY_GIT_PARAMS",
     "release": "walrus release"
