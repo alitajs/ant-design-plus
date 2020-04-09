@@ -9,6 +9,10 @@ group:
   order: 99
 ---
 
+## 代码演示
+
+<code src="./demo/simple.tsx" />
+
 ## API
 
 ### ButtonList

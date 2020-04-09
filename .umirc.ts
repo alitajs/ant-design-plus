@@ -1,3 +1,5 @@
+import { join } from 'path';
+
 export default {
   mode: 'site',
   title: 'Ant Design Plus',
@@ -9,6 +11,7 @@ export default {
   },
   dynamicImport: {},
   hash: true,
+  plugins: [join(__dirname, './plugins/umi-plugin-antd-plus.ts')],
   extraBabelPlugins: [
     [
       'import',
