@@ -11,6 +11,14 @@ group:
 
 # Authorized 权限组件
 
+## 代码演示
+
+<code src="./demo/simple.tsx" />
+
+自定义
+
+<code src="./demo/customize.tsx" />
+
 ## API
 
 ### Authorized
