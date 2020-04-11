@@ -37,6 +37,7 @@
     "react-dom": ">=16.9.0"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.0.6",
     "@pansy/classnames": "^1.0.1",
     "@pansy/react-fullscreen": "^1.0.1",
     "@pansy/utils": "^0.3.3",

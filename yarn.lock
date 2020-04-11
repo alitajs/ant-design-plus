@@ -25,6 +25,17 @@
     insert-css "^2.0.0"
     rc-util "^4.9.0"
 
+"@ant-design/icons@^4.0.6":
+  version "4.0.6"
+  resolved "https://registry.npm.taobao.org/@ant-design/icons/download/@ant-design/icons-4.0.6.tgz?cache=0&sync_timestamp=1586512502732&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40ant-design%2Ficons%2Fdownload%2F%40ant-design%2Ficons-4.0.6.tgz#a1b9860d4de5dece59ba98d0025b07a3d13cba2a"
+  integrity sha1-obmGDU3l3s5ZupjQAlsHo9E8uio=
+  dependencies:
+    "@ant-design/colors" "^3.1.0"
+    "@ant-design/icons-svg" "^4.0.0"
+    classnames "^2.2.6"
+    insert-css "^2.0.0"
+    rc-util "^4.9.0"
+
 "@ant-design/react-slick@~0.25.5":
   version "0.25.5"
   resolved "https://registry.npm.taobao.org/@ant-design/react-slick/download/@ant-design/react-slick-0.25.5.tgz?cache=0&sync_timestamp=1577365267933&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40ant-design%2Freact-slick%2Fdownload%2F%40ant-design%2Freact-slick-0.25.5.tgz#18f40abaa22c15dc26da9c473d24da38d4d8f334"

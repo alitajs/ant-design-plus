@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import classNames from '@pansy/classnames';
-import { Button, Dropdown, Menu, Icon } from 'antd';
+import { Button, Dropdown, Menu } from 'antd';
+import { MoreOutlined, DownOutlined } from '@ant-design/icons';
 import { ButtonSize, ButtonProps } from 'antd/lib/button';
 
 export interface ActionButtonProps extends ButtonProps {
@@ -46,13 +47,13 @@ const ButtonList: React.FC<ButtonListProps> = (props) => {
       return (
         <span>
           更多操作
-          <Icon type="down" />
+          <DownOutlined />
         </span>
       );
     }
     return (
       <span>
-        <Icon type="more" />
+        <MoreOutlined />
       </span>
     );
   };
@@ -106,7 +107,7 @@ const ButtonList: React.FC<ButtonListProps> = (props) => {
 ButtonList.defaultProps = {
   prefixCls: 'ant-plus-button-list',
   maxCount: 3,
-  size: 'default',
+  size: 'middle',
   isLink: false,
   moreType: 'text'
 };
