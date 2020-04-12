@@ -10,7 +10,13 @@ group:
 
 ## 代码演示
 
+### 简单使用
+
 <code src="./demo/simple.tsx" />
+
+### 自定义文本
+
+<code src="./demo/customize.tsx" />
 
 ## API
 
