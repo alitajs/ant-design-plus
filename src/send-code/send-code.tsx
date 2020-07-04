@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { Component } from 'react';
 import { Button } from 'antd';
 import { ButtonProps } from 'antd/es/button';
 import { getTemplateText } from './utils';
@@ -21,7 +21,7 @@ export interface SendCodeProps extends ButtonProps {
   onEnd?: () => void;
 }
 
-interface ISendCodeState {
+interface SendCodeState {
   loading: boolean;
   // 运行状态 0: 初始 1: 运行时  2: 结速时
   status: number;
@@ -34,32 +34,7 @@ export interface SendCodeLocale {
   resetText: string;
 }
 
-const SendCode1: FC<SendCodeProps> = (props) => {
-  const { start, initText, resetText, runText, onEnd, ...rest } = props;
-  const [loading, setLoading] = useState<boolean>(false);
-  const [status, setStatus] = useState<0 | 1 | 2>(0);
-
-  const renderSendCode = (sendCodeLocale: SendCodeLocale) => {
-    return (
-      <Button loading={loading} disabled={status === 1} {...rest}>
-        {this.buttonText(sendCodeLocale)}
-      </Button>
-    );
-  };
-
-  return (
-    <LocaleReceive componentName="SendCode" defaultLocale={enUS}>
-      {(sendCodeLocale: SendCodeLocale) => renderSendCode(sendCodeLocale)}
-    </LocaleReceive>
-  );
-};
-
-SendCode1.defaultProps = {
-  start: false,
-  second: 60
-};
-
-class SendCode extends React.Component<SendCodeProps, ISendCodeState> {
+class SendCode extends Component<SendCodeProps, SendCodeState> {
   private timer: NodeJS.Timer = null;
 
   constructor(props) {
@@ -71,7 +46,7 @@ class SendCode extends React.Component<SendCodeProps, ISendCodeState> {
     second: 60
   };
 
-  readonly state: ISendCodeState = {
+  readonly state: SendCodeState = {
     loading: false,
     status: this.props.start ? 1 : 0,
     second: undefined
@@ -83,7 +58,7 @@ class SendCode extends React.Component<SendCodeProps, ISendCodeState> {
     }
   }
 
-  componentWillReceiveProps(nextProps: ISendCodeProps) {
+  componentWillReceiveProps(nextProps: SendCodeProps) {
     if (nextProps.start) {
       this.startCountdown();
     }
@@ -118,7 +93,7 @@ class SendCode extends React.Component<SendCodeProps, ISendCodeState> {
     onEnd && onEnd();
   };
 
-  buttonText = (sendCodeLocale: ISendCodeLocale) => {
+  buttonText = (sendCodeLocale: SendCodeLocale) => {
     const { initText, resetText, runText } = this.props;
     const { status, second } = this.state;
     switch (status) {
@@ -131,7 +106,7 @@ class SendCode extends React.Component<SendCodeProps, ISendCodeState> {
     }
   };
 
-  renderSendCode = (sendCodeLocale: ISendCodeLocale) => {
+  renderSendCode = (sendCodeLocale: SendCodeLocale) => {
     const { start, initText, resetText, runText, onEnd, ...rest } = this.props;
     const { loading, status } = this.state;
 
@@ -145,7 +120,7 @@ class SendCode extends React.Component<SendCodeProps, ISendCodeState> {
   render() {
     return (
       <LocaleReceive componentName="SendCode" defaultLocale={enUS}>
-        {(sendCodeLocale: ISendCodeLocale) => this.renderSendCode(sendCodeLocale)}
+        {(sendCodeLocale: SendCodeLocale) => this.renderSendCode(sendCodeLocale)}
       </LocaleReceive>
     );
   }
