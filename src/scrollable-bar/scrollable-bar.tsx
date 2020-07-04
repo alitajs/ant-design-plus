@@ -21,8 +21,9 @@ import { setTransform, isTransform3dSupported } from './utils';
  * vertical:垂直; horizontal:水平;
  * */
 export type Mode = 'vertical' | 'horizontal';
-interface ScrollableBarFC<P> extends FC<P> {
-  Item?: typeof Item;
+
+interface ScrollableBarType extends FC<ScrollableBarProps> {
+  Item: typeof Item;
 }
 
 interface ScrollableBarProps {
@@ -36,11 +37,11 @@ interface ScrollableBarProps {
   // 是否开启滚动动画
   scrollAnimated?: boolean;
   // 上一个点击回调
-  onPrevClick?: (e) => void;
+  onPrevClick?: (e: React.MouseEvent | React.KeyboardEvent) => void;
   // 下一个点击回调
-  onNextClick?: (e) => void;
+  onNextClick?: (e: React.MouseEvent | React.KeyboardEvent) => void;
   // 子项点击回调
-  onItemClick?: (key) => void;
+  onItemClick?: (activeKey: React.Key, e: React.MouseEvent | React.KeyboardEvent) => void;
   // 上一个Icon图标
   prevIcon?: ReactNode;
   // 下一个Icon图标
@@ -54,7 +55,7 @@ let resizeObserver;
 
 const defaultPrefixCls: string = 'ant-plus-scrollable-bar';
 
-const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
+const ScrollableBar: ScrollableBarType = (props) => {
   const {
     prefixCls,
     className,
@@ -394,5 +395,7 @@ ScrollableBar.defaultProps = {
   scrollAnimated: true,
   onItemClick: (key) => {}
 };
+
+ScrollableBar.Item = Item;
 
 export default ScrollableBar;

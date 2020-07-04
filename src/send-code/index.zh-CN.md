@@ -6,6 +6,7 @@ nav:
 group:
   title: 数据录入
   path: /data-entry
+  order: 10
 ---
 
 ## 代码演示

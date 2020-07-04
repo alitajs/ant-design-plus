@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react';
 import { Button } from 'antd';
+// @ts-ignore
 import { ErrorBoundary } from '@alitajs/antd-plus';
 
 const ErrorComponent: FC = () => {

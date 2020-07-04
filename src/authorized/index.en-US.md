@@ -4,9 +4,8 @@ nav:
   title: 组件
   path: /components
 group:
-  title: 其他
-  path: /other
-  order: 100
+  title: 数据展示
+  path: /data-display
 ---
 
 # Authorized 权限组件
