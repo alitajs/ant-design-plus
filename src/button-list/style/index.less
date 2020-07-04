@@ -1,0 +1,31 @@
+@import '../../style/themes/default.less';
+
+@prefix-cls: ~'@{prefix}-button-list';
+
+.@{prefix-cls} {
+  .ant-btn {
+    margin-right: 8px;
+  }
+
+  &.is-link {
+    .ant-btn {
+      margin-right: 0;
+    }
+  }
+
+  &__button-danger {
+    color: @error-color;
+
+    &:hover {
+      color: color(~`colorPalette('@{error-color}', 5) `);
+    }
+  }
+
+  &__button-default {
+    color: @btn-default-color;
+
+    &:hover {
+      color: color(~`colorPalette('@{btn-default-color}', 5) `);
+    }
+  }
+}

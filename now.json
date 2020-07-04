@@ -1,4 +1,14 @@
 {
-  "name": "antd-plus-site",
-  "version": 2
+  "name": "ant-design-plus",
+  "version": 2,
+  "builds": [
+    {
+      "src": "build.sh",
+      "use": "@now/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ],
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
 }
