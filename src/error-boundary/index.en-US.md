@@ -15,7 +15,7 @@ group:
 
 ## 代码演示
 
-<code src="./demo/basic.tsx" />
+<code src="./demo/demo1.tsx" />
 
 ## API
 

@@ -34,7 +34,7 @@ const Fallback = ({ error, componentStack }) => (
 const Example: FC = () => {
   return (
     <div>
-      <ErrorBoundary>
+      <ErrorBoundary fallback={Fallback}>
         <ErrorComponent />
       </ErrorBoundary>
       <div style={{ marginTop: 10 }}>不会受影响</div>
