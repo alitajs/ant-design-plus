@@ -13,6 +13,10 @@ group:
 
 简单描述 ErrorBoundary 组件。
 
+## 代码演示
+
+<code src="./demo/basic.tsx" />
+
 ## API
 
 ### ErrorBoundary

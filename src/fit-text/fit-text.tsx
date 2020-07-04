@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-export interface IFitTextProps {
+export interface FitTextProps {
   // 通过调整这个变量来增加/减少字体大小
   compressor?: number;
   // 最小的字体大小
@@ -10,7 +10,7 @@ export interface IFitTextProps {
   children: React.ReactNode;
 }
 
-class FitText extends React.Component<IFitTextProps> {
+class FitText extends Component<FitTextProps> {
   private updateQueued: boolean = false;
   private _childRef: React.ReactNode;
   private nodes = new Map();

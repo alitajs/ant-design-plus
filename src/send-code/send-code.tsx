@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { FC, useState } from 'react';
 import { Button } from 'antd';
 import { ButtonProps } from 'antd/es/button';
 import { getTemplateText } from './utils';
 import enUS from './locale/en_US';
 import LocaleReceive from 'antd/lib/locale-provider/LocaleReceiver';
 
-export interface ISendCodeProps extends ButtonProps {
+export interface SendCodeProps extends ButtonProps {
   // 是否开始倒计时
   start?: boolean;
   // 倒计时时长（秒）默认60
@@ -28,20 +28,45 @@ interface ISendCodeState {
   second: number | undefined;
 }
 
-export interface ISendCodeLocale {
+export interface SendCodeLocale {
   initText: string;
   runText: string;
   resetText: string;
 }
 
-class SendCode extends React.Component<ISendCodeProps, ISendCodeState> {
+const SendCode1: FC<SendCodeProps> = (props) => {
+  const { start, initText, resetText, runText, onEnd, ...rest } = props;
+  const [loading, setLoading] = useState<boolean>(false);
+  const [status, setStatus] = useState<0 | 1 | 2>(0);
+
+  const renderSendCode = (sendCodeLocale: SendCodeLocale) => {
+    return (
+      <Button loading={loading} disabled={status === 1} {...rest}>
+        {this.buttonText(sendCodeLocale)}
+      </Button>
+    );
+  };
+
+  return (
+    <LocaleReceive componentName="SendCode" defaultLocale={enUS}>
+      {(sendCodeLocale: SendCodeLocale) => renderSendCode(sendCodeLocale)}
+    </LocaleReceive>
+  );
+};
+
+SendCode1.defaultProps = {
+  start: false,
+  second: 60
+};
+
+class SendCode extends React.Component<SendCodeProps, ISendCodeState> {
   private timer: NodeJS.Timer = null;
 
   constructor(props) {
     super(props);
   }
 
-  static defaultProps: ISendCodeProps = {
+  static defaultProps: SendCodeProps = {
     start: false,
     second: 60
   };

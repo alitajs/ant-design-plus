@@ -1,5 +1,5 @@
 import React, { FC, CSSProperties, forwardRef } from 'react';
-import classNames from '@pansy/classnames';
+import classNames from 'classnames';
 
 export interface ItemProps {
   prefixCls?: string;

@@ -1,5 +1,5 @@
 ---
-title: FullScreen 异常组件
+title: Fullscreen 全屏组件
 nav:
   title: 组件
   path: /components
@@ -8,6 +8,18 @@ group:
   path: /operation
   order: 99
 ---
+
+# Fullscreen
+
+## 代码演示
+
+### 基本示例
+
+<code src="./demo/simple.tsx" />
+
+### 控制 Dom
+
+<code src="./demo/control-img.tsx" />
 
 ## API
 

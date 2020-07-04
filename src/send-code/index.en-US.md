@@ -4,9 +4,14 @@ nav:
   title: 组件
   path: /components
 group:
-  title: 操作组件
-  path: /operation
+  title: 数据录入
+  path: /data-entry
+  order: 10
 ---
+
+# SendCode 发送验证码
+
+发送手机、邮箱验证码倒计时效果
 
 ## 代码演示
 

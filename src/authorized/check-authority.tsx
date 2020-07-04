@@ -1,7 +1,6 @@
-import React from 'react';
 import Policy from '@pansy/policy';
-import isArray from '@pansy/is-array';
-import isString from '@pansy/is-string';
+import isArray from 'lodash/isArray';
+import isString from 'lodash/isString';
 
 // 权限
 export type Authority = string[] | string;

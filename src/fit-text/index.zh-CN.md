@@ -10,9 +10,9 @@ group:
 
 ## 代码演示
 
-<code src="./demo/simple.tsx" />
+### 基本示例
 
-<code src="./demo/fixed-width.tsx" />
+<code src="./demo/simple.tsx" />
 
 ## API
 

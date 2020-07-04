@@ -9,9 +9,9 @@ import React, {
   useEffect,
   useCallback
 } from 'react';
-import { Icon } from 'antd';
 import debounce from 'lodash/debounce';
-import classNames from '@pansy/classnames';
+import classNames from 'classnames';
+import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import ResizeObserver from 'resize-observer-polyfill';
 import Item, { ItemProps } from './item';
 import { setTransform, isTransform3dSupported } from './utils';
@@ -301,7 +301,7 @@ const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
     >
       {prevIcon || (
         <span className={`${prefixCls}-prev-icon`}>
-          <Icon type="left" />
+          <LeftOutlined />
         </span>
       )}
     </span>
@@ -319,7 +319,7 @@ const ScrollableBar: ScrollableBarFC<ScrollableBarProps> = (props) => {
     >
       {nextIcon || (
         <span className={`${prefixCls}-next-icon`}>
-          <Icon type="right" />
+          <RightOutlined />
         </span>
       )}
     </span>

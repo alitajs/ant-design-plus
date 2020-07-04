@@ -1,29 +1,29 @@
-import React, { Fragment } from 'react';
+import React, { FC, ReactNode } from 'react';
 import Policy from '@pansy/policy';
-import isFunction from '@pansy/is-function';
+import isFunction from 'lodash/isFunction';
 import checkAuthority, { Authority } from './check-authority';
 
 export interface AuthorizedProps {
   authority?: Authority;
-  noMatch?: React.ReactNode;
+  noMatch?: ReactNode;
   policy?: Policy;
 }
 
-const Authorized: React.FC<AuthorizedProps> = (props) => {
+const Authorized: FC<AuthorizedProps> = (props) => {
   const { policy, children, authority, noMatch } = props;
   const childrenRender = typeof children === 'undefined' ? null : children;
 
   // 防止policy不存在报错
   if (!policy) {
-    return <Fragment>{childrenRender}</Fragment>;
+    return <>{childrenRender}</>;
   }
 
   const checkResult = checkAuthority(policy, authority);
 
   if (isFunction(children)) {
-    return <Fragment>{children(checkResult)}</Fragment>;
+    return <>{children(checkResult)}</>;
   } else {
-    return <Fragment>{checkResult ? childrenRender : noMatch}</Fragment>;
+    return <>{checkResult ? childrenRender : noMatch}</>;
   }
 };
 

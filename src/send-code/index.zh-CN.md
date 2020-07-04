@@ -4,8 +4,8 @@ nav:
   title: 组件
   path: /components
 group:
-  title: 操作组件
-  path: /operation
+  title: 数据录入
+  path: /data-entry
 ---
 
 ## 代码演示

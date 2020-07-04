@@ -13,15 +13,15 @@ group:
 
 ## 代码演示
 
+### 基本示例
+
 <code src="./demo/simple.tsx" />
 
-自定义
+### 自定义渲染
 
 <code src="./demo/customize.tsx" />
 
 ## API
-
-### Authorized
 
 | Property  | Description                            | Type                                                                   | Required | Default | Alternative |
 | --------- | -------------------------------------- | ---------------------------------------------------------------------- | -------- | ------- | ----------- |

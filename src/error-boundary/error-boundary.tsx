@@ -1,41 +1,44 @@
-import React, { ErrorInfo } from 'react';
+import React from 'react';
 
-const initialState = {
-  error: null,
-  info: null
-};
-
-export interface ErrorBoundaryProps {
-  onError?: (error: Error, componentStack: string) => void;
-  Fallback: React.ComponentType<{ error: Error; componentStack: string }>;
+interface ErrorBoundaryState {
+  hasError: boolean;
+  error?: Error;
 }
-type ErrorBoundaryState = typeof initialState;
 
-class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
-  state = initialState;
-
-  public componentDidCatch(error: Error, info: ErrorInfo) {
-    if (typeof this.props.onError === 'function') {
-      this.props.onError(error, getComponentStack(info));
-    }
-    this.setState({
-      error,
-      info
-    });
+class ErrorBoundary extends React.Component<any, ErrorBoundaryState> {
+  static getDerivedStateFromError(error: Error) {
+    return { hasError: true, error };
   }
 
+  static getDerivedStateFromProps(nextProps: any, state: any) {
+    if (state.children !== nextProps.children) {
+      return {
+        children: nextProps.children,
+        hasError: false,
+        error: undefined
+      };
+    }
+    return null;
+  }
+
+  state: ErrorBoundaryState = {
+    hasError: false
+  };
+
+  renderError = (e: Error) => {
+    switch (e) {
+      default:
+        // fallback
+        return <h5>组件出错了，请核查后重试： {e.message}</h5>;
+    }
+  };
+
   render() {
-    const { Fallback } = this.props;
-    const { error, info } = this.state;
-    if (error) {
-      return <Fallback componentStack={getComponentStack(info)} error={error} />;
+    if (this.state.hasError) {
+      return this.renderError(this.state.error!);
     }
     return this.props.children;
   }
 }
 
 export default ErrorBoundary;
-
-function getComponentStack(info: ErrorInfo) {
-  return info ? info.componentStack : '';
-}

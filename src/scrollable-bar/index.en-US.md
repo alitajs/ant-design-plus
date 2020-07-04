@@ -9,6 +9,14 @@ group:
   order: 2
 ---
 
+# ScrollableBar
+
+## 代码演示
+
+### 简单使用
+
+<code src="./demo/demo1.tsx" />
+
 ## API
 
 ### ScrollableBar
