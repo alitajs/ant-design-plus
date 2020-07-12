@@ -1,4 +1,4 @@
-import Pagination from 'rc-pagination/lib/locale/zh_CN';
+import Pagination from 'rc-pagination/es/locale/zh_CN';
 import SendCode from '../send-code/locale/zh_CN';
 
 export default {

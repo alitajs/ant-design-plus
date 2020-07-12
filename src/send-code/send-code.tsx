@@ -3,7 +3,7 @@ import { Button } from 'antd';
 import { ButtonProps } from 'antd/es/button';
 import { getTemplateText } from './utils';
 import enUS from './locale/en_US';
-import LocaleReceive from 'antd/lib/locale-provider/LocaleReceiver';
+import LocaleReceive from 'antd/es/locale-provider/LocaleReceiver';
 
 export interface SendCodeProps extends ButtonProps {
   // 是否开始倒计时
