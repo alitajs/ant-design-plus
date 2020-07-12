@@ -27,6 +27,7 @@
   "scripts": {
     "start": "dumi dev",
     "site": "dumi build",
+    "build": "father-build",
     "prettier": "walrus prettier",
     "lint:commit": "walrus commitlint --env HUSKY_GIT_PARAMS",
     "release": "walrus release"

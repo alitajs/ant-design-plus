@@ -1,4 +1,4 @@
-import React, { FC, CSSProperties, forwardRef } from 'react';
+import React, { CSSProperties, forwardRef } from 'react';
 import classNames from 'classnames';
 
 export interface ItemProps {
@@ -10,7 +10,7 @@ export interface ItemProps {
   onClick?: (key: string) => void;
 }
 
-const Item: FC<ItemProps> = (props, ref) => {
+const Item = forwardRef<HTMLDivElement, ItemProps>((props, ref) => {
   const { prefixCls, className, style, children, onClick, key } = props;
 
   const handleClick = () => {
@@ -29,6 +29,6 @@ const Item: FC<ItemProps> = (props, ref) => {
       {children}
     </div>
   );
-};
+});
 
-export default forwardRef(Item);
+export default Item;

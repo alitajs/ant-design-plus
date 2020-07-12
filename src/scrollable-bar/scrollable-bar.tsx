@@ -41,7 +41,7 @@ interface ScrollableBarProps {
   // 下一个点击回调
   onNextClick?: (e: React.MouseEvent | React.KeyboardEvent) => void;
   // 子项点击回调
-  onItemClick?: (activeKey: React.Key, e: React.MouseEvent | React.KeyboardEvent) => void;
+  onItemClick?: (activeKey: React.Key) => void;
   // 上一个Icon图标
   prevIcon?: ReactNode;
   // 下一个Icon图标
