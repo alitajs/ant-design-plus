@@ -39,6 +39,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.0.6",
+    "@pansy/hooks": "^2.0.1",
     "@pansy/policy": "^0.4.0",
     "@pansy/react-fullscreen": "^1.2.0",
     "classnames": "^2.2.6",
