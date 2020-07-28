@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { DependencyList, useState, useCallback } from 'react';
 
 export const useMeasure = (
-  deps: any[] = []
+  deps: DependencyList = []
 ): {
   rect: ClientRect;
   ref: any;
 } => {
-  const [rect, setRect] = React.useState<ClientRect>({
+  const [rect, setRect] = useState<ClientRect>({
     bottom: 0,
     height: 0,
     left: 0,
@@ -14,7 +14,7 @@ export const useMeasure = (
     top: 0,
     width: 0
   });
-  const ref = React.useCallback((node) => {
+  const ref = useCallback((node) => {
     if (node !== null) {
       setRect(node.getBoundingClientRect());
     }
@@ -22,10 +22,10 @@ export const useMeasure = (
   return { ref, rect };
 };
 
-export const useMeasureBatch = (count: number, deps: any[] = []) => {
+export const useMeasureBatch = (count: number, deps: DependencyList = []) => {
   const measureResults = [];
   for (let i = 0; i < count; ++i) {
-    const [rect, setRect] = React.useState({
+    const [rect, setRect] = useState({
       bottom: 0,
       height: 0,
       left: 0,
@@ -33,11 +33,13 @@ export const useMeasureBatch = (count: number, deps: any[] = []) => {
       top: 0,
       width: 0
     });
-    const ref = React.useCallback((node) => {
+
+    const ref = useCallback((node) => {
       if (node !== null) {
         setRect(node.getBoundingClientRect());
       }
     }, deps);
+
     measureResults[i] = {
       rect,
       ref

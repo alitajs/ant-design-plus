@@ -14,9 +14,13 @@ group:
 
 ## 代码演示
 
-### 简单示例
+### 指定数量
 
 <code src="./demo/demo-01.tsx" />
+
+### 自适应
+
+<code src="./demo/demo-02.tsx" />
 
 ## API
 
