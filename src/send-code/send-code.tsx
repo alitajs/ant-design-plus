@@ -1,7 +1,7 @@
 import React, { FC, useState, useEffect, useRef } from 'react';
 import { Button } from 'antd';
 import { ButtonProps } from 'antd/es/button';
-import LocaleReceive from 'antd/es/locale-provider/LocaleReceiver';
+import LocaleReceiver from 'antd/es/locale-provider/LocaleReceiver';
 import enUS from './locale/en_US';
 import { getTemplateText } from './utils';
 
@@ -122,9 +122,9 @@ const SendCode: FC<SendCodeProps> = ({
   };
 
   return (
-    <LocaleReceive componentName="SendCode" defaultLocale={enUS}>
+    <LocaleReceiver componentName="SendCode" defaultLocale={enUS}>
       {(sendCodeLocale: SendCodeLocale) => renderSendCode(sendCodeLocale)}
-    </LocaleReceive>
+    </LocaleReceiver>
   );
 };
 
