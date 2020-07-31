@@ -11,13 +11,17 @@ group:
 
 ## 代码演示
 
-### 简单使用
+### 普通调用
 
 <code src="./demo/simple.tsx" />
 
-### 自定义文本
+### 自定义倒计时按钮
 
 <code src="./demo/customize.tsx" />
+
+### 刷新页面倒计时继续
+
+<code src="./demo/demo-03.tsx" />
 
 ## API
 
