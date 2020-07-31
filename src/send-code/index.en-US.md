@@ -9,28 +9,29 @@ group:
   order: 10
 ---
 
-# SendCode 发送验证码
-
-发送手机、邮箱验证码倒计时效果
-
 ## 代码演示
 
-### 简单使用
+### 普通调用
 
 <code src="./demo/simple.tsx" />
 
-### 自定义文本
+### 自定义倒计时按钮
 
 <code src="./demo/customize.tsx" />
+
+### 刷新页面倒计时继续
+
+<code src="./demo/demo-03.tsx" />
 
 ## API
 
 ### SendCode
 
-| Property  | Description        | Type    | Default            |
-| --------- | ------------------ | ------- | ------------------ |
-| start     | 是否开始倒计时     | boolean | false              |
-| second    | 倒计时时长（秒）   | number  | 60                 |
-| initText  | 初始化按钮显示文本 | string  | '获取验证码'       |
-| runText   | 运行时显示文本     | string  | '{%s}秒后重新获取' |
-| resetText | 运行结束后显示文本 | string  | '重新获取验证码'   |
+| 属性       | 说明                                                                         | 类型    | 默认值             |
+| ---------- | ---------------------------------------------------------------------------- | ------- | ------------------ |
+| start      | 是否开始倒计时                                                               | boolean | false              |
+| second     | 倒计时时长（秒）                                                             | number  | 60                 |
+| initText   | 初始化按钮显示文本                                                           | string  | '获取验证码'       |
+| runText    | 运行时显示文本                                                               | string  | '{%s}秒后重新获取' |
+| resetText  | 运行结束后显示文本                                                           | string  | '重新获取验证码'   |
+| storageKey | 储存倒计时剩余时间 sessionStorage 的键值，设置不为空后，刷新页面倒计时将继续 | string  | -                  |
