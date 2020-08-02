@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { FC, useState, useEffect, useRef } from 'react';
 import { Button } from 'antd';
 import { ButtonProps } from 'antd/es/button';
-import { getTemplateText } from './utils';
+import LocaleReceiver from 'antd/es/locale-provider/LocaleReceiver';
 import enUS from './locale/en_US';
-import LocaleReceive from 'antd/es/locale-provider/LocaleReceiver';
+import { getTemplateText } from './utils';
 
 export interface SendCodeProps extends ButtonProps {
   // 是否开始倒计时
@@ -17,15 +17,10 @@ export interface SendCodeProps extends ButtonProps {
   runText?: string;
   // 运行结束后显示文本
   resetText?: string;
+  // 储存倒计时剩余时间sessionStorage的键值，设置不为空后，刷新页面倒计时将继续
+  storageKey?: string;
   // 倒计时结束执行函数
   onEnd?: () => void;
-}
-
-interface SendCodeState {
-  loading: boolean;
-  // 运行状态 0: 初始 1: 运行时  2: 结速时
-  status: number;
-  second: number | undefined;
 }
 
 export interface SendCodeLocale {
@@ -34,71 +29,83 @@ export interface SendCodeLocale {
   resetText: string;
 }
 
-class SendCode extends Component<SendCodeProps, SendCodeState> {
-  private timer: NodeJS.Timer = null;
+export type SendCodeStatus = 0 | 1 | 2;
 
-  constructor(props) {
-    super(props);
-  }
+const SendCode: FC<SendCodeProps> = ({
+  start,
+  initText,
+  resetText,
+  runText,
+  onEnd,
+  second,
+  storageKey,
+  ...rest
+}) => {
+  // 运行状态 0: 初始 1: 运行时  2: 结速时
+  const [status, setStatus] = useState<SendCodeStatus>(start ? 1 : 0);
+  const [runSecond, setRunSecond] = useState<number | undefined>(second);
+  const timer = useRef<NodeJS.Timer>(null);
 
-  static defaultProps: SendCodeProps = {
-    start: false,
-    second: 60
-  };
-
-  readonly state: SendCodeState = {
-    loading: false,
-    status: this.props.start ? 1 : 0,
-    second: undefined
-  };
-
-  componentWillUnmount() {
-    if (this.timer) {
-      clearInterval(this.timer);
+  useEffect(() => {
+    // 获取存储的倒计时时间
+    const storageLastSecond = ~~(
+      (+window.sessionStorage.getItem(storageKey) - new Date().getTime()) /
+      1000
+    );
+    // 执行剩下的倒计时
+    if (storageLastSecond > 0 && storageKey) {
+      startCountdown(storageLastSecond);
     }
-  }
 
-  componentWillReceiveProps(nextProps: SendCodeProps) {
-    if (nextProps.start) {
-      this.startCountdown();
+    start && startCountdown();
+
+    return () => {
+      if (timer.current) {
+        clearInterval(timer.current);
+      }
+    };
+  }, [start]);
+
+  const startCountdown = (value?: number) => {
+    let second = value ? value : runSecond;
+
+    setStatus(1);
+    setRunSecond(second);
+
+    if (storageKey) {
+      const runSecond = new Date().getTime() + second * 1000;
+      window.sessionStorage.setItem(storageKey, runSecond + '');
     }
-  }
 
-  startCountdown = () => {
-    let second = this.state.second || this.props.second;
-    this.setState({ second, status: 1 });
-
-    this.timer = setInterval(() => {
+    timer.current = setInterval(() => {
       second -= 1;
 
-      this.setState({ second });
+      setRunSecond(second);
 
       if (second <= 0) {
-        this.timeout();
+        timeout();
       }
     }, 1000);
   };
 
-  timeout = () => {
-    const { onEnd } = this.props;
+  const timeout = () => {
     // 设置为运行结束后状态
-    this.setState({
-      second: undefined,
-      status: 2
-    });
-    if (this.timer) {
-      clearInterval(this.timer);
+    setStatus(2);
+    setRunSecond(undefined);
+    if (timer.current) {
+      clearInterval(timer.current);
+    }
+    if (storageKey) {
+      window.sessionStorage.removeItem(storageKey);
     }
     // 发出倒计时结束事件
-    onEnd && onEnd();
+    onEnd?.();
   };
 
-  buttonText = (sendCodeLocale: SendCodeLocale) => {
-    const { initText, resetText, runText } = this.props;
-    const { status, second } = this.state;
+  const getText = (sendCodeLocale: SendCodeLocale) => {
     switch (status) {
       case 1:
-        return getTemplateText(runText || sendCodeLocale.runText, second);
+        return getTemplateText(runText || sendCodeLocale.runText, runSecond);
       case 2:
         return resetText || sendCodeLocale.resetText;
       default:
@@ -106,24 +113,25 @@ class SendCode extends Component<SendCodeProps, SendCodeState> {
     }
   };
 
-  renderSendCode = (sendCodeLocale: SendCodeLocale) => {
-    const { start, initText, resetText, runText, onEnd, ...rest } = this.props;
-    const { loading, status } = this.state;
-
+  const renderSendCode = (sendCodeLocale: SendCodeLocale) => {
     return (
-      <Button loading={loading} disabled={status === 1} {...rest}>
-        {this.buttonText(sendCodeLocale)}
+      <Button {...rest} disabled={status === 1}>
+        {getText(sendCodeLocale)}
       </Button>
     );
   };
 
-  render() {
-    return (
-      <LocaleReceive componentName="SendCode" defaultLocale={enUS}>
-        {(sendCodeLocale: SendCodeLocale) => this.renderSendCode(sendCodeLocale)}
-      </LocaleReceive>
-    );
-  }
-}
+  return (
+    <LocaleReceiver componentName="SendCode" defaultLocale={enUS}>
+      {(sendCodeLocale: SendCodeLocale) => renderSendCode(sendCodeLocale)}
+    </LocaleReceiver>
+  );
+};
+
+SendCode.displayName = 'SendCode';
+SendCode.defaultProps = {
+  start: false,
+  second: 60
+};
 
 export default SendCode;
