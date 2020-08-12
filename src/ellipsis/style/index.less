@@ -1,0 +1,51 @@
+@import '../../style/themes/default.less';
+
+@ellipsis-prefix-cls: ~'@{prefix}-ellipsis';
+
+.@{ellipsis-prefix-cls} {
+  &-ellipsis {
+    overflow: hidden;
+    display: inline-block;
+    word-break: break-all;
+    width: 100%;
+  }
+
+  &-tooltip {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+
+    .ant-tooltip-inner {
+      max-height: 200px;
+      overflow-y: auto;
+    }
+  }
+
+  &-width-mode {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: auto;
+  }
+
+  &-lines {
+    position: relative;
+
+    .shadow {
+      display: block;
+      position: absolute;
+      color: transparent;
+      opacity: 0;
+      z-index: -999;
+    }
+  }
+
+  &-lineClamp {
+    position: relative;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+  }
+
+  &-shadow {
+    opacity: 0;
+  }
+}
