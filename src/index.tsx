@@ -8,3 +8,4 @@ export { default as Authorized } from './authorized';
 
 // 数据展示
 export { default as Tags } from './tags';
+export { default as Ellipsis } from './ellipsis';
