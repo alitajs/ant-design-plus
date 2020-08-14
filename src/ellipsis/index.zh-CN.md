@@ -16,6 +16,14 @@ group:
 
 <code src="./demo/demo-01.tsx" />
 
+### 按照宽度省略
+
+<code src="./demo/demo-02.tsx" />
+
+### 按照行数省略
+
+<code src="./demo/demo-03.tsx" />
+
 ## API
 
 | Property    | Description              | Type   | Default                  |
