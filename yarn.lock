@@ -2600,6 +2600,11 @@
   dependencies:
     "@pansy/hooks" "^2.0.1"
 
+"@pansy/react-watermark@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@pansy/react-watermark/-/react-watermark-1.1.0.tgz#57c3297b87e6fcbbca39a69d6b45b12d4aeb3477"
+  integrity sha512-55qZam/ElydGWCkvcV3ps6VToGdjlpI5FlS7OQro56z8kUwNm5UoTxLX5tYSxJaUAT3vZrHIBOgHo+Hxpzrf+g==
+
 "@sindresorhus/is@^0.14.0":
   version "0.14.0"
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.14.0.tgz#9fb3a3cf3132328151f353de4632e01e52102bea"
