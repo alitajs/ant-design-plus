@@ -1,7 +1,7 @@
 import React, { FC, CSSProperties } from 'react';
 import { Tag, Popover } from 'antd';
 import { ItemData } from './types';
-import useWindowSize from '@pansy/hooks/es/use-window-size';
+import useSize from '@pansy/hooks/es/use-size';
 import { useMeasureBatch, useMeasure } from '../common/hooks/use-measure';
 
 export interface FlexTagsProps {
@@ -28,7 +28,7 @@ function findIndex(tagsWidth: number[], maxWidth: number) {
 const FlexTags: FC<FlexTagsProps> = (props) => {
   const { list = [], ...rest } = props;
   //支持响应式
-  const { width } = useWindowSize();
+  const { width } = useSize(document.querySelector('body'));
   const wrapMeasure = useMeasure([width]);
   const tagsMeasure = useMeasureBatch(list.length, [width]);
   const hideMenuPos =
