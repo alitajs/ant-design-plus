@@ -10,6 +10,11 @@ export default {
     'en-US': [null, { title: 'GitHub', path: 'https://github.com/alitajs/ant-design-plus/' }]
   },
   dynamicImport: {},
+  locale: {
+    default: 'en-US',
+    antd: true,
+    baseNavigator: true,
+  },
   hash: true,
   plugins: [join(__dirname, './plugins/umi-plugin-antd-plus.ts')],
   extraBabelPlugins: [
