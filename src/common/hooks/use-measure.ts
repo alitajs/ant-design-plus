@@ -1,4 +1,4 @@
-import React, { DependencyList, useState, useCallback } from 'react';
+import { DependencyList, useState, useCallback } from 'react';
 
 export const useMeasure = (
   deps: DependencyList = []

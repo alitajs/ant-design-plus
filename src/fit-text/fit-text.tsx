@@ -12,6 +12,7 @@ export interface FitTextProps {
 
 class FitText extends Component<FitTextProps> {
   private updateQueued: boolean = false;
+  // @ts-ignore
   private _childRef: React.ReactNode;
   private nodes = new Map();
 
