@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Button } from 'antd';
 import { ButtonProps } from 'antd/es/button';
 import LocaleReceiver from 'antd/es/locale-provider/LocaleReceiver';
@@ -31,7 +31,7 @@ export interface SendCodeLocale {
 
 export type SendCodeStatus = 0 | 1 | 2;
 
-const SendCode: FC<SendCodeProps> = ({
+const SendCode: React.FC<SendCodeProps> = ({
   start,
   initText,
   resetText,

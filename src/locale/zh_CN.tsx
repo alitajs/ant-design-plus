@@ -1,13 +1,9 @@
-import Pagination from 'rc-pagination/es/locale/zh_CN';
+import antCN from 'antd/es/locale/zh_CN';
 import SendCode from '../send-code/locale/zh_CN';
 
 export default {
-  locale: 'cn',
-  Pagination,
+  ...antCN,
   SendCode,
-  global: {
-    placeholder: '请选择'
-  },
   FullScreen: {
     back: '切换全屏'
   }
