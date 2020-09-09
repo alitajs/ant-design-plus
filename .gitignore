@@ -11,6 +11,10 @@ coverage
 .npmignore
 components/**/*.css
 
+/coverage
+yarn.lock
+package-lock.json
+
 # misc
 .DS_Store
 
