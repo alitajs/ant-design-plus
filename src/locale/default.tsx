@@ -1,13 +1,9 @@
-import Pagination from 'rc-pagination/es/locale/en_US';
+import enUS from 'antd/es/locale/default';
 import SendCode from '../send-code/locale/en_US';
 
 export default {
-  locale: 'en',
-  Pagination,
+  ...enUS,
   SendCode,
-  global: {
-    placeholder: 'Please select'
-  },
   FullScreen: {
     back: 'Full screen'
   }
