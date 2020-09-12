@@ -40,7 +40,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.2.2",
     "@pansy/hooks": "^2.2.0",
-    "@pansy/policy": "^0.4.0",
+    "@pansy/policy": "^0.5.0",
     "@pansy/react-fullscreen": "1.2.0",
     "@pansy/react-watermark": "^1.2.0",
     "classnames": "^2.2.6",
