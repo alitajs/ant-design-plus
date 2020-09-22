@@ -1,9 +1,9 @@
-import React, { FC, useEffect } from 'react';
+import React from 'react';
 import { Form, Button } from 'antd';
 // @ts-ignore
 import { DaysRange } from '@alitajs/antd-plus';
 
-const Example: FC = () => {
+export default () => {
   const [form] = Form.useForm();
 
   const handleSubmit = (vals) => {
@@ -23,5 +23,3 @@ const Example: FC = () => {
     </Form>
   );
 };
-
-export default Example;
