@@ -3,11 +3,14 @@ import { Radio, DatePicker } from 'antd';
 import { isObject } from 'lodash';
 import { RadioChangeEvent } from 'antd/lib/radio/interface';
 import { RangePickerProps } from 'antd/es/date-picker';
+import LocaleReceiver from 'antd/es/locale-provider/LocaleReceiver';
 import moment from 'moment';
 import classNames from 'classnames';
 import { TimeData, BaseProps } from './interface';
 import { ConfigContext } from '../config-provider';
+import enUS from './locale/en_US';
 import { processQueryTimeRange } from './utils';
+import { DaysRangeLocale } from './interface';
 
 export type Mark = 'day' | 'week' | 'month' | 'year';
 export type MarkTexts = Record<Mark, string>;
@@ -17,12 +20,6 @@ interface FastProps extends BaseProps<Mark> {
 
 const { Group, Button } = Radio;
 const { RangePicker } = DatePicker;
-const texts: MarkTexts = {
-  day: '今日',
-  week: '本周',
-  month: '本月',
-  year: '本年'
-};
 
 const Fast: React.FC<FastProps> = ({
   className,
@@ -132,35 +129,50 @@ const Fast: React.FC<FastProps> = ({
     return current && current >= moment().endOf('day');
   }
 
-  return (
-    <span
-      className={classNames(className, {
-        [`${prefixCls}`]: true
-      })}
-      style={style}
-    >
-      <Group size={size} buttonStyle={buttonStyle} value={currentUnit} onChange={handleChange}>
-        {marks.map((item) => {
-          let text;
-          if (formatter && formatter(item)) {
-            text = formatter(item);
-          }
-          return (
-            <Item key={item} value={item}>
-              {text || texts[item]}
-            </Item>
-          );
+  const renderDaysRange = (locale: DaysRangeLocale) => {
+    const texts: MarkTexts = {
+      day: locale.day,
+      week: locale.week,
+      month: locale.month,
+      year: locale.year,
+    };
+
+    return (
+      <span
+        className={classNames(className, {
+          [`${prefixCls}`]: true
         })}
-      </Group>
-      {showCustomize && (
-        <RangePicker
-          size={size}
-          value={timeRange}
-          disabledDate={disabledDate}
-          onChange={handleRangePickerChange}
-        />
-      )}
-    </span>
+        style={style}
+      >
+        <Group size={size} buttonStyle={buttonStyle} value={currentUnit} onChange={handleChange}>
+          {marks.map((item) => {
+            let text;
+            if (formatter && formatter(item)) {
+              text = formatter(item);
+            }
+            return (
+              <Item key={item} value={item}>
+                {text || texts[item]}
+              </Item>
+            );
+          })}
+        </Group>
+        {showCustomize && (
+          <RangePicker
+            size={size}
+            value={timeRange}
+            disabledDate={disabledDate}
+            onChange={handleRangePickerChange}
+          />
+        )}
+      </span>
+    );
+  }
+
+  return (
+    <LocaleReceiver componentName="DaysRange" defaultLocale={enUS}>
+      {(locale: DaysRangeLocale) => renderDaysRange(locale)}
+    </LocaleReceiver>
   );
 };
 

@@ -5,6 +5,15 @@ export interface TimeData {
   endTime?: number;
 }
 
+
+export interface DaysRangeLocale {
+  day: string;
+  week: string;
+  month: string;
+  year: string;
+  customize: string;
+}
+
 export interface BaseProps<T> {
   /**
    * 额外的样式类
