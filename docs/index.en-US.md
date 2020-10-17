@@ -26,7 +26,7 @@ footer: Alita Team | Copyright © 2020-present
 $ yarn add @alitajs/antd-plus
 
 # 使用
-iimport React form 'react';
+import React form 'react';
 import { SendCode } form '@alitajs/antd-plus';
 
 class Example extends React.Component {
