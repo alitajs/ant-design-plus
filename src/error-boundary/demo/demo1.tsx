@@ -1,6 +1,5 @@
 import React, { FC, useState } from 'react';
 import { Button } from 'antd';
-// @ts-ignore
 import { ErrorBoundary } from '@alitajs/antd-plus';
 
 const ErrorComponent: FC = () => {
@@ -24,7 +23,7 @@ const ErrorComponent: FC = () => {
   );
 };
 
-const Fallback = ({ error, componentStack }) => (
+const Fallback = ({ error, componentStack }: any) => (
   <div>
     <div>对不起，程序出错了</div>
     <div>{componentStack}</div>

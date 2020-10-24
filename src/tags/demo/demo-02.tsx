@@ -3,7 +3,6 @@
  * desc: 通过计算容器宽度，自己计算需要展示的标签。可通过改变浏览器大小查看效果
  */
 import React, { FC } from 'react';
-// @ts-ignore
 import { Tags } from '@alitajs/antd-plus';
 
 const Example: FC = () => {

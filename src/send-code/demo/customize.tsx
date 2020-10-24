@@ -1,5 +1,4 @@
 import React, { FC, useState } from 'react';
-// @ts-ignore
 import { SendCode } from '@alitajs/antd-plus';
 
 const Example: FC = () => {

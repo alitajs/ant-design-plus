@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { Radio, DatePicker } from 'antd';
 import { isObject } from 'lodash';
-import { RadioChangeEvent } from 'antd/lib/radio/interface';
+import { RadioChangeEvent } from 'antd/es/radio/interface';
 import { RangePickerProps } from 'antd/es/date-picker';
 import LocaleReceiver from 'antd/es/locale-provider/LocaleReceiver';
 import moment from 'moment';
@@ -109,10 +109,10 @@ const Fast: React.FC<FastProps> = ({
     [setCurrentUnit]
   );
 
-  const handleRangePickerChange = (dates: moment.Moment[]) => {
+  const handleRangePickerChange: RangePickerProps['onChange'] = (dates) => {
     setTimeRange(dates as RangePickerProps['value']);
     if (dates && dates.length === 2) {
-      const result = processQueryTimeRange(dates);
+      const result = processQueryTimeRange(dates as moment.Moment[]);
 
       onChange &&
         onChange({
@@ -125,7 +125,7 @@ const Fast: React.FC<FastProps> = ({
     onChange && onChange({});
   };
 
-  function disabledDate(current) {
+  function disabledDate(current: moment.Moment) {
     return current && current >= moment().endOf('day');
   }
 

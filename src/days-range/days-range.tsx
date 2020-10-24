@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { Radio, DatePicker } from 'antd';
+import { RangePickerProps } from 'antd/es/date-picker';
 import { isNumber, isInteger, isObject, isNil } from 'lodash';
 import { RadioChangeEvent } from 'antd/lib/radio/interface';
 import moment, { Moment } from 'moment';
@@ -18,12 +19,12 @@ export interface DaysRangeData {
   value: TimeData;
 }
 
-interface DaysRangeProps extends BaseProps<number> {
+export interface DaysRangeProps extends BaseProps<number> {
   value?: number | TimeData;
   isMountChange?: boolean;
 }
 
-interface DaysRangeType extends React.FC<DaysRangeProps> {
+export interface DaysRangeType extends React.FC<DaysRangeProps> {
   Fast: typeof Fast;
 }
 
@@ -120,11 +121,11 @@ const DaysRange: DaysRangeType = ({
     [setDayType]
   );
 
-  const handleRangePickerChange = (dates: Moment[]) => {
-    setTimeRange(dates);
+  const handleRangePickerChange: RangePickerProps['onChange'] = (dates) => {
+    setTimeRange(dates as Moment[]);
 
     if (dates && dates.length === 2) {
-      const result = processQueryTimeRange(dates);
+      const result = processQueryTimeRange(dates as Moment[]);
 
       onChange?.({
         startTime: result[0],
@@ -135,7 +136,7 @@ const DaysRange: DaysRangeType = ({
     onChange?.({});
   };
 
-  function disabledDate(current) {
+  function disabledDate(current: moment.Moment) {
     // Can not select days before today and today
     return current && current >= moment().endOf('day');
   }

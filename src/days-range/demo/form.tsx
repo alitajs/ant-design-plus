@@ -1,6 +1,5 @@
 import React, { FC, useEffect } from 'react';
 import { Form, Button } from 'antd';
-// @ts-ignore
 import { DaysRange } from '@alitajs/antd-plus';
 
 const Example: FC = () => {
@@ -12,7 +11,7 @@ const Example: FC = () => {
     });
   }, []);
 
-  const handleSubmit = (vals) => {
+  const handleSubmit = (vals: object) => {
     console.log(vals);
   };
 

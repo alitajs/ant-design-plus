@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button } from 'antd';
-// @ts-ignore
 import Watermark from '@pansy/react-watermark';
 
 export default () => {

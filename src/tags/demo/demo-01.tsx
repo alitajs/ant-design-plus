@@ -3,7 +3,6 @@
  * desc: 通过指定标签的数量，进行展示
  */
 import React, { FC } from 'react';
-// @ts-ignore
 import { Tags } from '@alitajs/antd-plus';
 
 const Example: FC = () => {

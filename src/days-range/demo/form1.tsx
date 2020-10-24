@@ -1,12 +1,11 @@
 import React from 'react';
 import { Form, Button } from 'antd';
-// @ts-ignore
 import { DaysRange } from '@alitajs/antd-plus';
 
 export default () => {
   const [form] = Form.useForm();
 
-  const handleSubmit = (vals) => {
+  const handleSubmit = (vals: object) => {
     console.log(vals);
   };
 

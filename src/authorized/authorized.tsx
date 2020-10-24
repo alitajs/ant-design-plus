@@ -18,7 +18,7 @@ const Authorized: FC<AuthorizedProps> = (props) => {
     return <>{childrenRender}</>;
   }
 
-  const checkResult = checkAuthority(policy, authority);
+  const checkResult = checkAuthority(policy, authority as Authority);
 
   if (isFunction(children)) {
     return <>{children(checkResult)}</>;

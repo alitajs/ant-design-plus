@@ -1,5 +1,4 @@
 import React, { FC, useEffect, useState } from 'react';
-// @ts-ignore
 import { ScrollableBar } from '@alitajs/antd-plus';
 import './style.less';
 

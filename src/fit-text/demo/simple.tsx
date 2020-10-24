@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-// @ts-ignore
 import { FitText } from '@alitajs/antd-plus';
 import './simple.less';
 

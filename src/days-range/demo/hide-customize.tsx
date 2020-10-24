@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import { isNumber } from 'lodash';
-// @ts-ignore
 import { DaysRange } from '@alitajs/antd-plus';
 
 const Example: FC = () => {

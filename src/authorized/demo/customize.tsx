@@ -1,9 +1,8 @@
 import React, { FC } from 'react';
-// @ts-ignore
 import { Authorized } from '@alitajs/antd-plus';
 import Policy from '@pansy/policy';
 
-const Auth = (props) => {
+const Auth = (props: any) => {
   const actions = [
     { module: 'module1', action: 'action1' },
     { module: 'module1', action: 'action2' },
@@ -29,10 +28,10 @@ const Auth = (props) => {
 const Example: FC = () => {
   return (
     <div>
-      <Auth authority="*">{(isMatch) => <span>权限校验结果: {isMatch + ''}</span>}</Auth>
+      <Auth authority="*">{(isMatch: boolean) => <span>权限校验结果: {isMatch + ''}</span>}</Auth>
       <br />
       <Auth authority="module2/action1">
-        {(isMatch) => <span>权限校验结果: {isMatch + ''}</span>}
+        {(isMatch: boolean) => <span>权限校验结果: {isMatch + ''}</span>}
       </Auth>
     </div>
   );

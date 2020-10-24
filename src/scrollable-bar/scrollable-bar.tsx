@@ -22,11 +22,11 @@ import { setTransform, isTransform3dSupported } from './utils';
  * */
 export type Mode = 'vertical' | 'horizontal';
 
-interface ScrollableBarType extends FC<ScrollableBarProps> {
+export interface ScrollableBarType extends FC<ScrollableBarProps> {
   Item: typeof Item;
 }
 
-interface ScrollableBarProps {
+export interface ScrollableBarProps {
   prefixCls?: string;
   className?: string;
   style?: CSSProperties;

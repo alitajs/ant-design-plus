@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-// @ts-ignore
 import { DaysRange } from '@alitajs/antd-plus';
 
 const Example: FC = () => {

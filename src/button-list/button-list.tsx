@@ -24,7 +24,7 @@ export interface ButtonListProps {
 }
 
 const ButtonList: React.FC<ButtonListProps> = (props) => {
-  const { prefixCls, className, style, list = [], size, isLink, more, moreType, maxCount } = props;
+  const { prefixCls, className, style, list = [], size, isLink, more, moreType, maxCount = 3 } = props;
   const [buttons, setButtons] = useState<ActionButtonProps[]>([]);
   const [menus, setMenus] = useState<ActionButtonProps[]>([]);
 

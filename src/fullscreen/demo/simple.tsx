@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import { Button } from 'antd';
-// @ts-ignore
 import { Fullscreen } from '@alitajs/antd-plus';
 
 const Example: FC = () => {

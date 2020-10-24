@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-// @ts-ignore
 import { ButtonList } from '@alitajs/antd-plus';
 
 const Example: FC = () => {

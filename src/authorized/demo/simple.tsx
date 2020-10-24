@@ -1,10 +1,9 @@
 import React, { FC } from 'react';
 import { Button } from 'antd';
-// @ts-ignore
 import { Authorized } from '@alitajs/antd-plus';
 import Policy from '@pansy/policy';
 
-const Auth = (props) => {
+const Auth = (props: any) => {
   const actions = [
     { module: 'module1', action: 'action1' },
     { module: 'module1', action: 'action2' },

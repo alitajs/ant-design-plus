@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@alitajs/antd-plus": ["src/index.tsx"],
+      "@alitajs/antd-plus": ["src/index.ts"],
       "@alitajs/antd-plus/es/*": ["src/*"]
     },
     "moduleResolution": "node",

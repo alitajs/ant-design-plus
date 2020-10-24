@@ -29,6 +29,9 @@ export interface SendCodeLocale {
   resetText: string;
 }
 
+/**
+ * 状态 0: 初始 1: 运行  2: 结束
+ */
 export type SendCodeStatus = 0 | 1 | 2;
 
 const SendCode: React.FC<SendCodeProps> = ({
@@ -41,7 +44,6 @@ const SendCode: React.FC<SendCodeProps> = ({
   storageKey,
   ...rest
 }) => {
-  // 运行状态 0: 初始 1: 运行时  2: 结速时
   const [status, setStatus] = useState<SendCodeStatus>(start ? 1 : 0);
   const [runSecond, setRunSecond] = useState<number | undefined>(second);
   const timer = useRef<NodeJS.Timer>(null);
