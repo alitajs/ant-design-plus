@@ -41,10 +41,10 @@ export function endOf(time: MomentInput, type: moment.unitOfTime.StartOf = 'day'
   return moment(time).endOf(type).valueOf();
 }
 
-const getDisabledMinutes = (value: number) => {
+const getDisabledTimes = (value: number, max: number = 60) => {
   const minutes: number[] = [];
 
-  for (let i = 0; i < 60; i++) {
+  for (let i = 0; i < max; i++) {
     if (i % value !== 0) {
       minutes.push(i);
     }
@@ -57,8 +57,67 @@ export function getRangePickerProps({
   periodType = 'minute',
   periodValue = 1
 }: PeriodData): RangePickerProps {
+  if (periodType === 'second') {
+    const defaultDisabled = getDisabledTimes(periodValue);
+
+    return {
+      showTime: {
+        format: 'HH:mm:ss'
+      },
+      format: 'YYYY-MM-DD HH:mm:ss',
+      picker: undefined,
+      disabledTime: (current) => {
+        const currentDate = moment();
+        const hour = currentDate.hour();
+        const minute = currentDate.minute();
+        const second = currentDate.second();
+
+        // 如果上今天之前的则不限制
+        if (current && current.isBefore(currentDate, 'days')) {
+          return {
+            disabledHours: () => [],
+            disabledMinutes: () => [],
+            disabledSeconds: () => defaultDisabled
+          };
+        }
+
+        return {
+          disabledHours: () => {
+            return disabledRangeTime(hour + 1, 24);
+          },
+          disabledMinutes: (selectedHour: number) => {
+            if (selectedHour === hour) {
+              return disabledRangeTime(minute + 1, 60);
+            } else if (selectedHour > hour) {
+              return disabledRangeTime(1, 60);
+            } else {
+              return [];
+            }
+          },
+          disabledSeconds: (selectedHour: number, selectedMinute: number) => {
+            if (selectedHour === hour) {
+              if (selectedMinute === minute) {
+                return disabledRangeTime(second + 1, 60).concat(defaultDisabled);
+              }
+
+              if (selectedMinute > minute) {
+                return disabledRangeTime(1, 60).concat(defaultDisabled);
+              }
+            }
+
+            if (selectedHour > hour) {
+              return disabledRangeTime(1, 60).concat(defaultDisabled);
+            }
+
+            return defaultDisabled;
+          }
+        };
+      }
+    }
+  }
+
   if (periodType === 'minute') {
-    const defaultDisabledMinutes = getDisabledMinutes(periodValue);
+    const defaultDisabled = getDisabledTimes(periodValue);
 
     return {
       showTime: {
@@ -70,12 +129,11 @@ export function getRangePickerProps({
         const now = moment();
         const hour = now.hour();
         const minute = now.minute();
-        //@ts-ignore
         if (current && current.isBefore(now, 'days')) {
           return {
             disabledHours: () => [],
             disabledMinutes: () => {
-              return defaultDisabledMinutes;
+              return defaultDisabled;
             }
           };
         }
@@ -84,12 +142,12 @@ export function getRangePickerProps({
           disabledHours: () => disabledRangeTime(hour + 1, 24),
           disabledMinutes: (selectedHour: number) => {
             if (selectedHour === hour) {
-              return [...defaultDisabledMinutes, ...disabledRangeTime(minute + 1, 60)];
+              return [...defaultDisabled, ...disabledRangeTime(minute + 1, 60)];
             } else if (selectedHour > hour) {
-              return [...defaultDisabledMinutes, ...disabledRangeTime(1, 60)];
+              return [...defaultDisabled, ...disabledRangeTime(1, 60)];
             }
 
-            return defaultDisabledMinutes;
+            return defaultDisabled;
           }
         };
       }
@@ -97,6 +155,8 @@ export function getRangePickerProps({
   }
 
   if (periodType === 'hour') {
+    const defaultDisabled = getDisabledTimes(periodValue, 24);
+
     return {
       showTime: {
         format: 'HH'
@@ -106,10 +166,9 @@ export function getRangePickerProps({
       disabledTime: (current) => {
         const now = moment();
         const hour = now.hour();
-        //@ts-ignore
         if (current && current.isBefore(now, 'days')) {
           return {
-            disabledHours: () => []
+            disabledHours: () => defaultDisabled
           };
         }
 
@@ -130,22 +189,18 @@ export function getRangePickerProps({
 
   if (periodType === 'month') {
     return {
-      // @ts-ignore
       showTime: false,
       format: 'YYYY-MM',
-      // @ts-ignore
       picker: 'month'
-    };
+    } as RangePickerProps;
   }
 
   if (periodType === 'year') {
     return {
-      // @ts-ignore
       showTime: false,
       format: 'YYYY',
-      // @ts-ignore
       picker: 'year'
-    };
+    } as RangePickerProps;
   }
 
   return {};

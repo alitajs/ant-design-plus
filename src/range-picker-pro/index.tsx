@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import moment from 'moment';
 import { DatePicker, Radio, Space } from 'antd';
 import { RangePickerProps } from 'antd/es/date-picker';
-import { RadioChangeEvent } from 'antd/es/radio';
+import { RadioChangeEvent, RadioGroupProps } from 'antd/es/radio';
 import { startOf, endOf, disabledAfterTodayDate, getRangePickerProps } from './utils';
 import { isArray } from 'lodash';
 
@@ -16,7 +16,7 @@ export type PeriodType =
   'minute' |
   'second';
 
-type RangeValue<T = number> = [T, T] | null;
+export type RangeValue<T = number> = [T, T] | null;
 
 export type ValueType<T = number> =
 {
@@ -35,7 +35,32 @@ export interface PeriodData {
   periodValue?: number;
 }
 
+export interface OptionValue {
+  /**
+   * 粒度类型
+   */
+  value: PeriodType;
+  /**
+   * 粒度描述
+   */
+  label: string;
+  /**
+   * 粒度的数值
+   */
+  periodValue: number;
+}
+
 interface OtherProps {
+  /**
+   * 是否禁用选择
+   * 设置为false则value类型为: [number, number];
+   * 设置为true则value类型为 {
+   *   period: PeriodType;
+   *   rangeTime: [number, number]
+   * }
+   * @default true
+   */
+  disabledSelect?: boolean;
   /**
    * 默认的时间
    * 请注意设置则会在组件初始化时，触发onChange
@@ -63,65 +88,37 @@ interface OtherProps {
   /**
    * 选择项配置
    */
-  options?: {
-    value: PeriodType;
-    label: string;
-  }[];
+  options: OptionValue[];
+  optionType?: RadioGroupProps['optionType']
   value?: ValueType;
   onChange?: (value: ValueType) => void;
 }
 
-export type RangePickerProProps = Omit<RangePickerProps, 'value' | 'onChange'> &
-  PeriodData &
-  OtherProps;
+export type RangePickerProProps = Omit<RangePickerProps, 'value' | 'onChange'> & OtherProps;
 
 const RangePickerPro: React.FC<RangePickerProProps> = ({
-  periodType = 'minute',
-  periodValue = 15,
   defaultTimes,
+  disabledSelect,
   dateNotNullChange = true,
   disabledAfterToday = true,
   periodChangeClearDate = true,
   options = [],
   spaceSize,
+  optionType,
   value,
   onChange,
   ...rest
 }) => {
   // 筛选粒度
-  const [period, setPeriod] = useState<PeriodType>(periodType);
+  const [period, setPeriod] = useState<PeriodType>(options[0]?.value);
+  const latestCurrentOption = useRef<OptionValue>(options[0]);
   // 时间戳类型的时间范围
   const [rangeTime, setRangeTime] = useState<RangeValue>();
   // moment类型的时间范围
   const [rangePickerValue, setRangePickerValue] = useState<RangePickerProps['value']>();
   const [rangePickerOpts, setRangePickerOpts] = useState<RangePickerProps>({});
 
-  /**
-   * 是否禁用选择
-   * 设置为false则value类型为: [number, number];
-   * 设置为true则value类型为 {
-   *   period: PeriodType;
-   *   rangeTime: [number, number]
-   * }
-   * @default true
-   */
-  const disabledSelect = !!(options?.length);
-
-  useEffect(() => {
-    if (periodType && periodValue) {
-      setPeriod(periodType);
-
-      if (periodChangeClearDate) {
-        handleRangeTime(null);
-        triggerChange({ period: periodType, rangeTime: null });
-      } else {
-        const times = handleRangeTime(rangeTime, periodType);
-        triggerChange({ period: periodType, rangeTime: times });
-      }
-
-      setRangePickerOpts(getRangePickerProps({ periodType, periodValue }));
-    }
-  }, [periodType, periodValue]);
+  const { value: periodType, periodValue } = latestCurrentOption.current;
 
   useEffect(() => {
     if (defaultTimes && defaultTimes.length == 2) {
@@ -136,13 +133,23 @@ const RangePickerPro: React.FC<RangePickerProProps> = ({
       }
       return;
     }
+    if (periodType && periodValue) {
+      if (periodChangeClearDate) {
+        handleRangeTime(null);
+        triggerChange({ period: periodType, rangeTime: null });
+      } else {
+        const times = handleRangeTime(rangeTime, periodType);
+        triggerChange({ period: periodType, rangeTime: times });
+      }
+
+      setRangePickerOpts(getRangePickerProps({ periodType, periodValue }));
+    }
   }, []);
 
   const handleRangeTime = (
     value: RangeValue | RangePickerProps['value'],
     periodTypeVal?: PeriodType
   ) => {
-    console.log(value);
     if (isArray(value) && value.length === 2 && periodTypeVal) {
       const times: RangeValue = [
         startOf(value[0], periodTypeVal),
@@ -164,6 +171,7 @@ const RangePickerPro: React.FC<RangePickerProProps> = ({
    */
   const handlePeriodChange = (e: RadioChangeEvent) => {
     const value = e.target.value;
+    latestCurrentOption.current = options.find(item => item.value === value);
 
     setPeriod(value);
 
@@ -223,14 +231,14 @@ const RangePickerPro: React.FC<RangePickerProProps> = ({
   } as RangePickerProps;
 
   if (disabledSelect) {
-    <RangePicker {...rangePickerOptions} />;
+    return (<RangePicker {...rangePickerOptions} />);
   }
 
   return (
     <Space direction="horizontal" size={spaceSize}>
       <Radio.Group
         value={period}
-        optionType="button"
+        optionType={optionType}
         options={options}
         onChange={handlePeriodChange}
       />
@@ -240,7 +248,9 @@ const RangePickerPro: React.FC<RangePickerProProps> = ({
 };
 
 RangePickerPro.defaultProps = {
-  spaceSize: 8
+  spaceSize: 8,
+  optionType: 'button',
+  disabledSelect: false
 }
 
 export default RangePickerPro;
