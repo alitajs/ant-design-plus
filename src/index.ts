@@ -6,6 +6,7 @@ import DaysRange from './days-range';
 import ErrorBoundary from './error-boundary';
 import FitText from './fit-text';
 import Fullscreen from './fullscreen';
+import RangePickerPro from './range-picker-pro';
 import ScrollableBar from './scrollable-bar';
 import SendCode from './send-code';
 import Tags from './tags';
@@ -19,6 +20,7 @@ export {
   ErrorBoundary,
   FitText,
   Fullscreen,
+  RangePickerPro,
   ScrollableBar,
   SendCode,
   Tags,
@@ -33,6 +35,7 @@ export default {
   ErrorBoundary,
   FitText,
   Fullscreen,
+  RangePickerPro,
   ScrollableBar,
   SendCode,
   Tags,
