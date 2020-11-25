@@ -93,7 +93,7 @@ const SendCode: React.FC<SendCodeProps> = ({
   const timeout = () => {
     // 设置为运行结束后状态
     setStatus(2);
-    setRunSecond(undefined);
+    setRunSecond(second);
     if (timer.current) {
       clearInterval(timer.current);
     }
