@@ -1,13 +1,12 @@
 import React from 'react';
 import { Button } from 'antd';
-import Watermark from '@pansy/react-watermark';
+import { Watermark } from '@alitajs/antd-plus';
 
 export default () => {
   return (
-    <Watermark style={{ width: '100%', height: 500 }} text="测试水印">
-      <div>
-        <Button type="primary">确认</Button>
-      </div>
-    </Watermark>
+    <div style={{ width: '100%', height: 500, position: 'relative' }}>
+      <Button type="primary">确认</Button>
+      <Watermark text="测试水印" />
+    </div>
   );
 };

@@ -1,13 +1,10 @@
 import React from 'react';
-import { Button } from 'antd';
-import Watermark from '@pansy/react-watermark';
+import { Watermark } from '@alitajs/antd-plus';
 
 export default () => {
   return (
-    <Watermark style={{ width: '100%', height: 500 }} text={['张某某', '2020-08-08 12:00:00']}>
-      <div>
-        <Button>确认</Button>
-      </div>
-    </Watermark>
+    <div style={{ position: 'relative', width: '100%', height: 500 }} >
+      <Watermark text={['张某某', '2020-08-08 12:00:00']} />
+    </div>
   );
 };
