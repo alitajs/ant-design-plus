@@ -1,4 +1,3 @@
-import { dirname } from 'path';
 import { IApi } from 'umi';
 
 export default (api: IApi) => {
