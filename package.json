@@ -1,6 +1,6 @@
 {
   "name": "@alitajs/antd-plus",
-  "version": "2.4.2",
+  "version": "2.5.0",
   "license": "MIT",
   "description": "基于 ant-design 封装的偏业务组件",
   "keywords": [
